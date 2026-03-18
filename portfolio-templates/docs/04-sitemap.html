@@ -62,14 +62,15 @@
           <div class="fill-label">Webサイト構造図 <span class="required">必須</span></div>
           <div class="fill-hint">トップページから下層ページまでの階層構造をツリー形式で記載</div>
           <div class="fill-content">
-            <p>（ツリー形式のサイト構造図を記載）</p>
+            <p>トップページ<br>├── ワークショップ詳細ページ<br>│   ├── 体験の流れ<br>│   ├── 料金・所要時間<br>│   └── 完成イメージ・ギャラリー<br>├── 予約ページ<br>│   ├── 空き状況確認<br>│   ├── 予約フォーム<br>│   └── 予約完了ページ<br>├── お客様の声ページ<br>├── FAQページ<br>└── アクセス・店舗情報ページ</p>
           </div>
         </div>
         <div class="fill-block">
           <div class="fill-label">Webアプリケーション構造図 <span class="required">必須</span></div>
           <div class="fill-hint">Spring Bootアプリケーションの画面構造をツリー形式で記載</div>
           <div class="fill-content">
-            <p>（ツリー形式のアプリ構造図を記載）</p>
+            <p>ログイン前<br>ログイン画面<br>├── ログイン入力<br>├── パスワード再設定<br>└── ログインエラー表示</p>
+            <p>ログイン後<br>管理画面トップ<br>├── 予約管理<br>│   ├── 予約一覧<br>│   ├── 予約詳細<br>│   ├── 予約登録<br>│   ├── 予約編集<br>│   └── 予約削除<br>├── 顧客管理<br>│   ├── 顧客一覧<br>│   ├── 顧客詳細<br>│   ├── 顧客検索<br>│   ├── 顧客登録<br>│   ├── 顧客編集<br>│   └── 顧客削除<br>├── 空き枠管理<br>│   ├── 開催枠一覧<br>│   ├── 開催枠登録<br>│   ├── 開催枠編集<br>│   └── 開催枠削除<br>├── 問い合わせ管理<br>│   ├── 問い合わせ一覧<br>│   ├── 問い合わせ詳細<br>│   └── 対応状況更新<br>├── 検索機能<br>│   ├── 予約検索<br>│   ├── 顧客検索<br>│   └── 日付別検索<br>├── 売上・分析<br>│   ├── 予約件数集計<br>│   ├── 人気日時分析<br>│   └── 売上一覧<br>└── アカウント設定<br>    ├── 管理者情報確認<br>    ├── パスワード変更<br>    └── ログアウト</p>
           </div>
         </div>
 
@@ -83,10 +84,13 @@
         <table class="doc-table">
           <thead><tr><th>No.</th><th>ページ名</th><th>ページの目的</th><th>主要コンテンツ</th></tr></thead>
           <tbody>
-          <tr class="template-row"><td>1</td><td>（トップページ）</td><td>（サービスの魅力を伝え、各ページへ誘導）</td><td>（ヒーロー、サービス紹介、CTA等）</td></tr>
-          <tr class="template-row"><td>2</td><td>（ページ名）</td><td>（目的を記載）</td><td>（コンテンツを記載）</td></tr>
-          <tr class="template-row"><td>3</td><td>（ページ名）</td><td>（目的を記載）</td><td>（コンテンツを記載）</td></tr>
-          <tr class="template-row"><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+          <tr class="template-row"><td>1</td><td>トップページ</td><td>サービス全体の魅力を伝え、予約へ誘導する</td><td>キャッチコピー、体験写真、サービス概要、特長、予約ボタン</td></tr>
+          <tr class="template-row"><td>2</td><td>ワークショップ詳細ページ</td><td>体験内容を具体的に伝え、参加意欲を高める</td><td>体験の流れ、完成イメージ、料金、所要時間、動画</td></tr>
+          <tr class="template-row"><td>3</td><td>予約ページ</td><td>スムーズに予約を完了させる</td><td>カレンダー、空き状況、予約フォーム、注意事項</td></tr>
+          <tr class="template-row"><td>4</td><td>ギャラリーページ</td><td>体験の魅力を視覚的に伝える</td><td>体験写真、完成した香り、動画、利用シーン</td></tr>
+          <tr class="template-row"><td>5</td><td>お客様の声ページ</td><td>信頼性を高め、不安を解消する</td><td>レビュー、体験談、SNS投稿</td></tr>
+          <tr class="template-row"><td>6</td><td>FAQページ</td><td>参加前の疑問や不安を解消する</td><td>初心者可否、料金、時間、持ち帰り、言語対応</td></tr>
+          <tr class="template-row"><td>7</td><td>アクセス・店舗情報ページ</td><td>来店までのハードルを下げる</td><td>地図、アクセス方法、営業時間、連絡先</td></tr>
           </tbody>
         </table>
 
@@ -97,10 +101,14 @@
         <table class="doc-table">
           <thead><tr><th>No.</th><th>画面名</th><th>画面の目的</th><th>主要機能</th></tr></thead>
           <tbody>
-          <tr class="template-row"><td>1</td><td>（ログイン画面）</td><td>（ユーザー認証）</td><td>（メールアドレス/パスワード入力）</td></tr>
-          <tr class="template-row"><td>2</td><td>（一覧画面）</td><td>（データの一覧表示）</td><td>（検索・ソート・ページネーション）</td></tr>
-          <tr class="template-row"><td>3</td><td>（登録画面）</td><td>（新規データ登録）</td><td>（入力フォーム・バリデーション）</td></tr>
-          <tr class="template-row"><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+          <tr class="template-row"><td>1</td><td>ログイン画面</td><td>管理者の認証</td><td>メールアドレス/パスワード入力</td></tr>
+          <tr class="template-row"><td>2</td><td>ダッシュボード</td><td>予約状況の把握</td><td>予約数表示、今日の予定、簡易分析</td></tr>
+          <tr class="template-row"><td>3</td><td>予約一覧画面</td><td>予約情報の管理</td><td>一覧表示、検索、フィルター</td></tr>
+          <tr class="template-row"><td>4</td><td>予約詳細画面</td><td>予約内容の確認・編集</td><td>詳細表示、編集、キャンセル</td></tr>
+          <tr class="template-row"><td>5</td><td>予約登録画面</td><td>新規予約の登録</td><td>入力フォーム、バリデーション</td></tr>
+          <tr class="template-row"><td>6</td><td>顧客管理画面</td><td>顧客情報の管理</td><td>顧客一覧、検索、履歴確認</td></tr>
+          <tr class="template-row"><td>7</td><td>空き枠管理画面</td><td>予約枠の調整</td><td>日時設定、定員管理</td></tr>
+          <tr class="template-row"><td>8</td><td>売上・分析画面</td><td>運用改善のための分析</td><td>予約数集計、人気時間帯分析</td></tr>
           </tbody>
         </table>
 
@@ -114,14 +122,25 @@
           <div class="fill-label">メインシナリオ <span class="required">必須</span></div>
           <div class="fill-hint">ペルソナがサイトに訪問してから目的を達成するまでの動線（メインの行動パターン）</div>
           <div class="fill-content">
-            <p>（メインのユーザーフローを記載）</p>
+            <p>ペルソナ：佐藤 美咲、29歳、会社員<br>目的：浅草観光の中で、思い出に残る特別な体験をしたい。せっかくなら自分だけのお土産も持ち帰りたい。</p>
+            <p>1<br>行動：Instagramや検索で浅草の体験スポットを探す<br>表示ページ：トップページ<br>次のアクション：サービスの概要や写真を見て興味を持つ</p>
+            <p>2<br>行動：どんな体験か詳しく知りたくなる<br>表示ページ：ワークショップ詳細ページ<br>次のアクション：体験の流れ、料金、所要時間を確認する</p>
+            <p>3<br>行動：自分でも参加できるか不安を解消したい<br>表示ページ：FAQページ / お客様の声ページ<br>次のアクション：初心者でも参加しやすいと分かり、予約を検討する</p>
+            <p>4<br>行動：日程と空き状況を確認する<br>表示ページ：予約ページ<br>次のアクション：希望日時を選択し、予約フォームへ進む</p>
+            <p>5<br>行動：必要情報を入力して予約する<br>表示ページ：予約フォーム / 予約完了ページ<br>次のアクション：予約完了後、当日の来店準備をする</p>
+            <p>6<br>行動：当日店舗を訪れ、ワークショップに参加する<br>表示ページ：アクセス・店舗情報ページ<br>次のアクション：体験を楽しみ、自分だけの香りを持ち帰る</p>
           </div>
         </div>
         <div class="fill-block">
           <div class="fill-label">サブシナリオ <span class="optional">任意</span></div>
           <div class="fill-hint">その他の行動パターン（1〜2パターン）</div>
           <div class="fill-content">
-            <p>（サブシナリオを記載）</p>
+            <p>ペルソナ：山田 恒一、34歳、会社員<br>目的：浅草観光中に、その場で気軽に参加できる特別な体験を探している。パートナーと一緒に思い出を作りたい。</p>
+            <p>1<br>行動：浅草を散策中に店舗や案内を見つける<br>表示ページ：トップページ / アクセス・店舗情報ページ<br>次のアクション：その場でどんな体験かを簡単に確認する</p>
+            <p>2<br>行動：短時間で参加できるか、今から予約できるかを確認する<br>表示ページ：ワークショップ詳細ページ / FAQページ<br>次のアクション：所要時間や当日予約可否を見て参加を検討する</p>
+            <p>3<br>行動：パートナーと相談し、参加するか決める<br>表示ページ：お客様の声ページ / ギャラリーページ<br>次のアクション：体験イメージを見て予約意欲を高める</p>
+            <p>4<br>行動：空き枠を確認して予約する<br>表示ページ：予約ページ<br>次のアクション：希望時間を選択し、必要情報を入力する</p>
+            <p>5<br>行動：予約完了後、店舗へ向かう<br>表示ページ：予約完了ページ / アクセス・店舗情報ページ<br>次のアクション：来店してワークショップに参加する</p>
           </div>
         </div>
 
@@ -135,14 +154,43 @@
         <table class="doc-table">
           <thead><tr><th>URL</th><th>HTTPメソッド</th><th>画面/機能</th><th>説明</th></tr></thead>
           <tbody>
-          <tr class="template-row"><td>/</td><td>GET</td><td>トップページ</td><td>Webサイトのトップ</td></tr>
-          <tr class="template-row"><td>/about</td><td>GET</td><td>概要ページ</td><td>サービスの概要</td></tr>
-          <tr class="template-row"><td>/app/login</td><td>GET</td><td>ログイン画面</td><td>ログインフォーム表示</td></tr>
-          <tr class="template-row"><td>/app/login</td><td>POST</td><td>ログイン処理</td><td>認証処理</td></tr>
-          <tr class="template-row"><td>/app/items</td><td>GET</td><td>一覧画面</td><td>データ一覧表示</td></tr>
-          <tr class="template-row"><td>/app/items/new</td><td>GET</td><td>新規登録画面</td><td>登録フォーム表示</td></tr>
-          <tr class="template-row"><td>/app/items</td><td>POST</td><td>新規登録処理</td><td>データ保存</td></tr>
-          <tr class="template-row"><td>…</td><td>…</td><td>…</td><td>…</td></tr>
+          <tr class="template-row"><td>【Webサイト部分】</td><td></td><td></td><td></td></tr>
+          <tr class="template-row"><td>/</td><td>GET</td><td>トップページ</td><td>サービス全体の概要を表示</td></tr>
+          <tr class="template-row"><td>/workshops</td><td>GET</td><td>ワークショップ詳細ページ</td><td>ワークショップ内容一覧・概要を表示</td></tr>
+          <tr class="template-row"><td>/workshops/{id}</td><td>GET</td><td>ワークショップ詳細</td><td>特定ワークショップの詳細を表示</td></tr>
+          <tr class="template-row"><td>/gallery</td><td>GET</td><td>ギャラリーページ</td><td>体験写真や完成品を表示</td></tr>
+          <tr class="template-row"><td>/reviews</td><td>GET</td><td>お客様の声ページ</td><td>利用者レビューを表示</td></tr>
+          <tr class="template-row"><td>/faq</td><td>GET</td><td>FAQページ</td><td>よくある質問を表示</td></tr>
+          <tr class="template-row"><td>/access</td><td>GET</td><td>アクセス・店舗情報ページ</td><td>店舗情報や地図を表示</td></tr>
+          <tr class="template-row"><td>/reservations/new</td><td>GET</td><td>予約ページ</td><td>予約フォームを表示</td></tr>
+          <tr class="template-row"><td>/reservations</td><td>POST</td><td>予約登録処理</td><td>予約情報を送信して登録する</td></tr>
+          <tr class="template-row"><td>/reservations/complete</td><td>GET</td><td>予約完了ページ</td><td>予約完了メッセージを表示</td></tr>
+          <tr class="template-row"><td>【Spring Bootアプリ部分】</td><td></td><td></td><td></td></tr>
+          <tr class="template-row"><td>/admin/login</td><td>GET</td><td>ログイン画面</td><td>管理者ログインフォームを表示</td></tr>
+          <tr class="template-row"><td>/admin/login</td><td>POST</td><td>ログイン処理</td><td>管理者認証を行う</td></tr>
+          <tr class="template-row"><td>/admin/dashboard</td><td>GET</td><td>ダッシュボード</td><td>予約状況や集計情報を表示</td></tr>
+          <tr class="template-row"><td>/admin/reservations</td><td>GET</td><td>予約一覧画面</td><td>予約情報を一覧表示する</td></tr>
+          <tr class="template-row"><td>/admin/reservations/{id}</td><td>GET</td><td>予約詳細画面</td><td>特定予約の詳細を表示する</td></tr>
+          <tr class="template-row"><td>/admin/reservations/new</td><td>GET</td><td>予約登録画面</td><td>管理画面から新規予約を登録するフォームを表示</td></tr>
+          <tr class="template-row"><td>/admin/reservations</td><td>POST</td><td>予約登録処理</td><td>新規予約を保存する</td></tr>
+          <tr class="template-row"><td>/admin/reservations/{id}/edit</td><td>GET</td><td>予約編集画面</td><td>予約編集フォームを表示する</td></tr>
+          <tr class="template-row"><td>/admin/reservations/{id}</td><td>POST</td><td>予約更新処理</td><td>予約情報を更新する</td></tr>
+          <tr class="template-row"><td>/admin/reservations/{id}/delete</td><td>POST</td><td>予約削除処理</td><td>予約情報を削除する</td></tr>
+          <tr class="template-row"><td>/admin/customers</td><td>GET</td><td>顧客一覧画面</td><td>顧客情報を一覧表示する</td></tr>
+          <tr class="template-row"><td>/admin/customers/{id}</td><td>GET</td><td>顧客詳細画面</td><td>顧客詳細を表示する</td></tr>
+          <tr class="template-row"><td>/admin/customers/new</td><td>GET</td><td>顧客登録画面</td><td>新規顧客登録フォームを表示する</td></tr>
+          <tr class="template-row"><td>/admin/customers</td><td>POST</td><td>顧客登録処理</td><td>顧客情報を保存する</td></tr>
+          <tr class="template-row"><td>/admin/customers/{id}/edit</td><td>GET</td><td>顧客編集画面</td><td>顧客編集フォームを表示する</td></tr>
+          <tr class="template-row"><td>/admin/customers/{id}</td><td>POST</td><td>顧客更新処理</td><td>顧客情報を更新する</td></tr>
+          <tr class="template-row"><td>/admin/slots</td><td>GET</td><td>空き枠管理画面</td><td>開催枠を一覧表示する</td></tr>
+          <tr class="template-row"><td>/admin/slots/new</td><td>GET</td><td>空き枠登録画面</td><td>新規開催枠登録フォームを表示する</td></tr>
+          <tr class="template-row"><td>/admin/slots</td><td>POST</td><td>空き枠登録処理</td><td>開催枠を保存する</td></tr>
+          <tr class="template-row"><td>/admin/slots/{id}/edit</td><td>GET</td><td>空き枠編集画面</td><td>開催枠編集フォームを表示する</td></tr>
+          <tr class="template-row"><td>/admin/slots/{id}</td><td>POST</td><td>空き枠更新処理</td><td>開催枠情報を更新する</td></tr>
+          <tr class="template-row"><td>/admin/inquiries</td><td>GET</td><td>問い合わせ一覧画面</td><td>問い合わせ情報を一覧表示する</td></tr>
+          <tr class="template-row"><td>/admin/inquiries/{id}</td><td>GET</td><td>問い合わせ詳細画面</td><td>問い合わせ詳細を表示する</td></tr>
+          <tr class="template-row"><td>/admin/analytics</td><td>GET</td><td>売上・分析画面</td><td>予約件数や人気日時などを集計表示する</td></tr>
+          <tr class="template-row"><td>/admin/logout</td><td>POST</td><td>ログアウト処理</td><td>管理画面からログアウトする</td></tr>
           </tbody>
         </table>
 
