@@ -3,118 +3,142 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>自己紹介 -  プロジェクトアーカイブ</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+  <title>コンセプト | my scent by inowa</title>
+  <meta name="description" content="my scent by inowa のコンセプトページ。浅草で香りをつくる体験に込めた世界観と考え方をご紹介します。">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <button class="hamburger" aria-label="メニュー">
-    <span></span><span></span><span></span>
-  </button>
+  <a href="#main" class="skip-link">本文へ移動</a>
 
-  <div class="page-wrapper">
-  <aside class="sidebar" data-nav-level="root"></aside>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo" aria-label="MY SCENT BY INOWA ホーム">
+        <span class="site-logo-en">MY SCENT BY INOWA</span>
+        <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+      </a>
 
-    <main class="main-content">
-      <header class="doc-header">
-        <div class="doc-category">ABOUT ME</div>
-        <h1 class="doc-title">自己紹介</h1>
-        <div class="doc-meta">
-          <span><span class="material-symbols-outlined icon-sm">calendar_today</span> 作成日：2026-XX-XX</span>
-          <span><span class="material-symbols-outlined icon-sm">person</span> 作成者：（氏名を入力）</span>
-          <span><span class="material-symbols-outlined icon-sm">push_pin</span> Ver 1.0</span>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="sr-only">メニューを開く</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="主要メニュー">
+        <ul class="site-nav-list">
+          <li><a href="index.html#concept">CONCEPT</a></li>
+          <li><a href="index.html#flow">FLOW</a></li>
+          <li><a href="index.html#price">PRICE</a></li>
+          <li><a href="index.html#gallery">GALLERY</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#access">ACCESS</a></li>
+        </ul>
+        <a href="reservation.html" class="btn btn-dark header-reserve">RESERVE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="container page-hero__inner">
+        <div>
+          <ol class="breadcrumb">
+            <li><a href="index.html">ホーム</a></li>
+            <li>コンセプト</li>
+          </ol>
+          <h1 class="page-title">浅草の記憶を、静かな香りとして持ち帰るために。</h1>
+          <p class="page-lead">my scent by inowa は、香りを「つくる」だけでなく、その時間ごと持ち帰っていただくための体験です。観光の途中に、少しだけ深呼吸できる余白を用意しています。</p>
         </div>
-      </header>
-
-      <div class="doc-body">
-
-        <section class="section">
-          <h2 class="section-title"><span class="section-icon"><span class="material-symbols-outlined">badge</span></span> 基本情報</h2>
-
-          <div class="fill-block">
-            <div class="fill-label">氏名 <span class="required">必須</span></div>
-            <div class="fill-content"><p>（氏名を入力）</p></div>
+        <div class="page-visual" role="img" aria-label="やわらかな光の中に香りのボトルが置かれたイメージ">
+          <div class="page-visual__content">
+            <p class="page-visual__title">Quiet Elegance</p>
+            <p class="page-visual__text">強く主張しすぎず、そっと余韻が残る体験をめざしています。</p>
           </div>
-
-          <div class="fill-block">
-            <div class="fill-label">フリガナ <span class="optional">任意</span></div>
-            <div class="fill-content"><p>（フリガナを入力）</p></div>
-          </div>
-
-          <div class="fill-block">
-            <div class="fill-label">所属 <span class="required">必須</span></div>
-            <div class="fill-content"><p>〇〇専門学校 Webデザイン科</p></div>
-          </div>
-
-          <div class="fill-block">
-            <div class="fill-label">キャッチコピー <span class="required">必須</span></div>
-            <div class="fill-hint">自分を一言で表現するフレーズ</div>
-            <div class="fill-content"><p>（キャッチコピーを入力）</p></div>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2 class="section-title"><span class="section-icon"><span class="material-symbols-outlined">face</span></span> 自己紹介</h2>
-
-          <div class="fill-block">
-            <div class="fill-label">自己紹介文 <span class="required">必須</span></div>
-            <div class="fill-hint">3〜5文で自分の強み・学んだこと・目指す方向性を紹介</div>
-            <div class="fill-content"><p>（自己紹介文を入力）</p></div>
-          </div>
-
-          <div class="fill-block">
-            <div class="fill-label">趣味・特技 <span class="optional">任意</span></div>
-            <div class="fill-content"><p>（趣味・特技を入力）</p></div>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2 class="section-title"><span class="section-icon"><span class="material-symbols-outlined">flag</span></span> 目標・将来像</h2>
-
-          <div class="fill-block">
-            <div class="fill-label">目指すエンジニア像 <span class="required">必須</span></div>
-            <div class="fill-hint">どんなエンジニアになりたいか、将来の展望を記載</div>
-            <div class="fill-content"><p>（目指すエンジニア像を入力）</p></div>
-          </div>
-
-          <div class="fill-block">
-            <div class="fill-label">学習中の技術・今後学びたい技術 <span class="optional">任意</span></div>
-            <div class="fill-content"><p>（学習中・今後学びたい技術を入力）</p></div>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2 class="section-title"><span class="section-icon"><span class="material-symbols-outlined">history_edu</span></span> 経歴・学歴</h2>
-
-          <div class="fill-block">
-            <div class="fill-label">経歴 <span class="optional">任意</span></div>
-            <div class="fill-hint">学歴やアルバイト経験などを時系列で記載</div>
-            <div class="fill-content">
-              <p>20XX年X月　〇〇高等学校 卒業</p>
-              <p>20XX年X月　〇〇専門学校 入学</p>
-              <p>（その他の経歴を入力）</p>
-            </div>
-          </div>
-        </section>
-
-        <section class="section">
-          <h2 class="section-title"><span class="section-icon"><span class="material-symbols-outlined">link</span></span> SNS・リンク</h2>
-
-          <div class="fill-block">
-            <div class="fill-label">GitHub <span class="required">必須</span></div>
-            <div class="fill-content"><p>https://github.com/（ユーザー名）</p></div>
-          </div>
-
-          <div class="fill-block">
-            <div class="fill-label">その他SNS <span class="optional">任意</span></div>
-            <div class="fill-hint">X（Twitter）、Qiita、Zenn など</div>
-            <div class="fill-content"><p>（SNSリンクを入力）</p></div>
-          </div>
-        </section>
-
+        </div>
       </div>
-    </main>
-  </div>
+    </section>
+
+    <section class="home-section">
+      <div class="container">
+        <div class="section-head section-head--center">
+          <p class="eyebrow">Philosophy</p>
+          <h2 class="section-title">大切にしていること</h2>
+          <p class="section-lead">香りづくりの時間が、旅の印象をやわらかく深めるものになるように設計しています。</p>
+        </div>
+        <div class="card-grid">
+          <article class="card">
+            <h3 class="card-title">余白のある体験</h3>
+            <div class="card-text">
+              <p>選択を急がせず、香りと向き合う小さな間を大切にしています。静かな空気のなかで、自分の感覚を確かめられる構成です。</p>
+            </div>
+          </article>
+          <article class="card">
+            <h3 class="card-title">旅になじむ上質感</h3>
+            <div class="card-text">
+              <p>観光の高揚感を壊さず、浅草の一日に自然に溶け込むトーンでまとめています。持ち帰ったあとも思い出しやすい余韻を重視しています。</p>
+            </div>
+          </article>
+          <article class="card">
+            <h3 class="card-title">初めてでも安心</h3>
+            <div class="card-text">
+              <p>香りの知識がなくても迷わないよう、ヒアリングから調合までをやさしく案内します。感覚ベースで選べることも大切な価値です。</p>
+            </div>
+          </article>
+          <article class="card">
+            <h3 class="card-title">記憶として残る一本</h3>
+            <div class="card-text">
+              <p>完成した香りは、その日の空気や会話を思い出すための小さなきっかけになります。おみやげ以上の存在になることを目指しています。</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section home-section--soft">
+      <div class="container workshop-about">
+        <div class="workshop-about__image" role="img" aria-label="やわらかなトーンのワークショップ空間のイメージ"></div>
+        <div class="workshop-about__copy">
+          <p class="eyebrow">Scene</p>
+          <h2 class="section-title">浅草で過ごす一日の中に</h2>
+          <p>にぎわいのある街歩きの合間に、香りと向き合う静かな時間が入ることで、一日の印象が少しだけ深くなります。</p>
+          <p>駅からアクセスしやすく、短時間でも満足感のある体験設計なので、観光の流れを大きく崩さずに立ち寄れます。</p>
+          <div class="hero__actions">
+            <a href="access.html" class="btn btn-secondary">アクセスを見る</a>
+            <a href="reservation.html" class="btn btn-primary">予約する</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section">
+      <div class="container">
+        <div class="cta-panel cta-panel--dark">
+          <p class="eyebrow eyebrow--light">Next</p>
+          <h2 class="section-title section-title--light">コンセプトに共感いただけたら、次は体験の流れをご覧ください。</h2>
+          <p class="section-lead section-lead--light">実際にどのように香りを選び、仕上げていくのかを、落ち着いて確認できます。</p>
+          <div class="cta-actions">
+            <a href="process.html" class="btn btn-secondary btn-secondary--light">体験の流れを見る</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container site-footer__inner">
+      <div class="footer__brand">
+        <p class="site-logo__mark">Asakusa Fragrance Workshop</p>
+        <p class="site-logo__name">my scent by inowa</p>
+      </div>
+      <nav class="site-footer__nav" aria-label="フッターメニュー">
+        <a href="about.html">Concept</a>
+        <a href="process.html">Flow</a>
+        <a href="workshops.html">Menu</a>
+        <a href="reservation.html">Reservation</a>
+      </nav>
+      <p class="site-footer__meta">香りと記憶を静かにつなぐ、ブランドの考え方をまとめたページです。</p>
+    </div>
+  </footer>
 
   <script src="js/main.js"></script>
 </body>
