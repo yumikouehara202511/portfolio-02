@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約完了 | my scent by inowa</title>
+  <meta name="description" content="my scent by inowa の予約完了ページ。予約内容の確認と来店案内をご確認いただけます。">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <a href="#main" class="skip-link">本文へ移動</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo" aria-label="MY SCENT BY INOWA ホーム">
+        <span class="site-logo-en">MY SCENT BY INOWA</span>
+        <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="sr-only">メニューを開く</span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="主要メニュー">
+        <ul class="site-nav-list">
+          <li><a href="index.html#concept">CONCEPT</a></li>
+          <li><a href="index.html#flow">FLOW</a></li>
+          <li><a href="index.html#price">PRICE</a></li>
+          <li><a href="index.html#gallery">GALLERY</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="index.html#access">ACCESS</a></li>
+        </ul>
+        <a href="reservation.html" class="btn btn-dark header-reserve">RESERVE</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="home-section completion-page-hero">
+      <div class="container">
+        <div class="completion-page-hero__inner">
+          <div class="completion-page-hero__icon" aria-hidden="true">✓</div>
+          <h1 class="completion-page-hero__title">ご予約ありがとうございます</h1>
+          <p class="completion-page-hero__lead">ご予約を受け付けました。<br>当日は少し余裕をもってお越しください。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section completion-section" id="details">
+      <div class="container">
+        <div class="completion-section__head">
+          <h2 class="completion-section__title">ご予約内容</h2>
+        </div>
+        <div class="completion-details">
+          <div class="completion-details__table">
+            <dl class="completion-list">
+              <div>
+                <dt>予約日</dt>
+                <dd data-complete-date>2024.12.15 (Sun)</dd>
+              </div>
+              <div>
+                <dt>時間</dt>
+                <dd data-complete-time>14:00 - 15:30</dd>
+              </div>
+              <div>
+                <dt>人数</dt>
+                <dd data-complete-people>2名</dd>
+              </div>
+              <div>
+                <dt>料金</dt>
+                <dd data-complete-total>5,000円（税込）</dd>
+              </div>
+            </dl>
+          </div>
+          <div class="completion-details__visual" role="img" aria-label="予約した体験内容を示すプレースホルダー画像"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section completion-section completion-section--soft" id="guide">
+      <div class="container">
+        <div class="completion-section__head">
+          <h2 class="completion-section__title">ご来店までのご案内</h2>
+        </div>
+        <div class="completion-guide">
+          <div class="completion-guide__steps">
+            <article class="completion-step">
+              <span class="completion-step__icon" aria-hidden="true">1</span>
+              <p>前日にご予約内容の確認メールをご確認ください。</p>
+            </article>
+            <article class="completion-step">
+              <span class="completion-step__icon" aria-hidden="true">2</span>
+              <p>開始5分前を目安に、落ち着いてご来店いただくとスムーズです。</p>
+            </article>
+            <article class="completion-step">
+              <span class="completion-step__icon" aria-hidden="true">3</span>
+              <p>スタッフがご案内しますので、香りのイメージを気軽にお話しください。</p>
+            </article>
+            <p class="completion-guide__note"><a href="access.html">アクセスを見る</a></p>
+          </div>
+          <div class="completion-guide__visual">
+            <div class="completion-guide__map" role="img" aria-label="浅草エリアのアクセスビジュアル"></div>
+            <p class="completion-guide__caption">浅草エリア<br><span>最寄り駅から徒歩5分程度</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section completion-share">
+      <div class="container completion-share__inner">
+        <h2 class="completion-share__title">体験を楽しみにお待ちください</h2>
+        <p class="completion-share__lead">香りを選ぶ時間そのものが、旅の思い出になります。<br>当日を想像しながら、静かな期待感をお楽しみください。</p>
+
+        <div class="completion-share__box">
+          <p class="completion-share__label">この予約をシェア</p>
+          <div class="completion-share__icons" aria-label="SNS共有">
+            <a href="#" class="completion-share__icon" aria-label="Instagramで共有">□</a>
+            <a href="#" class="completion-share__icon" aria-label="Xで共有">×</a>
+          </div>
+          <div class="completion-share__links">
+            <span>Instagram</span>
+            <span>X</span>
+            <span>LINE</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section completion-contact">
+      <div class="container completion-contact__inner">
+        <p>ご不明点がありましたらお気軽にお問い合わせください。</p>
+        <a href="contact.html" class="completion-contact__link">お問い合わせフォーム</a>
+      </div>
+    </section>
+
+    <section class="home-section completion-actions" id="actions">
+      <div class="container completion-actions__inner">
+        <a href="index.html" class="btn btn-secondary">トップへ戻る</a>
+        <a href="workshop-detail.html" class="btn btn-primary">体験詳細を見る</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__inner">
+      <div class="footer__brand">
+        <p class="site-logo__mark">Asakusa Fragrance Workshop</p>
+        <p class="site-logo__name">my scent by inowa</p>
+      </div>
+      <nav class="site-footer__nav" aria-label="フッターメニュー">
+        <a href="index.html">Home</a>
+        <a href="workshop-detail.html">View</a>
+        <a href="reservation.html">Reservation</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <p class="site-footer__meta">予約完了の安心感を最初に伝えたうえで、確認・来店案内・共有導線へつながる構成です。</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
