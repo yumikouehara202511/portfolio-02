@@ -1,0 +1,500 @@
+:root {
+  --bg: #f5f0e8;
+  --bg-soft: #fbf7f1;
+  --ink: #2d241d;
+  --ink-soft: #6e6259;
+  --line: rgba(101, 84, 70, 0.2);
+  --cta: #191512;
+  --cta-hover: #2a241f;
+  --glass-edge: rgba(255, 255, 255, 0.72);
+  --glass-core: rgba(255, 255, 255, 0.18);
+  --glass-shadow: rgba(117, 95, 76, 0.16);
+  --liquid-top: rgba(239, 224, 182, 0.92);
+  --liquid-bottom: rgba(195, 164, 111, 0.9);
+  --cap-top: #d8c49e;
+  --cap-bottom: #b89f78;
+  --hero-width: 1240px;
+  --content-width: 490px;
+  --liquid-level: 0%;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.78), transparent 28%),
+    linear-gradient(135deg, #f8f3ec 0%, #f2eae0 38%, #eee4d8 68%, #f7f2eb 100%);
+  color: var(--ink);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.hero {
+  position: relative;
+  min-height: 100svh;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero__glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(20px);
+  opacity: 0.78;
+}
+
+.hero__glow--left {
+  top: 12%;
+  left: -4%;
+  width: 36vw;
+  height: 36vw;
+  background: radial-gradient(circle, rgba(255, 252, 245, 0.92), rgba(255, 252, 245, 0));
+}
+
+.hero__glow--center {
+  left: 48%;
+  bottom: 16%;
+  width: 28vw;
+  height: 28vw;
+  background: radial-gradient(circle, rgba(250, 240, 221, 0.68), rgba(250, 240, 221, 0));
+  transform: translateX(-50%);
+}
+
+.hero__glow--right {
+  top: 4%;
+  right: -8%;
+  width: 42vw;
+  height: 42vw;
+  background: radial-gradient(circle, rgba(255, 246, 234, 0.78), rgba(255, 246, 234, 0));
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  width: min(calc(100% - 64px), var(--hero-width));
+  min-height: 100svh;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(320px, var(--content-width)) minmax(420px, 1fr);
+  align-items: center;
+  gap: clamp(40px, 7vw, 112px);
+  padding: clamp(40px, 6vw, 72px) 0;
+}
+
+.hero__content {
+  max-width: var(--content-width);
+}
+
+.hero__eyebrow,
+.hero__title,
+.hero__text,
+.hero__actions {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.9s ease,
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero.is-ready .hero__eyebrow,
+.hero.is-ready .hero__title,
+.hero.is-ready .hero__text,
+.hero.is-ready .hero__actions {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero.is-ready .hero__title {
+  transition-delay: 0.1s;
+}
+
+.hero.is-ready .hero__text {
+  transition-delay: 0.22s;
+}
+
+.hero.is-ready .hero__actions {
+  transition-delay: 0.34s;
+}
+
+.hero__eyebrow {
+  margin: 0 0 20px;
+  color: var(--ink-soft);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+}
+
+.hero__title {
+  margin: 0;
+  font-size: clamp(2.9rem, 5vw, 5.6rem);
+  line-height: 1.15;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+}
+
+.hero__text {
+  max-width: 33rem;
+  margin: 26px 0 0;
+  color: var(--ink-soft);
+  font-size: clamp(0.98rem, 1.2vw, 1.08rem);
+  line-height: 2.05;
+}
+
+.hero__actions {
+  margin-top: 34px;
+}
+
+.hero__cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 200px;
+  min-height: 54px;
+  padding: 0 28px;
+  border-radius: 999px;
+  border: 1px solid rgba(25, 21, 18, 0.14);
+  background: linear-gradient(180deg, rgba(35, 30, 26, 0.96), rgba(20, 17, 15, 1));
+  color: #f8f4ef;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  box-shadow: 0 14px 30px rgba(25, 21, 18, 0.12);
+  transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hero__cta:hover {
+  transform: translateY(-1px);
+  background: linear-gradient(180deg, rgba(45, 39, 34, 0.98), rgba(26, 23, 20, 1));
+  box-shadow: 0 18px 34px rgba(25, 21, 18, 0.14);
+}
+
+.hero__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 720px;
+}
+
+.hero__visual::before {
+  content: "";
+  position: absolute;
+  width: min(520px, 48vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, rgba(255, 250, 244, 0.92), rgba(255, 250, 244, 0.18) 48%, transparent 70%);
+  filter: blur(14px);
+  transform: translateY(30px);
+}
+
+.perfume-bottle {
+  position: relative;
+  width: clamp(260px, 34vw, 430px);
+  aspect-ratio: 0.72;
+  display: grid;
+  justify-items: center;
+  align-content: start;
+  transform: translateY(10px);
+}
+
+.perfume-bottle__cap {
+  width: 29%;
+  height: 13%;
+  border-radius: 18px 18px 12px 12px;
+  background:
+    linear-gradient(180deg, rgba(255, 244, 219, 0.84) 0%, rgba(221, 197, 152, 0.95) 16%, rgba(181, 154, 111, 0.98) 100%);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.46),
+    inset 0 -10px 18px rgba(125, 102, 72, 0.1),
+    0 10px 20px rgba(137, 112, 78, 0.12);
+}
+
+.perfume-bottle__neck {
+  width: 11%;
+  height: 3.8%;
+  margin-top: -2px;
+  border-radius: 0 0 10px 10px;
+  background:
+    linear-gradient(180deg, rgba(237, 225, 197, 0.95), rgba(193, 165, 120, 0.92));
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.42);
+}
+
+.perfume-bottle__glass {
+  position: relative;
+  width: 78%;
+  height: 72%;
+  margin-top: -2px;
+  border-radius: 42px;
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.58) 0%, rgba(255, 255, 255, 0.18) 16%, rgba(255, 255, 255, 0.14) 100%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 10px 0 18px rgba(255, 255, 255, 0.18),
+    inset -10px 0 18px rgba(255, 255, 255, 0.08),
+    0 26px 44px rgba(122, 99, 78, 0.08),
+    0 5px 10px rgba(122, 99, 78, 0.04);
+  backdrop-filter: blur(7px);
+}
+
+.perfume-bottle__glass::before {
+  content: "";
+  position: absolute;
+  inset: 14px;
+  border-radius: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.perfume-bottle__inner {
+  position: absolute;
+  inset: 18px 16px 16px;
+  overflow: hidden;
+  border-radius: 32px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.04));
+}
+
+.perfume-bottle__liquid {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: var(--liquid-level);
+  background:
+    linear-gradient(180deg, rgba(247, 237, 206, 0.94) 0%, rgba(229, 205, 152, 0.9) 38%, rgba(196, 164, 108, 0.88) 100%);
+  box-shadow:
+    inset 0 10px 20px rgba(255, 255, 255, 0.22),
+    inset 0 -8px 18px rgba(134, 103, 58, 0.12);
+  transition: height 3.3s cubic-bezier(0.2, 0.82, 0.18, 1);
+}
+
+.perfume-bottle__liquid::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12), transparent 16%, transparent 84%, rgba(255, 255, 255, 0.08));
+}
+
+.perfume-bottle__surface {
+  position: absolute;
+  top: -8px;
+  left: -4%;
+  width: 108%;
+  height: 18px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 252, 244, 0.95), rgba(255, 237, 195, 0.86) 58%, rgba(232, 200, 136, 0.72) 100%);
+  filter: blur(0.2px);
+  animation: liquid-sway 5.8s ease-in-out infinite;
+}
+
+.perfume-bottle__label {
+  position: absolute;
+  left: 50%;
+  bottom: 12.5%;
+  width: 48%;
+  min-height: 20%;
+  padding: 18px 12px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(205, 192, 175, 0.78);
+  transform: translateX(-50%);
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(126, 103, 83, 0.06);
+}
+
+.perfume-bottle__brand,
+.perfume-bottle__line {
+  display: block;
+}
+
+.perfume-bottle__brand {
+  color: #322a22;
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: clamp(1rem, 1.6vw, 1.25rem);
+  letter-spacing: 0.28em;
+  text-transform: lowercase;
+}
+
+.perfume-bottle__line {
+  margin-top: 10px;
+  color: rgba(70, 57, 45, 0.72);
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.perfume-bottle__highlight {
+  position: absolute;
+  top: 6%;
+  bottom: 6%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.06));
+  filter: blur(0.2px);
+}
+
+.perfume-bottle__highlight--left {
+  left: 8%;
+  width: 10%;
+  opacity: 0.7;
+}
+
+.perfume-bottle__highlight--right {
+  right: 10%;
+  width: 5%;
+  opacity: 0.4;
+}
+
+.perfume-bottle__shadow {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 68%;
+  height: 28px;
+  background: radial-gradient(circle, rgba(103, 82, 62, 0.22), rgba(103, 82, 62, 0));
+  transform: translateX(-50%);
+  filter: blur(10px);
+}
+
+.hero.is-filled .perfume-bottle__glass {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 12px 0 22px rgba(255, 255, 255, 0.24),
+    inset -12px 0 20px rgba(255, 255, 255, 0.08),
+    0 34px 54px rgba(122, 99, 78, 0.11),
+    0 8px 16px rgba(122, 99, 78, 0.06);
+}
+
+@keyframes liquid-sway {
+  0%,
+  100% {
+    transform: translateX(-1.2%) scaleX(1);
+  }
+
+  50% {
+    transform: translateX(1.2%) scaleX(0.996);
+  }
+}
+
+@media (max-width: 920px) {
+  .hero__inner {
+    grid-template-columns: 1fr;
+    align-content: center;
+    justify-items: center;
+    text-align: center;
+    gap: 24px;
+    padding: 32px 0 48px;
+  }
+
+  .hero__content {
+    order: 2;
+  }
+
+  .hero__text {
+    margin-inline: auto;
+  }
+
+  .hero__actions {
+    justify-content: center;
+  }
+
+  .hero__visual {
+    order: 1;
+    min-height: 420px;
+  }
+
+  .hero__visual::before {
+    width: min(440px, 78vw);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__inner {
+    width: min(calc(100% - 32px), var(--hero-width));
+    min-height: auto;
+  }
+
+  .hero__title {
+    font-size: clamp(2.4rem, 11vw, 3.6rem);
+    letter-spacing: 0.06em;
+  }
+
+  .hero__text {
+    font-size: 0.95rem;
+    line-height: 1.95;
+  }
+
+  .hero__visual {
+    min-height: 360px;
+  }
+
+  .perfume-bottle {
+    width: min(78vw, 320px);
+  }
+
+  .perfume-bottle__glass {
+    border-radius: 34px;
+  }
+
+  .perfume-bottle__inner {
+    inset: 14px 12px 12px;
+    border-radius: 25px;
+  }
+
+  .perfume-bottle__label {
+    width: 54%;
+    min-height: 18%;
+    padding: 14px 10px;
+  }
+
+  .hero__cta {
+    min-width: 188px;
+    min-height: 50px;
+    font-size: 0.76rem;
+  }
+
+  .hero__glow--left,
+  .hero__glow--right {
+    width: 54vw;
+    height: 54vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__eyebrow,
+  .hero__title,
+  .hero__text,
+  .hero__actions,
+  .perfume-bottle__liquid {
+    transition: none;
+  }
+
+  .perfume-bottle__surface {
+    animation: none;
+  }
+}
