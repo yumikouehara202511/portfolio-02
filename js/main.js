@@ -79,3 +79,160 @@ if (liquidFill && liquidDrop) {
 
   setTimeout(dropOnce, 900);
 }
+
+const reservationForm = document.querySelector("[data-reservation-form]");
+
+if (reservationForm) {
+  const reservationContainer = reservationForm.parentElement;
+  const dateButtons = reservationForm.querySelectorAll(".calendar-day:not(.is-muted)");
+  const timeButtons = reservationForm.querySelectorAll(".slot-button:not(.is-disabled)");
+  const peopleButtons = reservationForm.querySelectorAll(".party-button");
+  const selectedDate = reservationContainer?.querySelector("[data-summary-date]");
+  const selectedTime = reservationContainer?.querySelector("[data-summary-time]");
+  const selectedStatus = reservationForm.querySelector(".reservation-slots__status");
+  const summaryPeople = document.getElementById("summary-people");
+  const submitButton = reservationContainer?.querySelector(".reservation-submit__button");
+
+  const getSelectedDate = () =>
+    reservationForm.querySelector(".calendar-day.is-selected")?.dataset.dateLabel || "未選択";
+
+  const getSelectedTime = () =>
+    reservationForm.querySelector(".slot-button.is-selected")?.dataset.timeLabel || "未選択";
+
+  const getSelectedPeople = () =>
+    reservationForm.querySelector(".party-button.is-selected")?.dataset.peopleLabel || "1名";
+
+  const formatEndTime = (startTime) => {
+    if (startTime === "未選択") {
+      return "未選択";
+    }
+
+    const [hours, minutes] = startTime.split(":").map(Number);
+
+    if (Number.isNaN(hours) || Number.isNaN(minutes)) {
+      return startTime;
+    }
+
+    const endDate = new Date(2000, 0, 1, hours, minutes);
+    endDate.setHours(endDate.getHours() + 1);
+
+    const endHours = String(endDate.getHours()).padStart(2, "0");
+    const endMinutes = String(endDate.getMinutes()).padStart(2, "0");
+
+    return `${startTime} - ${endHours}:${endMinutes}`;
+  };
+
+  const updateReservationUI = () => {
+    const dateLabel = getSelectedDate();
+    const timeLabel = getSelectedTime();
+    const peopleLabel = getSelectedPeople();
+
+    if (selectedDate) {
+      selectedDate.textContent = dateLabel;
+    }
+
+    if (selectedTime) {
+      selectedTime.textContent = formatEndTime(timeLabel);
+    }
+
+    if (selectedStatus) {
+      selectedStatus.textContent = `選択中: ${dateLabel} / ${timeLabel} / ${peopleLabel}`;
+    }
+
+    if (summaryPeople) {
+      summaryPeople.textContent = peopleLabel;
+    }
+
+    if (submitButton && timeLabel !== "未選択") {
+      submitButton.textContent = `${dateLabel} ${timeLabel}で予約を確定する`;
+    }
+  };
+
+  const setSelectedButton = (buttons, nextButton) => {
+    buttons.forEach((button) => {
+      const isCurrent = button === nextButton;
+      button.classList.toggle("is-selected", isCurrent);
+      button.setAttribute("aria-pressed", isCurrent ? "true" : "false");
+    });
+    updateReservationUI();
+  };
+
+  dateButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setSelectedButton(dateButtons, button);
+    });
+  });
+
+  timeButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setSelectedButton(timeButtons, button);
+    });
+  });
+
+  peopleButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      setSelectedButton(peopleButtons, button);
+    });
+  });
+
+  updateReservationUI();
+}
+// ===== カレンダー月切り替え =====
+
+document.addEventListener("DOMContentLoaded", () => {
+
+  console.log("JS動いてる");
+
+  const navButtons = document.querySelectorAll(".calendar-card__nav-button");
+
+  if (navButtons.length < 2) {
+    console.log("ボタン見つからない");
+    return;
+  }
+
+  const prevBtn = navButtons[0];
+  const nextBtn = navButtons[1];
+  const monthEl = document.querySelector(".calendar-card__month");
+
+  let currentDate = new Date(2024, 11); // 12月
+
+  function renderMonth() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    monthEl.textContent = `${year}年${month}月`;
+  }
+
+  prevBtn.addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderMonth();
+  });
+
+  nextBtn.addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderMonth();
+  });
+
+  renderMonth();
+
+});
+// ===== 人数と料金 =====
+
+const guestButtons = document.querySelectorAll(".guest-count");
+const guestDisplay = document.querySelector(".reservation-summary__value");
+const priceDisplay = document.querySelector(".reservation-summary__price");
+
+const PRICE = 5000;
+
+guestButtons.forEach(btn => {
+  btn.addEventListener("click", () => {
+
+    guestButtons.forEach(b => b.classList.remove("is-selected"));
+    btn.classList.add("is-selected");
+
+    const count = parseInt(btn.textContent);
+
+    guestDisplay.textContent = `${count}名`;
+    priceDisplay.textContent = `${count * PRICE},000円`;
+
+  });
+});
