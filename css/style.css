@@ -17,6 +17,51 @@
   --header-height: 82px;
 }
 
+/* =========================
+   Reservation Complete
+========================= */
+.reservation-complete {
+  padding: 120px 0;
+}
+
+.reservation-complete__inner {
+  display: grid;
+  justify-items: center;
+  gap: 28px;
+  text-align: center;
+}
+
+.reservation-complete__image {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  border-radius: 12px;
+  box-shadow: 0 14px 32px rgba(31, 26, 23, 0.12);
+  object-fit: cover;
+}
+
+.reservation-complete__title {
+  text-align: center;
+}
+
+.reservation-complete__lead {
+  margin-top: 0;
+}
+
+.reservation-complete-page .footer-inner {
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .reservation-complete {
+    padding: 88px 0;
+  }
+
+  .reservation-complete__inner {
+    gap: 24px;
+  }
+}
+
 *,
 *::before,
 *::after {
