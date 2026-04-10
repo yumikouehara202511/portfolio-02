@@ -17,6 +17,18 @@
   --header-height: 82px;
 }
 
+body:not([class]) .site-footer,
+body.reservation-page-body .site-footer {
+  text-align: center;
+}
+
+body:not([class]) .site-footer .footer-inner,
+body.reservation-page-body .site-footer .footer-inner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* =========================
    Reservation Complete
 ========================= */
