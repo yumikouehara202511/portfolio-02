@@ -41,28 +41,32 @@
 
       <main class="admin-layout__content">
         <section class="dashboard-summary" aria-label="サマリー">
-          <article class="dashboard-card dashboard-card--stat">
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-1">
             <p class="dashboard-card__label">本日の予約数</p>
-            <p class="dashboard-card__value">12</p>
+            <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="12">12</p>
             <p class="dashboard-card__meta">本日残り 3 枠</p>
+            <p class="dashboard-card__submeta">前日比 +2</p>
           </article>
 
-          <article class="dashboard-card dashboard-card--stat">
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-2">
             <p class="dashboard-card__label">今週の予約数</p>
-            <p class="dashboard-card__value">48</p>
+            <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="48">48</p>
             <p class="dashboard-card__meta">先週比 +6</p>
+            <p class="dashboard-card__submeta">週末枠は残り 5</p>
           </article>
 
-          <article class="dashboard-card dashboard-card--stat">
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-3 dashboard-card--stat-wide">
             <p class="dashboard-card__label">今月の売上</p>
-            <p class="dashboard-card__value">¥246,000</p>
+            <p class="dashboard-card__value" data-metric-value data-kind="currency" data-raw-value="246000">¥246,000</p>
             <p class="dashboard-card__meta">ワークショップ売上合計</p>
+            <p class="dashboard-card__submeta">目標達成率 82%</p>
           </article>
 
-          <article class="dashboard-card dashboard-card--stat">
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-4">
             <p class="dashboard-card__label">未対応問い合わせ</p>
-            <p class="dashboard-card__value">5</p>
+            <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="5">5</p>
             <p class="dashboard-card__meta">本日対応が必要 2 件</p>
+            <p class="dashboard-card__submeta">1 件は予約変更相談</p>
           </article>
         </section>
 
@@ -101,7 +105,9 @@
                   <tr>
                     <th>顧客名</th>
                     <th>日時</th>
-                    <th>プラン</th>
+                    <th>人数</th>
+                    <th>所要時間</th>
+                    <th>備考</th>
                     <th>ステータス</th>
                   </tr>
                 </thead>
@@ -109,25 +115,33 @@
                   <tr>
                     <td>田中 由紀</td>
                     <td>2026.04.14 11:00</td>
-                    <td>フレグランス作成</td>
+                    <td>1名</td>
+                    <td>90分</td>
+                    <td>初回来店</td>
                     <td><span class="status-chip status-chip--confirmed">確定</span></td>
                   </tr>
                   <tr>
                     <td>佐藤 美香</td>
                     <td>2026.04.14 13:00</td>
-                    <td>ペアワークショップ</td>
+                    <td>2名</td>
+                    <td>90分</td>
+                    <td>ギフト利用予定</td>
                     <td><span class="status-chip status-chip--pending">確認待ち</span></td>
                   </tr>
                   <tr>
                     <td>中村 亮</td>
                     <td>2026.04.15 15:00</td>
-                    <td>シグネチャーブレンド</td>
+                    <td>1名</td>
+                    <td>90分</td>
+                    <td>-</td>
                     <td><span class="status-chip status-chip--confirmed">確定</span></td>
                   </tr>
                   <tr>
                     <td>小林 彩</td>
                     <td>2026.04.16 10:00</td>
-                    <td>フレグランス作成</td>
+                    <td>1名</td>
+                    <td>90分</td>
+                    <td>時間変更希望</td>
                     <td><span class="status-chip status-chip--cancelled">キャンセル</span></td>
                   </tr>
                 </tbody>
@@ -180,5 +194,45 @@
       </main>
     </div>
   </div>
+
+  <script>
+    (() => {
+      const metricValues = document.querySelectorAll("[data-metric-value]");
+
+      const formatCurrency = (value) =>
+        new Intl.NumberFormat("ja-JP", {
+          style: "currency",
+          currency: "JPY",
+          maximumFractionDigits: 0
+        }).format(value);
+
+      const formatCount = (value) => new Intl.NumberFormat("ja-JP").format(value);
+
+      metricValues.forEach((element) => {
+        const rawValue = Number(element.dataset.rawValue);
+        const kind = element.dataset.kind;
+
+        if (!Number.isFinite(rawValue)) return;
+
+        let formattedValue =
+          kind === "currency" ? formatCurrency(rawValue) : formatCount(rawValue);
+
+        element.textContent = formattedValue;
+        element.classList.remove("is-long", "is-xlong", "is-xxlong");
+
+        if (formattedValue.length >= 10) {
+          element.classList.add("is-long");
+        }
+
+        if (formattedValue.length >= 14) {
+          element.classList.add("is-xlong");
+        }
+
+        if (formattedValue.length >= 18) {
+          element.classList.add("is-xxlong");
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
