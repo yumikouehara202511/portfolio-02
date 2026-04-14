@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | MY SCENT BY INOWA</title>
+  <meta name="description" content="Admin login page for MY SCENT BY INOWA. Crafted as a calm, refined entrance for store operations.">
+  <link rel="stylesheet" href="./css/admin-login.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo" aria-label="MY SCENT BY INOWA home">
+        <span class="site-logo-en">MY SCENT BY INOWA</span>
+        <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="admin-login">
+    <div class="container admin-login__inner">
+      <section class="admin-login__intro" aria-label="Admin entrance introduction">
+        <p class="admin-login__eyebrow">Administration Entrance</p>
+        <h1 class="admin-login__title">A quiet entrance<br>for daily operations.</h1>
+        <p class="admin-login__lead">
+          A calm and polished login screen for the store team.
+          It stays close to the brand mood of the top page while keeping the UI clear and trustworthy.
+        </p>
+      </section>
+
+      <section class="admin-login__card" aria-labelledby="admin-login-title">
+        <div class="admin-login__brand">
+          <div class="site-logo" aria-hidden="true">
+            <span class="site-logo-en">MY SCENT BY INOWA</span>
+            <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+          </div>
+        </div>
+
+        <h1 class="admin-login__heading" id="admin-login-title">Admin Login</h1>
+        <p class="admin-login__text">Enter your email address and password to continue.</p>
+
+        <form class="admin-login-form" id="admin-login-form" novalidate>
+          <div class="admin-login-form__group">
+            <label class="admin-login-form__label" for="admin-email">Email Address</label>
+            <input
+              class="admin-login-form__input"
+              type="email"
+              id="admin-email"
+              name="email"
+              placeholder="admin@example.com"
+              autocomplete="email"
+            >
+          </div>
+
+          <div class="admin-login-form__group">
+            <label class="admin-login-form__label" for="admin-password">Password</label>
+            <input
+              class="admin-login-form__input"
+              type="password"
+              id="admin-password"
+              name="password"
+              placeholder="Enter password"
+              autocomplete="current-password"
+            >
+          </div>
+
+          <p class="admin-login-form__status" id="admin-login-status" aria-live="polite"></p>
+
+          <button class="btn btn-dark admin-login-form__submit" type="submit">LOG IN</button>
+
+          <div class="admin-login-form__meta">
+            <a href="#" class="admin-login-form__forgot">Forgot password?</a>
+          </div>
+        </form>
+
+        <p class="admin-login__note">Demo credentials: `admin@example.com` / `inowa-admin`</p>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    (() => {
+      const DEMO_CREDENTIALS = {
+        email: "admin@example.com",
+        password: "inowa-admin"
+      };
+      const ADMIN_REDIRECT_PATH = "./admin/";
+
+      const form = document.getElementById("admin-login-form");
+      const email = document.getElementById("admin-email");
+      const password = document.getElementById("admin-password");
+      const status = document.getElementById("admin-login-status");
+
+      if (!form || !email || !password || !status) return;
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const emailValue = email.value.trim();
+        const passwordValue = password.value.trim();
+        status.classList.remove("is-success");
+
+        if (!emailValue || !passwordValue) {
+          status.textContent = "Please enter both email and password.";
+          return;
+        }
+
+        if (emailValue === DEMO_CREDENTIALS.email && passwordValue === DEMO_CREDENTIALS.password) {
+          status.textContent = "Login successful. Redirecting to the admin dashboard...";
+          status.classList.add("is-success");
+          window.setTimeout(() => {
+            window.location.href = ADMIN_REDIRECT_PATH;
+          }, 250);
+          return;
+        }
+
+        status.textContent = "Incorrect email address or password.";
+      });
+    })();
+  </script>
+</body>
+</html>
