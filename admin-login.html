@@ -39,7 +39,7 @@
         <h1 class="admin-login__heading" id="admin-login-title">Admin Login</h1>
         <p class="admin-login__text">Enter your email address and password to continue.</p>
 
-        <form class="admin-login-form" id="admin-login-form" novalidate>
+        <form class="admin-login-form" id="admin-login-form" action="./admin/index.html" method="get" novalidate>
           <div class="admin-login-form__group">
             <label class="admin-login-form__label" for="admin-email">Email Address</label>
             <input
@@ -84,7 +84,7 @@
         email: "admin@example.com",
         password: "inowa-admin"
       };
-      const ADMIN_REDIRECT_PATH = "./admin/";
+      const ADMIN_REDIRECT_PATH = "./admin/index.html";
 
       const form = document.getElementById("admin-login-form");
       const email = document.getElementById("admin-email");
@@ -108,9 +108,7 @@
         if (emailValue === DEMO_CREDENTIALS.email && passwordValue === DEMO_CREDENTIALS.password) {
           status.textContent = "Login successful. Redirecting to the admin dashboard...";
           status.classList.add("is-success");
-          window.setTimeout(() => {
-            window.location.href = ADMIN_REDIRECT_PATH;
-          }, 250);
+          window.location.assign(ADMIN_REDIRECT_PATH);
           return;
         }
 

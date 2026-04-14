@@ -40,11 +40,142 @@
       </header>
 
       <main class="admin-layout__content">
-        <section class="admin-layout__panel">
-          <h2 class="admin-layout__panel-title">Main Content Area</h2>
-          <p class="admin-layout__panel-text">
-            ここにダッシュボードや各管理画面の内容を配置します。
-          </p>
+        <section class="dashboard-summary" aria-label="サマリー">
+          <article class="dashboard-card dashboard-card--stat">
+            <p class="dashboard-card__label">本日の予約数</p>
+            <p class="dashboard-card__value">12</p>
+            <p class="dashboard-card__meta">本日残り 3 枠</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--stat">
+            <p class="dashboard-card__label">今週の予約数</p>
+            <p class="dashboard-card__value">48</p>
+            <p class="dashboard-card__meta">先週比 +6</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--stat">
+            <p class="dashboard-card__label">今月の売上</p>
+            <p class="dashboard-card__value">¥246,000</p>
+            <p class="dashboard-card__meta">ワークショップ売上合計</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--stat">
+            <p class="dashboard-card__label">未対応問い合わせ</p>
+            <p class="dashboard-card__value">5</p>
+            <p class="dashboard-card__meta">本日対応が必要 2 件</p>
+          </article>
+        </section>
+
+        <section class="dashboard-card dashboard-card--actions" aria-labelledby="quick-actions-title">
+          <div class="dashboard-card__head">
+            <p class="dashboard-card__eyebrow">Quick Actions</p>
+            <h2 class="dashboard-card__title" id="quick-actions-title">クイック操作</h2>
+          </div>
+
+          <div class="dashboard-actions">
+            <button class="dashboard-action" type="button">
+              <span class="dashboard-action__eyebrow">Reservation</span>
+              <span class="dashboard-action__title">予約登録</span>
+            </button>
+            <button class="dashboard-action" type="button">
+              <span class="dashboard-action__eyebrow">Customer</span>
+              <span class="dashboard-action__title">顧客登録</span>
+            </button>
+            <button class="dashboard-action" type="button">
+              <span class="dashboard-action__eyebrow">Schedule</span>
+              <span class="dashboard-action__title">開催枠登録</span>
+            </button>
+          </div>
+        </section>
+
+        <section class="dashboard-grid">
+          <article class="dashboard-card" aria-labelledby="recent-reservations-title">
+            <div class="dashboard-card__head">
+              <p class="dashboard-card__eyebrow">Reservations</p>
+              <h2 class="dashboard-card__title" id="recent-reservations-title">最近の予約</h2>
+            </div>
+
+            <div class="dashboard-table-wrap">
+              <table class="dashboard-table">
+                <thead>
+                  <tr>
+                    <th>顧客名</th>
+                    <th>日時</th>
+                    <th>プラン</th>
+                    <th>ステータス</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>田中 由紀</td>
+                    <td>2026.04.14 11:00</td>
+                    <td>フレグランス作成</td>
+                    <td><span class="status-chip status-chip--confirmed">確定</span></td>
+                  </tr>
+                  <tr>
+                    <td>佐藤 美香</td>
+                    <td>2026.04.14 13:00</td>
+                    <td>ペアワークショップ</td>
+                    <td><span class="status-chip status-chip--pending">確認待ち</span></td>
+                  </tr>
+                  <tr>
+                    <td>中村 亮</td>
+                    <td>2026.04.15 15:00</td>
+                    <td>シグネチャーブレンド</td>
+                    <td><span class="status-chip status-chip--confirmed">確定</span></td>
+                  </tr>
+                  <tr>
+                    <td>小林 彩</td>
+                    <td>2026.04.16 10:00</td>
+                    <td>フレグランス作成</td>
+                    <td><span class="status-chip status-chip--cancelled">キャンセル</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </article>
+
+          <article class="dashboard-card" aria-labelledby="recent-inquiries-title">
+            <div class="dashboard-card__head">
+              <p class="dashboard-card__eyebrow">Inquiries</p>
+              <h2 class="dashboard-card__title" id="recent-inquiries-title">最近の問い合わせ</h2>
+            </div>
+
+            <div class="inquiry-list">
+              <article class="inquiry-item">
+                <div class="inquiry-item__main">
+                  <p class="inquiry-item__name">伊藤 春香</p>
+                  <p class="inquiry-item__excerpt">予約時間の変更について相談したいです。</p>
+                </div>
+                <div class="inquiry-item__meta">
+                  <p class="inquiry-item__date">2026.04.14 09:20</p>
+                  <span class="status-chip status-chip--pending">未対応</span>
+                </div>
+              </article>
+
+              <article class="inquiry-item">
+                <div class="inquiry-item__main">
+                  <p class="inquiry-item__name">森 健太</p>
+                  <p class="inquiry-item__excerpt">ギフト利用時のラッピング対応について確認したいです。</p>
+                </div>
+                <div class="inquiry-item__meta">
+                  <p class="inquiry-item__date">2026.04.13 18:10</p>
+                  <span class="status-chip status-chip--confirmed">返信済み</span>
+                </div>
+              </article>
+
+              <article class="inquiry-item">
+                <div class="inquiry-item__main">
+                  <p class="inquiry-item__name">柴田 恵美</p>
+                  <p class="inquiry-item__excerpt">2名参加時の所要時間を確認したいです。</p>
+                </div>
+                <div class="inquiry-item__meta">
+                  <p class="inquiry-item__date">2026.04.13 11:45</p>
+                  <span class="status-chip status-chip--pending">未対応</span>
+                </div>
+              </article>
+            </div>
+          </article>
         </section>
       </main>
     </div>
