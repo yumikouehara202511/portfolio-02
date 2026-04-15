@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservations | MY SCENT BY INOWA</title>
+  <meta name="description" content="Reservation management layout for MY SCENT BY INOWA.">
+  <link rel="stylesheet" href="./css/admin-reservations.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="admin-sidebar" aria-label="管理ナビゲーション">
+      <div class="admin-sidebar__brand">
+        <a href="index.html" class="site-logo" aria-label="MY SCENT BY INOWA home">
+          <span class="site-logo-en">MY SCENT BY INOWA</span>
+          <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+        </a>
+      </div>
+
+      <nav class="admin-sidebar__nav">
+        <a href="admin-dashboard.html" class="admin-sidebar__link">Dashboard</a>
+        <a href="admin-reservations.html" class="admin-sidebar__link is-active">Reservations</a>
+        <a href="#" class="admin-sidebar__link">Customers</a>
+        <a href="#" class="admin-sidebar__link">Availability</a>
+        <a href="#" class="admin-sidebar__link">Analytics</a>
+      </nav>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header__inner">
+          <div class="admin-header__brand">
+            <a href="index.html" class="site-logo admin-header__logo" aria-label="MY SCENT BY INOWA home">
+              <span class="site-logo-en">MY SCENT BY INOWA</span>
+              <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+            </a>
+            <div class="admin-header__title-group">
+              <p class="admin-header__eyebrow">Admin Panel</p>
+              <h1 class="admin-header__title">Reservation Management</h1>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-content">
+        <section class="reservation-panel" aria-labelledby="reservation-list-title">
+          <div class="reservation-toolbar">
+            <div class="reservation-toolbar__copy">
+              <p class="reservation-toolbar__eyebrow">Date Switch</p>
+              <h2 class="reservation-toolbar__title" id="reservation-list-title">予約一覧</h2>
+              <p class="reservation-toolbar__meta">各行をクリックすると予約詳細の確認や編集に進めます。</p>
+            </div>
+
+            <div class="date-switch" role="group" aria-label="日付切り替え">
+              <button class="date-switch__button is-active" type="button">今日</button>
+              <button class="date-switch__button" type="button">明日</button>
+              <button class="date-switch__button" type="button">カレンダー</button>
+            </div>
+          </div>
+
+          <div class="reservation-table-wrap">
+            <table class="reservation-table">
+              <thead>
+                <tr>
+                  <th>時間</th>
+                  <th>顧客名</th>
+                  <th>人数</th>
+                  <th>ステータス</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="reservation-row" data-href="admin-reservation-detail.html" tabindex="0" role="link" aria-label="佐藤 美咲さまの予約詳細を開く">
+                  <td>09:30</td>
+                  <td>佐藤 美咲</td>
+                  <td>1名</td>
+                  <td><span class="status-chip status-chip--pending">未対応</span></td>
+                </tr>
+                <tr class="reservation-row" data-href="admin-reservation-detail.html" tabindex="0" role="link" aria-label="山田 花子さまの予約詳細を開く">
+                  <td>10:00</td>
+                  <td>山田 花子</td>
+                  <td>2名</td>
+                  <td><span class="status-chip status-chip--confirmed">確定</span></td>
+                </tr>
+                <tr class="reservation-row" data-href="admin-reservation-detail.html" tabindex="0" role="link" aria-label="鈴木 健太さまの予約詳細を開く">
+                  <td>13:00</td>
+                  <td>鈴木 健太</td>
+                  <td>2名</td>
+                  <td><span class="status-chip status-chip--confirmed">確定</span></td>
+                </tr>
+                <tr class="reservation-row" data-href="admin-reservation-detail.html" tabindex="0" role="link" aria-label="高橋 由衣さまの予約詳細を開く">
+                  <td>16:00</td>
+                  <td>高橋 由衣</td>
+                  <td>1名</td>
+                  <td><span class="status-chip status-chip--cancelled">キャンセル</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const rows = document.querySelectorAll(".reservation-row[data-href]");
+
+      rows.forEach((row) => {
+        const openDetail = () => {
+          const href = row.dataset.href;
+          if (href) {
+            window.location.href = href;
+          }
+        };
+
+        row.addEventListener("click", openDetail);
+        row.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openDetail();
+          }
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

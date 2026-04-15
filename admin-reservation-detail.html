@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reservation Detail | MY SCENT BY INOWA</title>
+  <meta name="description" content="Reservation detail layout for MY SCENT BY INOWA.">
+  <link rel="stylesheet" href="./css/admin-reservations.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="admin-sidebar" aria-label="管理ナビゲーション">
+      <div class="admin-sidebar__brand">
+        <a href="index.html" class="site-logo" aria-label="MY SCENT BY INOWA home">
+          <span class="site-logo-en">MY SCENT BY INOWA</span>
+          <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+        </a>
+      </div>
+
+      <nav class="admin-sidebar__nav">
+        <a href="admin-dashboard.html" class="admin-sidebar__link">Dashboard</a>
+        <a href="admin-reservations.html" class="admin-sidebar__link is-active">Reservations</a>
+        <a href="#" class="admin-sidebar__link">Customers</a>
+        <a href="#" class="admin-sidebar__link">Availability</a>
+        <a href="#" class="admin-sidebar__link">Analytics</a>
+      </nav>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header__inner">
+          <div class="admin-header__brand">
+            <a href="index.html" class="site-logo admin-header__logo" aria-label="MY SCENT BY INOWA home">
+              <span class="site-logo-en">MY SCENT BY INOWA</span>
+              <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+            </a>
+            <div class="admin-header__title-group">
+              <p class="admin-header__eyebrow">Admin Panel</p>
+              <h1 class="admin-header__title">Reservation Detail</h1>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-content">
+        <section class="reservation-panel" aria-labelledby="reservation-detail-title">
+          <div class="reservation-toolbar">
+            <div class="reservation-toolbar__copy">
+              <p class="reservation-toolbar__eyebrow">Reservation</p>
+              <h2 class="reservation-toolbar__title" id="reservation-detail-title">予約詳細</h2>
+              <p class="reservation-toolbar__meta">詳細確認と編集導線のためのプレースホルダーです。</p>
+            </div>
+
+            <div class="detail-actions">
+              <a class="detail-action detail-action--ghost" href="admin-reservations.html">一覧へ戻る</a>
+              <button class="detail-action" type="button">編集する</button>
+            </div>
+          </div>
+
+          <div class="detail-grid">
+            <article class="detail-card">
+              <p class="detail-card__label">顧客名</p>
+              <p class="detail-card__value">山田 花子</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">予約時間</p>
+              <p class="detail-card__value">2026.04.15 10:00</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">人数</p>
+              <p class="detail-card__value">2名</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">ステータス</p>
+              <p class="detail-card__value"><span class="status-chip status-chip--confirmed">確定</span></p>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

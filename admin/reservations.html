@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約管理 | MY SCENT BY INOWA</title>
+  <meta name="description" content="予約管理ページのレイアウトです。">
+  <link rel="stylesheet" href="../css/admin-layout.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-layout__sidebar" aria-label="管理ナビゲーション">
+      <div class="admin-layout__sidebar-brand">
+        <a href="../index.html" class="admin-layout__brand" aria-label="MY SCENT BY INOWA home">
+          <span class="admin-layout__brand-main">MY SCENT BY INOWA</span>
+          <span class="admin-layout__brand-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+        </a>
+      </div>
+
+      <nav class="admin-layout__nav">
+        <a href="./index.html" class="admin-layout__nav-link">ダッシュボード</a>
+        <a href="./reservations.html" class="admin-layout__nav-link is-active">予約管理</a>
+        <a href="#" class="admin-layout__nav-link">顧客管理</a>
+        <a href="#" class="admin-layout__nav-link">空き枠管理</a>
+        <a href="#" class="admin-layout__nav-link">分析</a>
+      </nav>
+    </aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">Admin</p>
+            <h1 class="admin-layout__title">予約管理</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">Store Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <section class="dashboard-card reservation-page" aria-labelledby="reservation-page-title">
+          <div class="reservation-page__header">
+            <div class="dashboard-card__head reservation-page__copy">
+              <p class="dashboard-card__eyebrow">Reservations</p>
+              <h2 class="dashboard-card__title" id="reservation-page-title">予約一覧</h2>
+              <p class="dashboard-card__submeta">フレグランス作成 / 所要時間 約60分</p>
+            </div>
+
+            <div class="reservation-page__actions">
+              <button class="reservation-add-button" type="button">予約追加</button>
+              <div class="reservation-date-switch" role="group" aria-label="日付切り替え">
+                <button class="reservation-date-switch__button is-active" type="button" aria-pressed="true">今日</button>
+                <button class="reservation-date-switch__button" type="button" aria-pressed="false">明日</button>
+                <button class="reservation-date-switch__button" type="button" aria-pressed="false">カレンダー</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="reservation-toolbar">
+            <div class="reservation-toolbar__summary">
+              <p class="reservation-toolbar__count">未対応 <span data-pending-count>0</span>件</p>
+            </div>
+
+            <label class="reservation-filter">
+              <input type="checkbox" class="reservation-filter__input" data-pending-filter>
+              <span class="reservation-filter__label">未対応のみ表示</span>
+            </label>
+          </div>
+
+          <div class="dashboard-table-wrap">
+            <table class="dashboard-table reservation-table">
+              <thead>
+                <tr>
+                  <th>時間</th>
+                  <th>顧客名</th>
+                  <th>人数</th>
+                  <th>備考</th>
+                  <th>ステータス</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="佐藤 美咲"
+                  data-time="11:30"
+                  data-guests="1名"
+                  data-note="初回来店"
+                  data-status="pending"
+                >
+                  <td class="reservation-table__time">11:30</td>
+                  <td>佐藤 美咲</td>
+                  <td>1名</td>
+                  <td>初回来店</td>
+                  <td>
+                    <button class="status-chip status-chip--pending reservation-status-button" type="button" data-status-button aria-label="ステータスを変更">
+                      未対応
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="山田 花子"
+                  data-time="10:00"
+                  data-guests="2名"
+                  data-note="時間変更希望"
+                  data-status="confirmed"
+                >
+                  <td class="reservation-table__time">10:00</td>
+                  <td>山田 花子</td>
+                  <td>2名</td>
+                  <td><span class="reservation-note reservation-note--attention">時間変更希望</span></td>
+                  <td>
+                    <button class="status-chip status-chip--confirmed reservation-status-button" type="button" data-status-button aria-label="ステータスを変更">
+                      確定
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="鈴木 健太"
+                  data-time="14:00"
+                  data-guests="2名"
+                  data-note="ギフト利用予定"
+                  data-status="confirmed"
+                >
+                  <td class="reservation-table__time">14:00</td>
+                  <td>鈴木 健太</td>
+                  <td>2名</td>
+                  <td>ギフト利用予定</td>
+                  <td>
+                    <button class="status-chip status-chip--confirmed reservation-status-button" type="button" data-status-button aria-label="ステータスを変更">
+                      確定
+                    </button>
+                  </td>
+                </tr>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="高橋 由衣"
+                  data-time="16:00"
+                  data-guests="1名"
+                  data-note="アレルギー相談あり"
+                  data-status="cancelled"
+                >
+                  <td class="reservation-table__time">16:00</td>
+                  <td>高橋 由衣</td>
+                  <td>1名</td>
+                  <td>アレルギー相談あり</td>
+                  <td>
+                    <button class="status-chip status-chip--cancelled reservation-status-button" type="button" data-status-button aria-label="ステータスを変更">
+                      キャンセル
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="reservation-modal" data-reservation-modal hidden>
+    <div class="reservation-modal__backdrop" data-reservation-close></div>
+    <section class="reservation-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="reservation-modal-title">
+      <div class="reservation-modal__header">
+        <div>
+          <p class="dashboard-card__eyebrow">Reservation Detail</p>
+          <h2 class="dashboard-card__title reservation-modal__title" id="reservation-modal-title">予約詳細</h2>
+        </div>
+        <button class="reservation-modal__close" type="button" aria-label="閉じる" data-reservation-close>閉じる</button>
+      </div>
+
+      <form class="reservation-form">
+        <div class="reservation-form__grid">
+          <label class="reservation-field">
+            <span class="reservation-field__label">名前</span>
+            <input class="reservation-field__input" type="text" name="name" data-reservation-field="name">
+          </label>
+
+          <label class="reservation-field">
+            <span class="reservation-field__label">時間</span>
+            <input class="reservation-field__input" type="text" name="time" data-reservation-field="time">
+          </label>
+
+          <label class="reservation-field">
+            <span class="reservation-field__label">人数</span>
+            <input class="reservation-field__input" type="text" name="guests" data-reservation-field="guests">
+          </label>
+
+          <label class="reservation-field">
+            <span class="reservation-field__label">ステータス</span>
+            <select class="reservation-field__input reservation-field__select" name="status" data-reservation-field="status">
+              <option value="confirmed">確定</option>
+              <option value="pending">未対応</option>
+              <option value="cancelled">キャンセル</option>
+            </select>
+          </label>
+        </div>
+
+        <label class="reservation-field reservation-field--full">
+          <span class="reservation-field__label">備考</span>
+          <textarea class="reservation-field__input reservation-field__textarea" name="note" rows="4" data-reservation-field="note"></textarea>
+        </label>
+
+        <div class="reservation-form__footer">
+          <div class="reservation-form__status">
+            <p class="reservation-form__status-label">選択中のステータス</p>
+            <div data-reservation-status-preview>
+              <span class="status-chip status-chip--pending">未対応</span>
+            </div>
+          </div>
+          <div class="reservation-form__actions">
+            <button class="reservation-form__button reservation-form__button--ghost" type="button" data-reservation-close>キャンセル</button>
+            <button class="reservation-form__button reservation-form__button--primary" type="submit">確定</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      const modal = document.querySelector("[data-reservation-modal]");
+      const tableBody = document.querySelector(".reservation-table tbody");
+      const rows = document.querySelectorAll(".reservation-table__row");
+      const statusButtons = document.querySelectorAll("[data-status-button]");
+      const closeTriggers = document.querySelectorAll("[data-reservation-close]");
+      const pendingCount = document.querySelector("[data-pending-count]");
+      const pendingFilter = document.querySelector("[data-pending-filter]");
+      const fields = {
+        name: document.querySelector('[data-reservation-field="name"]'),
+        time: document.querySelector('[data-reservation-field="time"]'),
+        guests: document.querySelector('[data-reservation-field="guests"]'),
+        note: document.querySelector('[data-reservation-field="note"]'),
+        status: document.querySelector('[data-reservation-field="status"]')
+      };
+      const statusPreview = document.querySelector("[data-reservation-status-preview]");
+      const form = document.querySelector(".reservation-form");
+      let activeRow = null;
+
+      if (!modal || !form) return;
+
+      const statusMap = {
+        confirmed: { label: "確定", className: "status-chip status-chip--confirmed" },
+        pending: { label: "未対応", className: "status-chip status-chip--pending" },
+        cancelled: { label: "キャンセル", className: "status-chip status-chip--cancelled" }
+      };
+      const statusOrder = ["confirmed", "pending", "cancelled"];
+      const getSortWeight = (status) => {
+        if (status === "pending") return 0;
+        if (status === "confirmed") return 1;
+        return 2;
+      };
+
+      const sortRows = () => {
+        if (!tableBody) return;
+
+        const sortedRows = Array.from(rows).sort((a, b) => {
+          const statusDiff = getSortWeight(a.dataset.status) - getSortWeight(b.dataset.status);
+          if (statusDiff !== 0) return statusDiff;
+
+          return (a.dataset.time || "").localeCompare(b.dataset.time || "");
+        });
+
+        sortedRows.forEach((row) => {
+          tableBody.appendChild(row);
+        });
+      };
+
+      const applyStatusToButton = (button, status) => {
+        const config = statusMap[status] || statusMap.pending;
+        button.className = config.className + " reservation-status-button";
+        button.textContent = config.label;
+      };
+
+      const renderStatusPreview = (status) => {
+        const config = statusMap[status] || statusMap.pending;
+        statusPreview.innerHTML = '<span class="' + config.className + '">' + config.label + "</span>";
+      };
+
+      const updatePendingState = () => {
+        const pendingRows = Array.from(rows).filter((row) => row.dataset.status === "pending");
+
+        rows.forEach((row) => {
+          row.classList.toggle("is-pending-row", row.dataset.status === "pending");
+          const shouldHide = pendingFilter && pendingFilter.checked && row.dataset.status !== "pending";
+          row.hidden = shouldHide;
+        });
+
+        if (pendingCount) {
+          pendingCount.textContent = String(pendingRows.length);
+        }
+
+        sortRows();
+      };
+
+      const syncRowStatus = (row, status) => {
+        if (!row) return;
+        row.dataset.status = status;
+        const button = row.querySelector("[data-status-button]");
+        if (button) {
+          applyStatusToButton(button, status);
+        }
+        updatePendingState();
+      };
+
+      const openModal = (row) => {
+        activeRow = row;
+        fields.name.value = row.dataset.name || "";
+        fields.time.value = row.dataset.time || "";
+        fields.guests.value = row.dataset.guests || "";
+        fields.note.value = row.dataset.note || "";
+        fields.status.value = row.dataset.status || "pending";
+        renderStatusPreview(fields.status.value);
+        modal.hidden = false;
+        document.body.classList.add("is-modal-open");
+      };
+
+      const closeModal = () => {
+        modal.hidden = true;
+        document.body.classList.remove("is-modal-open");
+        activeRow = null;
+      };
+
+      rows.forEach((row) => {
+        row.addEventListener("click", () => openModal(row));
+        row.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openModal(row);
+          }
+        });
+      });
+
+      statusButtons.forEach((button) => {
+        button.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const row = button.closest(".reservation-table__row");
+          if (!row) return;
+
+          const currentIndex = statusOrder.indexOf(row.dataset.status || "pending");
+          const nextStatus = statusOrder[(currentIndex + 1) % statusOrder.length];
+          syncRowStatus(row, nextStatus);
+        });
+      });
+
+      closeTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", closeModal);
+      });
+
+      if (pendingFilter) {
+        pendingFilter.addEventListener("change", updatePendingState);
+      }
+
+      fields.status.addEventListener("change", () => {
+        renderStatusPreview(fields.status.value);
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        if (activeRow) {
+          activeRow.dataset.name = fields.name.value;
+          activeRow.dataset.time = fields.time.value;
+          activeRow.dataset.guests = fields.guests.value;
+          activeRow.dataset.note = fields.note.value;
+
+          const cells = activeRow.querySelectorAll("td");
+          if (cells[0]) cells[0].textContent = fields.time.value;
+          if (cells[1]) cells[1].textContent = fields.name.value;
+          if (cells[2]) cells[2].textContent = fields.guests.value;
+          if (cells[3]) {
+            const isAttentionNote = fields.note.value.includes("時間変更希望");
+            cells[3].innerHTML = isAttentionNote
+              ? '<span class="reservation-note reservation-note--attention">' + fields.note.value + "</span>"
+              : fields.note.value;
+          }
+
+          syncRowStatus(activeRow, fields.status.value);
+        }
+
+        closeModal();
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && !modal.hidden) {
+          closeModal();
+        }
+      });
+
+      updatePendingState();
+    })();
+  </script>
+</body>
+</html>

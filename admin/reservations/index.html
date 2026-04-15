@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約管理 | MY SCENT BY INOWA</title>
+  <meta name="description" content="予約管理ページのレイアウトです。">
+  <link rel="stylesheet" href="../../css/admin-layout.css">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-layout__sidebar" aria-label="管理ナビゲーション">
+      <div class="admin-layout__sidebar-brand">
+        <a href="../../index.html" class="admin-layout__brand" aria-label="MY SCENT BY INOWA home">
+          <span class="admin-layout__brand-main">MY SCENT BY INOWA</span>
+          <span class="admin-layout__brand-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+        </a>
+      </div>
+
+      <nav class="admin-layout__nav">
+        <a href="../" class="admin-layout__nav-link">ダッシュボード</a>
+        <a href="./" class="admin-layout__nav-link is-active">予約管理</a>
+        <a href="#" class="admin-layout__nav-link">顧客管理</a>
+        <a href="#" class="admin-layout__nav-link">空き枠管理</a>
+        <a href="#" class="admin-layout__nav-link">分析</a>
+      </nav>
+    </aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">Admin</p>
+            <h1 class="admin-layout__title">予約管理</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">Store Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <section class="dashboard-card reservation-page" aria-labelledby="reservation-page-title">
+          <div class="reservation-page__header">
+            <div class="dashboard-card__head reservation-page__copy">
+              <p class="dashboard-card__eyebrow">Reservations</p>
+              <h2 class="dashboard-card__title" id="reservation-page-title">予約一覧</h2>
+              <p class="dashboard-card__meta">日付ごとの予約状況を確認するためのレイアウトです。</p>
+            </div>
+
+            <div class="reservation-date-switch" role="group" aria-label="日付切り替え">
+              <button class="reservation-date-switch__button is-active" type="button">今日</button>
+              <button class="reservation-date-switch__button" type="button">明日</button>
+              <button class="reservation-date-switch__button" type="button">カレンダー</button>
+            </div>
+          </div>
+
+          <div class="dashboard-table-wrap">
+            <table class="dashboard-table reservation-table">
+              <thead>
+                <tr>
+                  <th>時間</th>
+                  <th>顧客名</th>
+                  <th>人数</th>
+                  <th>ステータス</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>10:00</td>
+                  <td>山田 花子</td>
+                  <td>2名</td>
+                  <td><span class="status-chip status-chip--confirmed">確定</span></td>
+                </tr>
+                <tr>
+                  <td>11:30</td>
+                  <td>佐藤 美咲</td>
+                  <td>1名</td>
+                  <td><span class="status-chip status-chip--pending">未対応</span></td>
+                </tr>
+                <tr>
+                  <td>14:00</td>
+                  <td>鈴木 健太</td>
+                  <td>2名</td>
+                  <td><span class="status-chip status-chip--confirmed">確定</span></td>
+                </tr>
+                <tr>
+                  <td>16:00</td>
+                  <td>高橋 由衣</td>
+                  <td>1名</td>
+                  <td><span class="status-chip status-chip--cancelled">キャンセル</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

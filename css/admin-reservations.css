@@ -1,0 +1,484 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --admin-bg: #f6f3ee;
+  --admin-bg-soft: #fbfaf7;
+  --admin-surface: rgba(255, 252, 247, 0.9);
+  --admin-surface-strong: rgba(251, 248, 242, 0.96);
+  --admin-line: rgba(31, 26, 23, 0.1);
+  --admin-line-soft: rgba(31, 26, 23, 0.06);
+  --admin-text: #1f1a17;
+  --admin-text-sub: #6d655e;
+  --admin-sidebar-width: 300px;
+  --admin-header-height: 108px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, rgba(217, 205, 189, 0.28), transparent 28%),
+    linear-gradient(180deg, rgba(251, 250, 247, 0.8) 0%, rgba(246, 243, 238, 1) 100%);
+  color: var(--admin-text);
+  font-family: "Inter", "Noto Serif JP", serif;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+p {
+  margin: 0;
+}
+
+button {
+  font: inherit;
+}
+
+.admin-shell {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: var(--admin-sidebar-width) minmax(0, 1fr);
+}
+
+.admin-sidebar {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 56px;
+  padding: 40px 28px 36px;
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.58) 0%, rgba(243, 239, 232, 0.96) 100%);
+  border-right: 1px solid var(--admin-line-soft);
+}
+
+.admin-sidebar::after {
+  content: "";
+  position: absolute;
+  top: 36px;
+  right: 0;
+  width: 1px;
+  height: calc(100% - 72px);
+  background: linear-gradient(180deg, transparent, rgba(31, 26, 23, 0.1), transparent);
+}
+
+.admin-sidebar__brand {
+  padding: 6px 8px 28px;
+}
+
+.site-logo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.site-logo-en,
+.site-logo-sub {
+  font-family: "Inter", sans-serif;
+}
+
+.site-logo-en {
+  font-size: 0.92rem;
+  letter-spacing: 0.24em;
+}
+
+.site-logo-sub {
+  color: var(--admin-text-sub);
+  font-size: 0.64rem;
+  letter-spacing: 0.22em;
+}
+
+.admin-sidebar__nav {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-sidebar__link {
+  position: relative;
+  display: block;
+  padding: 15px 16px;
+  color: var(--admin-text-sub);
+  font-size: 0.94rem;
+  letter-spacing: 0.04em;
+  transition: background-color 0.2s ease, color 0.2s ease, padding-left 0.2s ease;
+}
+
+.admin-sidebar__link::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 10px;
+  height: 1px;
+  background: rgba(31, 26, 23, 0.16);
+  transform: translateY(-50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.admin-sidebar__link:hover,
+.admin-sidebar__link.is-active {
+  background: rgba(255, 252, 247, 0.72);
+  color: var(--admin-text);
+  padding-left: 22px;
+}
+
+.admin-sidebar__link:hover::before,
+.admin-sidebar__link.is-active::before {
+  opacity: 1;
+}
+
+.admin-main {
+  min-width: 0;
+  display: grid;
+  grid-template-rows: var(--admin-header-height) minmax(0, 1fr);
+}
+
+.admin-header {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  backdrop-filter: blur(12px);
+  background: rgba(246, 243, 238, 0.72);
+  border-bottom: 1px solid var(--admin-line-soft);
+}
+
+.admin-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 0 48px;
+}
+
+.admin-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  min-width: 0;
+}
+
+.admin-header__logo {
+  flex-shrink: 0;
+  padding-right: 34px;
+  border-right: 1px solid var(--admin-line-soft);
+}
+
+.admin-header__eyebrow {
+  color: var(--admin-text-sub);
+  font-size: 0.74rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.admin-header__title {
+  margin-top: 10px;
+  font-family: "Noto Serif JP", serif;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.admin-content {
+  padding: 56px 48px 64px;
+}
+
+.reservation-panel {
+  position: relative;
+  padding: 36px;
+  background: linear-gradient(180deg, rgba(255, 252, 247, 0.9) 0%, rgba(251, 248, 242, 0.92) 100%);
+  border: 1px solid rgba(31, 26, 23, 0.08);
+  box-shadow: 0 24px 60px rgba(31, 26, 23, 0.06);
+}
+
+.reservation-panel::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 32px;
+  right: 32px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(31, 26, 23, 0.16), transparent);
+}
+
+.reservation-toolbar {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 24px;
+  margin-bottom: 28px;
+}
+
+.reservation-toolbar__eyebrow {
+  color: var(--admin-text-sub);
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.reservation-toolbar__title {
+  margin-top: 10px;
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+
+.reservation-toolbar__meta {
+  margin-top: 8px;
+  color: var(--admin-text-sub);
+  font-size: 0.92rem;
+}
+
+.date-switch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.date-switch__button {
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--admin-line);
+  background: rgba(255, 252, 247, 0.72);
+  color: var(--admin-text-sub);
+  cursor: pointer;
+}
+
+.date-switch__button.is-active {
+  background: rgba(31, 26, 23, 0.06);
+  color: var(--admin-text);
+}
+
+.reservation-table-wrap {
+  overflow-x: auto;
+}
+
+.reservation-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.reservation-table th,
+.reservation-table td {
+  padding: 18px 12px;
+  border-bottom: 1px solid var(--admin-line-soft);
+  text-align: left;
+  white-space: nowrap;
+}
+
+.reservation-table th {
+  padding-top: 0;
+  color: var(--admin-text-sub);
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.reservation-table td {
+  font-size: 0.94rem;
+}
+
+.reservation-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.reservation-row:hover {
+  background: rgba(255, 252, 247, 0.72);
+}
+
+.reservation-row:focus-visible {
+  outline: 2px solid rgba(31, 26, 23, 0.22);
+  outline-offset: -2px;
+  background: rgba(255, 252, 247, 0.86);
+}
+
+.status-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 92px;
+  min-height: 34px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.status-chip--confirmed {
+  background: rgba(92, 105, 79, 0.12);
+  border-color: rgba(92, 105, 79, 0.18);
+  color: #55604a;
+}
+
+.status-chip--pending {
+  background: rgba(181, 135, 63, 0.12);
+  border-color: rgba(181, 135, 63, 0.2);
+  color: #946d2a;
+}
+
+.status-chip--cancelled {
+  background: rgba(141, 75, 69, 0.1);
+  border-color: rgba(141, 75, 69, 0.18);
+  color: #8d4b45;
+}
+
+.detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.detail-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 18px;
+  border: 1px solid var(--admin-line);
+  background: rgba(31, 26, 23, 0.06);
+  color: var(--admin-text);
+  text-decoration: none;
+}
+
+.detail-action--ghost {
+  background: rgba(255, 252, 247, 0.72);
+  color: var(--admin-text-sub);
+}
+
+.detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.detail-card {
+  padding: 22px 20px;
+  border: 1px solid var(--admin-line-soft);
+  background: rgba(255, 252, 247, 0.68);
+}
+
+.detail-card__label {
+  color: var(--admin-text-sub);
+  font-size: 0.76rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.detail-card__value {
+  margin-top: 12px;
+  font-size: 1rem;
+}
+
+@media (max-width: 980px) {
+  .admin-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    gap: 28px;
+    padding: 24px 18px 20px;
+    border-right: 0;
+    border-bottom: 1px solid var(--admin-line-soft);
+  }
+
+  .admin-sidebar::after {
+    display: none;
+  }
+
+  .admin-sidebar__brand {
+    padding: 0 0 8px;
+  }
+
+  .admin-sidebar__nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .admin-main {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .admin-header__inner {
+    padding: 24px 20px;
+  }
+
+  .admin-header__brand {
+    gap: 20px;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-header__logo {
+    padding-right: 0;
+    padding-bottom: 16px;
+    border-right: 0;
+    border-bottom: 1px solid var(--admin-line-soft);
+  }
+
+  .admin-content {
+    padding: 28px 20px 32px;
+  }
+
+  .reservation-panel {
+    padding: 28px 24px;
+  }
+
+  .reservation-panel::before {
+    left: 24px;
+    right: 24px;
+  }
+
+  .reservation-toolbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .detail-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .admin-sidebar__nav {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-header__title {
+    font-size: 1.6rem;
+  }
+
+  .admin-content {
+    padding: 20px 16px 24px;
+  }
+
+  .reservation-panel {
+    padding: 24px 18px;
+  }
+
+  .reservation-panel::before {
+    left: 22px;
+    right: 22px;
+  }
+
+  .reservation-toolbar__title {
+    font-size: 1.28rem;
+  }
+}
