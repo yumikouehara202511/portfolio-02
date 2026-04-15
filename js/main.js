@@ -92,7 +92,7 @@ if (reservationForm) {
   const selectedStatus = reservationForm.querySelector(".reservation-slots__status");
   const summaryPeople = document.getElementById("summary-people");
   const submitButton = reservationContainer?.querySelector(".reservation-submit__button");
-  const priceDisplay = reservationContainer?.querySelector(".reservation-summary__price");
+  const priceDisplay = reservationContainer?.querySelector(".reservation-summary__price strong");
 
 const getSelectedDate = () => {
   const selectedButton = reservationForm.querySelector(".calendar-day.is-selected");
@@ -121,26 +121,6 @@ const getSelectedDate = () => {
   const getSelectedPeople = () =>
     reservationForm.querySelector(".party-button.is-selected")?.dataset.peopleLabel || "1名";
 
-  const formatEndTime = (startTime) => {
-    if (startTime === "未選択") {
-      return "未選択";
-    }
-
-    const [hours, minutes] = startTime.split(":").map(Number);
-
-    if (Number.isNaN(hours) || Number.isNaN(minutes)) {
-      return startTime;
-    }
-
-    const endDate = new Date(2000, 0, 1, hours, minutes);
-    endDate.setHours(endDate.getHours() + 1);
-
-    const endHours = String(endDate.getHours()).padStart(2, "0");
-    const endMinutes = String(endDate.getMinutes()).padStart(2, "0");
-
-    return `${startTime} - ${endHours}:${endMinutes}`;
-  };
-
   const updateReservationUI = () => {
   const dateLabel = getSelectedDate();
   const timeLabel = getSelectedTime();
@@ -151,7 +131,7 @@ const getSelectedDate = () => {
   }
 
   if (selectedTime) {
-    selectedTime.textContent = formatEndTime(timeLabel);
+    selectedTime.textContent = timeLabel;
   }
 
   if (selectedStatus) {
