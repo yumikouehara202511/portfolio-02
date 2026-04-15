@@ -48,6 +48,7 @@
               id="admin-email"
               name="email"
               placeholder="admin@example.com"
+              value="admin@example.com"
               autocomplete="email"
             >
           </div>
@@ -60,6 +61,7 @@
               id="admin-password"
               name="password"
               placeholder="Enter password"
+              value="inowa-admin"
               autocomplete="current-password"
             >
           </div>
@@ -73,7 +75,11 @@
           </div>
         </form>
 
-        <p class="admin-login__note">Demo credentials: `admin@example.com` / `inowa-admin`</p>
+        <div class="admin-login-demo" aria-label="Demo login information">
+          <p class="admin-login__note-title">Demo Login Information</p>
+          <p class="admin-login__note">Email Address: admin@example.com</p>
+          <p class="admin-login__note">Password: inowa-admin</p>
+        </div>
       </section>
     </div>
   </main>
