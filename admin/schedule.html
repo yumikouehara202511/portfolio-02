@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#31354;&#12365;&#26528;&#31649;&#29702; | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWA&#12398;&#31354;&#12365;&#26528;&#31649;&#29702;&#12506;&#12540;&#12472;&#12290;">
+  <link rel="stylesheet" href="../css/admin-layout.css">
+  <style>
+    .schedule-toolbar { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:14px; }
+    .schedule-day-card { padding:26px 24px; border:1px solid var(--admin-line-soft); background:rgba(255,253,249,.72); }
+    .schedule-day-card__header { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:22px; padding-bottom:18px; border-bottom:1px solid var(--admin-line-soft); }
+    .schedule-day-card__meta { color:var(--admin-text-sub); font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; }
+    .schedule-slot-list { display:grid; gap:12px; }
+    .schedule-slot-item { position:relative; display:flex; align-items:center; justify-content:space-between; width:100%; gap:18px; padding:18px 20px; border:1px solid var(--admin-line-soft); background:rgba(255,253,249,.88); color:var(--admin-text); font:inherit; text-align:left; cursor:pointer; transition:background-color .2s ease, border-color .2s ease, box-shadow .2s ease, transform .2s ease; }
+    .schedule-slot-item:hover { background:rgba(255,253,249,.99); border-color:rgba(31,26,23,.16); box-shadow:0 14px 28px rgba(31,26,23,.08); transform:translateY(-2px); }
+    .schedule-slot-item:focus-visible { outline:2px solid rgba(31,26,23,.18); outline-offset:2px; }
+    .schedule-slot-item::before { content:""; position:absolute; top:50%; right:18px; width:10px; height:10px; border-right:2px solid rgba(31,26,23,.34); border-bottom:2px solid rgba(31,26,23,.34); transform:translateY(-50%) rotate(-45deg); opacity:.55; transition:opacity .2s ease, transform .2s ease; }
+    .schedule-slot-item:hover::before { opacity:.9; transform:translateY(-50%) translateX(2px) rotate(-45deg); }
+    .schedule-slot-item[data-slot-kind="toggle"] { border-left:4px solid rgba(176,128,51,.42); background:linear-gradient(180deg, rgba(255,253,249,.98) 0%, rgba(248,243,236,.92) 100%); }
+    .schedule-slot-item[data-slot-kind="toggle"][data-state="open"] { border-left-color:rgba(176,128,51,.6); background:linear-gradient(180deg, rgba(255,251,244,.98) 0%, rgba(247,239,226,.94) 100%); }
+    .schedule-slot-item[data-slot-kind="toggle"][data-state="closed"] { border-left-color:rgba(141,75,69,.58); background:linear-gradient(180deg, rgba(252,247,246,.98) 0%, rgba(244,234,232,.94) 100%); }
+    .schedule-slot-item[data-slot-kind="toggle"]:hover { box-shadow:0 16px 30px rgba(176,128,51,.12); }
+    .schedule-slot-item[data-slot-kind="toggle"] .schedule-slot-item__main::after { content:"\72B6\614B\3092\5207\308A\66FF\3048"; display:inline-flex; margin-top:8px; padding:4px 10px; border:1px dashed rgba(176,128,51,.32); color:#7a5620; font-size:.72rem; letter-spacing:.08em; }
+    .schedule-slot-item[data-slot-kind="booked"] { border-left:4px solid rgba(92,105,79,.34); background:linear-gradient(180deg, rgba(255,253,249,.96) 0%, rgba(247,244,238,.92) 100%); }
+    .schedule-slot-item[data-slot-kind="booked"]:hover { box-shadow:0 16px 30px rgba(92,105,79,.1); }
+    .schedule-slot-item[data-slot-kind="booked"] .schedule-slot-item__main::after { content:"\8A73\7D30\3092\958B\304F"; display:inline-flex; margin-top:8px; padding:4px 10px; border:1px solid rgba(92,105,79,.24); color:#55604a; font-size:.72rem; letter-spacing:.08em; }
+    .schedule-slot-item__time { font-family:"Inter",sans-serif; font-size:1.08rem; font-weight:700; letter-spacing:.14em; }
+    .schedule-slot-item__hint, .schedule-slot-item__customer { color:var(--admin-text-sub); font-size:.8rem; }
+    .schedule-slot-item__side { display:flex; align-items:center; gap:14px; flex-wrap:wrap; justify-content:flex-end; padding-right:26px; }
+    .schedule-slot-item [data-slot-status] { min-width:112px; min-height:42px; padding:0 18px; border-width:1px; border-radius:999px; box-shadow:inset 0 0 0 1px rgba(255,255,255,.32); transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease, background-color .2s ease; }
+    .schedule-slot-item[data-slot-kind="toggle"] [data-slot-status] { position:relative; padding-right:38px; font-weight:700; }
+    .schedule-slot-item[data-slot-kind="toggle"] [data-slot-status]::after { content:""; position:absolute; right:16px; top:50%; width:8px; height:8px; border-right:2px solid currentColor; border-bottom:2px solid currentColor; transform:translateY(-65%) rotate(45deg); opacity:.8; }
+    .schedule-slot-item[data-slot-kind="toggle"]:hover [data-slot-status] { transform:translateY(-1px); box-shadow:0 10px 20px rgba(31,26,23,.08), inset 0 0 0 1px rgba(255,255,255,.4); }
+    .schedule-slot-item[data-slot-kind="toggle"][data-state="open"] [data-slot-status] { background:linear-gradient(180deg, rgba(191,142,62,.42) 0%, rgba(176,128,51,.28) 100%); border-color:rgba(176,128,51,.56); color:#5f4108; box-shadow:0 8px 18px rgba(176,128,51,.14), inset 0 0 0 1px rgba(255,248,235,.42); }
+    .schedule-slot-item[data-slot-kind="toggle"][data-state="closed"] [data-slot-status] { background:linear-gradient(180deg, rgba(141,75,69,.32) 0%, rgba(127,63,58,.22) 100%); border-color:rgba(141,75,69,.46); color:#6f2f2a; box-shadow:0 8px 18px rgba(141,75,69,.12), inset 0 0 0 1px rgba(255,244,243,.35); }
+    .schedule-slot-item[data-slot-kind="booked"] .status-chip--confirmed { background:linear-gradient(180deg, rgba(92,105,79,.2) 0%, rgba(92,105,79,.12) 100%); border-color:rgba(92,105,79,.28); color:#46513c; }
+    .schedule-modal { position:fixed; inset:0; z-index:30; display:grid; place-items:center; padding:28px; }
+    .schedule-modal[hidden] { display:none; }
+    .schedule-modal__backdrop { position:absolute; inset:0; background:rgba(31,26,23,.24); backdrop-filter:blur(10px); }
+    .schedule-modal__dialog { position:relative; width:min(760px, 100%); max-height:calc(100vh - 56px); overflow:auto; padding:34px; background:linear-gradient(180deg, rgba(255,253,249,.96) 0%, rgba(248,243,236,.98) 100%); border:1px solid rgba(31,26,23,.08); box-shadow:0 28px 80px rgba(31,26,23,.16); }
+    .schedule-modal__dialog::before { content:""; position:absolute; top:0; left:32px; right:32px; height:1px; background:linear-gradient(90deg, transparent, rgba(31,26,23,.16), transparent); }
+    .schedule-modal__header { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; margin-bottom:28px; }
+    .schedule-modal__close, .schedule-modal__action { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:0 18px; border:1px solid rgba(31,26,23,.12); background:rgba(255,253,249,.82); color:var(--admin-text); font:inherit; cursor:pointer; transition:background-color .2s ease, border-color .2s ease, transform .2s ease; }
+    .schedule-modal__close:hover, .schedule-modal__action:hover { background:rgba(255,253,249,.98); border-color:rgba(31,26,23,.18); transform:translateY(-1px); }
+    .schedule-modal__actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+    .schedule-modal__action--ghost { background:rgba(255,253,249,.74); color:var(--admin-text-sub); text-decoration:none; }
+    @media (max-width:900px) {
+      .schedule-toolbar, .schedule-day-card__header, .schedule-slot-item { flex-direction:column; align-items:flex-start; }
+      .schedule-slot-item__side { justify-content:flex-start; }
+      .schedule-modal { padding:16px; }
+      .schedule-modal__dialog { padding:26px 20px 22px; }
+      .schedule-modal__header { flex-direction:column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-layout__sidebar" aria-label="&#31649;&#29702;&#12490;&#12499;&#12466;&#12540;&#12471;&#12519;&#12531;">
+      <div class="admin-layout__sidebar-brand">
+        <a href="../index.html" class="admin-layout__brand" aria-label="MY SCENT BY INOWA home">
+          <span class="admin-layout__brand-main">MY SCENT BY INOWA</span>
+          <span class="admin-layout__brand-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+        </a>
+      </div>
+      <nav class="admin-layout__nav">
+        <a href="./index.html" class="admin-layout__nav-link">&#12480;&#12483;&#12471;&#12517;&#12508;&#12540;&#12489;</a>
+        <a href="./reservations.html" class="admin-layout__nav-link">&#20104;&#32004;&#31649;&#29702;</a>
+        <a href="./customers.html" class="admin-layout__nav-link">&#39015;&#23458;&#31649;&#29702;</a>
+        <a href="./schedule.html" class="admin-layout__nav-link is-active">&#31354;&#12365;&#26528;&#31649;&#29702;</a>
+      </nav>
+    </aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">&#31649;&#29702;&#30011;&#38754;</p>
+            <h1 class="admin-layout__title">&#31354;&#12365;&#26528;&#31649;&#29702;</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">2026.04.17</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <section class="dashboard-card" aria-labelledby="schedule-title">
+          <div class="schedule-toolbar">
+            <div class="dashboard-card__head" style="margin-bottom:0;">
+              <p class="dashboard-card__eyebrow">&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;</p>
+              <h2 class="dashboard-card__title" id="schedule-title">&#26085;&#21029;&#12398;&#31354;&#12365;&#26528;&#19968;&#35239;</h2>
+            </div>
+            <div class="reservation-date-switch" role="group" aria-label="&#26085;&#20184;&#20999;&#12426;&#26367;&#12360;">
+              <button class="reservation-date-switch__button is-active" type="button">&#20170;&#26085;</button>
+              <button class="reservation-date-switch__button" type="button">&#26126;&#26085;</button>
+              <button class="reservation-date-switch__button" type="button">&#12459;&#12524;&#12531;&#12480;&#12540;</button>
+            </div>
+          </div>
+
+          <section class="schedule-day-card" aria-labelledby="schedule-day-title">
+            <div class="schedule-day-card__header">
+              <div>
+                <p class="dashboard-card__eyebrow">&#20170;&#26085;</p>
+                <h3 class="dashboard-card__title" id="schedule-day-title">2026.04.17 &#37329;&#26332;&#26085;</h3>
+              </div>
+              <p class="schedule-day-card__meta">6 &#26528;</p>
+            </div>
+
+            <div class="schedule-slot-list">
+              <button class="schedule-slot-item" type="button" data-slot-kind="booked" data-name="&#23665;&#30000; &#33457;&#23376;" data-time="2026.04.17 10:00" data-guests="2&#21517;" data-note="&#21021;&#22238;&#12398;&#12383;&#12417;&#12459;&#12454;&#12531;&#12475;&#12522;&#12531;&#12464;&#24076;&#26395;" data-status="&#30906;&#23450;">
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">10:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--confirmed">&#20104;&#32004;&#12354;&#12426;</span>
+                  <p class="schedule-slot-item__customer">&#23665;&#30000; &#33457;&#23376;</p>
+                </div>
+              </button>
+
+              <button class="schedule-slot-item" type="button" data-slot-kind="toggle" data-state="open">
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">11:00</p>
+                  <p class="schedule-slot-item__hint">&#31354;&#12365;&#12392;&#12463;&#12525;&#12540;&#12474;&#12434;&#12479;&#12483;&#12503;&#12391;&#20999;&#12426;&#26367;&#12360;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--pending" data-slot-status>&#31354;&#12365;</span>
+                </div>
+              </button>
+
+              <button class="schedule-slot-item" type="button" data-slot-kind="toggle" data-state="closed">
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">12:00</p>
+                  <p class="schedule-slot-item__hint">&#31354;&#12365;&#12392;&#12463;&#12525;&#12540;&#12474;&#12434;&#12479;&#12483;&#12503;&#12391;&#20999;&#12426;&#26367;&#12360;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--cancelled" data-slot-status>&#12463;&#12525;&#12540;&#12474;</span>
+                </div>
+              </button>
+
+              <button class="schedule-slot-item" type="button" data-slot-kind="booked" data-name="&#20304;&#34276; &#32654;&#21682;" data-time="2026.04.17 13:00" data-guests="1&#21517;" data-note="&#26178;&#38291;&#22793;&#26356;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12354;&#12426;" data-status="&#26410;&#23550;&#24540;">
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">13:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--confirmed">&#20104;&#32004;&#12354;&#12426;</span>
+                  <p class="schedule-slot-item__customer">&#20304;&#34276; &#32654;&#21682;</p>
+                </div>
+              </button>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <div class="schedule-modal" data-schedule-modal hidden>
+    <div class="schedule-modal__backdrop" data-schedule-close></div>
+    <section class="schedule-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="schedule-modal-title">
+      <div class="schedule-modal__header">
+        <div class="dashboard-card__head" style="margin-bottom:0;">
+          <p class="dashboard-card__eyebrow">&#20104;&#32004;</p>
+          <h2 class="dashboard-card__title" id="schedule-modal-title">&#20104;&#32004;&#35443;&#32048;</h2>
+          <p class="dashboard-card__submeta" data-modal-summary>2026.04.17 10:00 / 2&#21517;</p>
+        </div>
+        <button class="schedule-modal__close" type="button" data-schedule-close>&#38281;&#12376;&#12427;</button>
+      </div>
+
+      <div class="detail-grid">
+        <article class="detail-card">
+          <p class="detail-card__label">&#39015;&#23458;&#21517;</p>
+          <p class="detail-card__value" data-modal-name></p>
+        </article>
+        <article class="detail-card">
+          <p class="detail-card__label">&#20104;&#32004;&#26085;&#26178;</p>
+          <p class="detail-card__value" data-modal-time></p>
+        </article>
+        <article class="detail-card">
+          <p class="detail-card__label">&#20154;&#25968;</p>
+          <p class="detail-card__value" data-modal-guests></p>
+        </article>
+        <article class="detail-card">
+          <p class="detail-card__label">&#12473;&#12486;&#12540;&#12479;&#12473;</p>
+          <p class="detail-card__value" data-modal-status-wrap></p>
+        </article>
+        <article class="detail-card" style="grid-column:1 / -1;">
+          <p class="detail-card__label">&#20633;&#32771;</p>
+          <p class="detail-card__value" data-modal-note></p>
+        </article>
+      </div>
+
+      <div class="schedule-modal__actions">
+        <a class="schedule-modal__action schedule-modal__action--ghost" href="./reservations.html">&#20104;&#32004;&#31649;&#29702;&#12408;</a>
+        <button class="schedule-modal__action" type="button">&#32232;&#38598;&#12377;&#12427;</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      const slots = document.querySelectorAll(".schedule-slot-item");
+      const statusMap = {
+        open: { label: "\u7a7a\u304d", className: "status-chip status-chip--pending" },
+        closed: { label: "\u30af\u30ed\u30fc\u30ba", className: "status-chip status-chip--cancelled" }
+      };
+      const bookedStatusMap = {
+        "\u78ba\u5b9a": "status-chip status-chip--confirmed",
+        "\u672a\u5bfe\u5fdc": "status-chip status-chip--pending",
+        "\u30ad\u30e3\u30f3\u30bb\u30eb": "status-chip status-chip--cancelled"
+      };
+      const modal = document.querySelector("[data-schedule-modal]");
+      const modalSummary = document.querySelector("[data-modal-summary]");
+      const modalName = document.querySelector("[data-modal-name]");
+      const modalTime = document.querySelector("[data-modal-time]");
+      const modalGuests = document.querySelector("[data-modal-guests]");
+      const modalNote = document.querySelector("[data-modal-note]");
+      const modalStatusWrap = document.querySelector("[data-modal-status-wrap]");
+      const closeTriggers = document.querySelectorAll("[data-schedule-close]");
+
+      const openBookedModal = (slot) => {
+        if (!modal) return;
+        const name = slot.dataset.name || "";
+        const time = slot.dataset.time || "";
+        const guests = slot.dataset.guests || "";
+        const note = slot.dataset.note || "-";
+        const status = slot.dataset.status || "\u78ba\u5b9a";
+        const statusClass = bookedStatusMap[status] || "status-chip status-chip--confirmed";
+
+        if (modalSummary) modalSummary.textContent = time + " / " + guests;
+        if (modalName) modalName.textContent = name;
+        if (modalTime) modalTime.textContent = time;
+        if (modalGuests) modalGuests.textContent = guests;
+        if (modalNote) modalNote.textContent = note;
+        if (modalStatusWrap) modalStatusWrap.innerHTML = '<span class="' + statusClass + '">' + status + "</span>";
+
+        modal.hidden = false;
+        document.body.classList.add("is-modal-open");
+      };
+
+      const closeModal = () => {
+        if (!modal) return;
+        modal.hidden = true;
+        document.body.classList.remove("is-modal-open");
+      };
+
+      closeTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", closeModal);
+      });
+
+      slots.forEach((slot) => {
+        slot.addEventListener("click", () => {
+          if (slot.dataset.slotKind === "booked") {
+            openBookedModal(slot);
+            return;
+          }
+
+          const next = slot.dataset.state === "closed" ? "open" : "closed";
+          slot.dataset.state = next;
+          const status = slot.querySelector("[data-slot-status]");
+
+          if (status) {
+            status.className = statusMap[next].className;
+            status.textContent = statusMap[next].label;
+          }
+        });
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal && !modal.hidden) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>

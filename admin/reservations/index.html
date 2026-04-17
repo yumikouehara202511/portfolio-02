@@ -3,26 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>予約管理 | MY SCENT BY INOWA</title>
-  <meta name="description" content="予約管理ページのレイアウトです。">
+  <title>&#20104;&#32004;&#35443;&#32048; | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWA&#12398;&#20104;&#32004;&#35443;&#32048;&#12506;&#12540;&#12472;&#12290;">
   <link rel="stylesheet" href="../../css/admin-layout.css">
 </head>
 <body>
   <div class="admin-layout">
-    <aside class="admin-layout__sidebar" aria-label="管理ナビゲーション">
+    <aside class="admin-layout__sidebar" aria-label="&#31649;&#29702;&#12490;&#12499;&#12466;&#12540;&#12471;&#12519;&#12531;">
       <div class="admin-layout__sidebar-brand">
         <a href="../../index.html" class="admin-layout__brand" aria-label="MY SCENT BY INOWA home">
           <span class="admin-layout__brand-main">MY SCENT BY INOWA</span>
           <span class="admin-layout__brand-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
         </a>
       </div>
-
       <nav class="admin-layout__nav">
-        <a href="../" class="admin-layout__nav-link">ダッシュボード</a>
-        <a href="./" class="admin-layout__nav-link is-active">予約管理</a>
-        <a href="#" class="admin-layout__nav-link">顧客管理</a>
-        <a href="#" class="admin-layout__nav-link">空き枠管理</a>
-        <a href="#" class="admin-layout__nav-link">分析</a>
+        <a href="../index.html" class="admin-layout__nav-link">&#12480;&#12483;&#12471;&#12517;&#12508;&#12540;&#12489;</a>
+        <a href="../reservations.html" class="admin-layout__nav-link is-active">&#20104;&#32004;&#31649;&#29702;</a>
+        <a href="../customers.html" class="admin-layout__nav-link">&#39015;&#23458;&#31649;&#29702;</a>
+        <a href="../schedule.html" class="admin-layout__nav-link">&#31354;&#12365;&#26528;&#31649;&#29702;</a>
       </nav>
     </aside>
 
@@ -30,68 +28,45 @@
       <header class="admin-layout__header">
         <div class="admin-layout__header-inner">
           <div class="admin-layout__header-copy">
-            <p class="admin-layout__eyebrow">Admin</p>
-            <h1 class="admin-layout__title">予約管理</h1>
+            <p class="admin-layout__eyebrow">&#31649;&#29702;&#30011;&#38754;</p>
+            <h1 class="admin-layout__title">&#20104;&#32004;&#35443;&#32048;</h1>
           </div>
           <div class="admin-layout__header-meta">
-            <span class="admin-layout__meta-item">Store Admin</span>
+            <span class="admin-layout__meta-item">&#21463;&#20184;&#30058;&#21495; R-20260417-01</span>
           </div>
         </div>
       </header>
 
       <main class="admin-layout__content">
-        <section class="dashboard-card reservation-page" aria-labelledby="reservation-page-title">
-          <div class="reservation-page__header">
-            <div class="dashboard-card__head reservation-page__copy">
-              <p class="dashboard-card__eyebrow">Reservations</p>
-              <h2 class="dashboard-card__title" id="reservation-page-title">予約一覧</h2>
-              <p class="dashboard-card__meta">日付ごとの予約状況を確認するためのレイアウトです。</p>
-            </div>
-
-            <div class="reservation-date-switch" role="group" aria-label="日付切り替え">
-              <button class="reservation-date-switch__button is-active" type="button">今日</button>
-              <button class="reservation-date-switch__button" type="button">明日</button>
-              <button class="reservation-date-switch__button" type="button">カレンダー</button>
-            </div>
+        <section class="dashboard-card" aria-labelledby="reservation-detail-title">
+          <div class="dashboard-card__head">
+            <p class="dashboard-card__eyebrow">&#20104;&#32004;</p>
+            <h2 class="dashboard-card__title" id="reservation-detail-title">&#23665;&#30000; &#33457;&#23376;&#12373;&#12414;&#12398;&#20104;&#32004;</h2>
+            <p class="dashboard-card__submeta">2026.04.17 10:00 / 2&#21517;</p>
           </div>
 
-          <div class="dashboard-table-wrap">
-            <table class="dashboard-table reservation-table">
-              <thead>
-                <tr>
-                  <th>時間</th>
-                  <th>顧客名</th>
-                  <th>人数</th>
-                  <th>ステータス</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>10:00</td>
-                  <td>山田 花子</td>
-                  <td>2名</td>
-                  <td><span class="status-chip status-chip--confirmed">確定</span></td>
-                </tr>
-                <tr>
-                  <td>11:30</td>
-                  <td>佐藤 美咲</td>
-                  <td>1名</td>
-                  <td><span class="status-chip status-chip--pending">未対応</span></td>
-                </tr>
-                <tr>
-                  <td>14:00</td>
-                  <td>鈴木 健太</td>
-                  <td>2名</td>
-                  <td><span class="status-chip status-chip--confirmed">確定</span></td>
-                </tr>
-                <tr>
-                  <td>16:00</td>
-                  <td>高橋 由衣</td>
-                  <td>1名</td>
-                  <td><span class="status-chip status-chip--cancelled">キャンセル</span></td>
-                </tr>
-              </tbody>
-            </table>
+          <div class="detail-grid">
+            <article class="detail-card">
+              <p class="detail-card__label">&#39015;&#23458;&#21517;</p>
+              <p class="detail-card__value">&#23665;&#30000; &#33457;&#23376;</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">&#20104;&#32004;&#26085;&#26178;</p>
+              <p class="detail-card__value">2026.04.17 10:00</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">&#20154;&#25968;</p>
+              <p class="detail-card__value">2&#21517;</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">&#12473;&#12486;&#12540;&#12479;&#12473;</p>
+              <p class="detail-card__value"><span class="status-chip status-chip--confirmed">&#30906;&#23450;</span></p>
+            </article>
+          </div>
+
+          <div class="detail-actions" style="margin-top: 24px;">
+            <a class="detail-action detail-action--ghost" href="../reservations.html">&#19968;&#35239;&#12408;&#25147;&#12427;</a>
+            <button class="detail-action" type="button">&#32232;&#38598;&#12377;&#12427;</button>
           </div>
         </section>
       </main>
