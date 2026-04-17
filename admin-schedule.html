@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>&#31354;&#12365;&#26528;&#31649;&#29702; | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWA&#12398;&#31354;&#12365;&#26528;&#31649;&#29702;&#12506;&#12540;&#12472;&#12290;">
+  <link rel="stylesheet" href="./css/admin-schedule.css">
+</head>
+<body>
+  <div class="admin-shell">
+    <aside class="admin-sidebar" aria-label="Admin navigation">
+      <div class="admin-sidebar__brand">
+        <a href="./index.html" class="site-logo" aria-label="MY SCENT BY INOWA home">
+          <span class="site-logo-en">MY SCENT BY INOWA</span>
+          <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+        </a>
+      </div>
+
+      <nav class="admin-sidebar__nav">
+        <a href="./admin-dashboard.html" class="admin-sidebar__link">&#12480;&#12483;&#12471;&#12517;&#12508;&#12540;&#12489;</a>
+        <a href="./admin-reservations.html" class="admin-sidebar__link">&#20104;&#32004;&#31649;&#29702;</a>
+        <a href="#" class="admin-sidebar__link">&#39015;&#23458;&#31649;&#29702;</a>
+        <a href="./admin-schedule.html" class="admin-sidebar__link is-active">&#31354;&#12365;&#26528;&#31649;&#29702;</a>
+        <a href="#" class="admin-sidebar__link">&#20998;&#26512;</a>
+      </nav>
+    </aside>
+
+    <div class="admin-main">
+      <header class="admin-header">
+        <div class="admin-header__inner">
+          <div class="admin-header__brand">
+            <a href="./index.html" class="site-logo admin-header__logo" aria-label="MY SCENT BY INOWA home">
+              <span class="site-logo-en">MY SCENT BY INOWA</span>
+              <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+            </a>
+            <div class="admin-header__title-group">
+              <p class="admin-header__eyebrow">&#31649;&#29702;&#30011;&#38754;</p>
+              <h1 class="admin-header__title">&#31354;&#12365;&#26528;&#31649;&#29702;</h1>
+            </div>
+          </div>
+          <div class="admin-header__actions">
+            <button class="admin-header__action" type="button">&#26908;&#32034;</button>
+            <button class="admin-header__action" type="button">&#36890;&#30693;</button>
+            <button class="admin-header__action" type="button">&#35373;&#23450;</button>
+            <button class="admin-header__profile" type="button">&#12450;&#12459;&#12454;&#12531;&#12488;</button>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-content">
+        <section class="reservation-panel schedule-panel" aria-labelledby="schedule-title">
+          <div class="reservation-toolbar schedule-toolbar">
+            <div class="reservation-toolbar__copy">
+              <p class="reservation-toolbar__eyebrow">&#12473;&#12465;&#12472;&#12517;&#12540;&#12523;</p>
+              <h2 class="reservation-toolbar__title" id="schedule-title">&#26085;&#21029;&#12398;&#31354;&#12365;&#26528;&#19968;&#35239;</h2>
+              <p class="reservation-toolbar__meta">&#26178;&#38291;&#26528;&#12434;&#32294;&#12395;&#20006;&#12409;&#12390;&#12289;&#31354;&#12365;&#29366;&#27841;&#12392;&#20104;&#32004;&#21517;&#12434;&#12377;&#12400;&#12420;&#12367;&#30906;&#35469;&#12391;&#12365;&#12414;&#12377;&#12290;</p>
+            </div>
+
+            <div class="date-switch" role="group" aria-label="&#26085;&#20184;&#20999;&#12426;&#26367;&#12360;">
+              <button class="date-switch__button is-active" type="button" aria-pressed="true">&#20170;&#26085;</button>
+              <button class="date-switch__button" type="button" aria-pressed="false">&#26126;&#26085;</button>
+              <button class="date-switch__button" type="button" aria-pressed="false">&#12459;&#12524;&#12531;&#12480;&#12540;</button>
+            </div>
+          </div>
+
+          <section class="schedule-day-card" aria-labelledby="schedule-day-title">
+            <div class="schedule-day-card__header">
+              <div>
+                <p class="schedule-day-card__eyebrow">&#20170;&#26085;</p>
+                <h3 class="schedule-day-card__title" id="schedule-day-title">2026.04.17 &#37329;&#26332;&#26085;</h3>
+              </div>
+              <p class="schedule-day-card__meta">6 &#26528;</p>
+            </div>
+
+            <div class="schedule-slot-list">
+              <button
+                class="schedule-slot-item schedule-slot-item--booked"
+                type="button"
+                data-slot-kind="booked"
+                data-href="./admin-reservation-detail.html"
+                aria-label="10:00 &#20104;&#32004;&#12354;&#12426; &#23665;&#30000; &#33457;&#23376;&#12373;&#12414;&#12398;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;"
+              >
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">10:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--confirmed" data-slot-status>&#20104;&#32004;&#12354;&#12426;</span>
+                  <p class="schedule-slot-item__customer">&#23665;&#30000; &#33457;&#23376;</p>
+                </div>
+              </button>
+
+              <button
+                class="schedule-slot-item"
+                type="button"
+                data-slot-kind="toggle"
+                data-state="open"
+                aria-label="11:00 &#31354;&#12365; &#12434;&#20999;&#12426;&#26367;&#12360;"
+              >
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">11:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#29366;&#24907;&#12434;&#20999;&#12426;&#26367;&#12360;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--pending" data-slot-status>&#31354;&#12365;</span>
+                </div>
+              </button>
+
+              <button
+                class="schedule-slot-item"
+                type="button"
+                data-slot-kind="toggle"
+                data-state="closed"
+                aria-label="12:00 &#12463;&#12525;&#12540;&#12474; &#12434;&#20999;&#12426;&#26367;&#12360;"
+              >
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">12:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#29366;&#24907;&#12434;&#20999;&#12426;&#26367;&#12360;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--cancelled" data-slot-status>&#12463;&#12525;&#12540;&#12474;</span>
+                </div>
+              </button>
+
+              <button
+                class="schedule-slot-item schedule-slot-item--booked"
+                type="button"
+                data-slot-kind="booked"
+                data-href="./admin-reservation-detail.html"
+                aria-label="13:00 &#20104;&#32004;&#12354;&#12426; &#20304;&#34276; &#32654;&#21682;&#12373;&#12414;&#12398;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;"
+              >
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">13:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--confirmed" data-slot-status>&#20104;&#32004;&#12354;&#12426;</span>
+                  <p class="schedule-slot-item__customer">&#20304;&#34276; &#32654;&#21682;</p>
+                </div>
+              </button>
+
+              <button
+                class="schedule-slot-item"
+                type="button"
+                data-slot-kind="toggle"
+                data-state="open"
+                aria-label="14:00 &#31354;&#12365; &#12434;&#20999;&#12426;&#26367;&#12360;"
+              >
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">14:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#29366;&#24907;&#12434;&#20999;&#12426;&#26367;&#12360;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--pending" data-slot-status>&#31354;&#12365;</span>
+                </div>
+              </button>
+
+              <button
+                class="schedule-slot-item schedule-slot-item--booked"
+                type="button"
+                data-slot-kind="booked"
+                data-href="./admin-reservation-detail.html"
+                aria-label="15:00 &#20104;&#32004;&#12354;&#12426; &#37428;&#26408; &#20581;&#22826;&#12373;&#12414;&#12398;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;"
+              >
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">15:00</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--confirmed" data-slot-status>&#20104;&#32004;&#12354;&#12426;</span>
+                  <p class="schedule-slot-item__customer">&#37428;&#26408; &#20581;&#22826;</p>
+                </div>
+              </button>
+            </div>
+          </section>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const toggleText = {
+        open: "&#31354;&#12365;",
+        closed: "&#12463;&#12525;&#12540;&#12474;"
+      };
+
+      const toggleLabel = {
+        open: "\u7a7a\u304d",
+        closed: "\u30af\u30ed\u30fc\u30ba"
+      };
+
+      const toggleClass = {
+        open: "status-chip status-chip--pending",
+        closed: "status-chip status-chip--cancelled"
+      };
+
+      const slots = document.querySelectorAll(".schedule-slot-item");
+
+      const updateToggleSlot = (slot) => {
+        const status = slot.querySelector("[data-slot-status]");
+        const time = slot.querySelector(".schedule-slot-item__time")?.textContent?.trim() || "";
+        const state = slot.dataset.state === "closed" ? "closed" : "open";
+
+        if (status) {
+          status.className = toggleClass[state];
+          status.innerHTML = toggleText[state];
+        }
+
+        slot.setAttribute(
+          "aria-label",
+          time + " " + toggleLabel[state] + " \u3092\u5207\u308a\u66ff\u3048"
+        );
+      };
+
+      slots.forEach((slot) => {
+        if (slot.dataset.slotKind === "toggle") {
+          updateToggleSlot(slot);
+        }
+
+        slot.addEventListener("click", () => {
+          if (slot.dataset.slotKind === "booked") {
+            const href = slot.dataset.href;
+            if (href) {
+              window.location.href = href;
+            }
+            return;
+          }
+
+          slot.dataset.state = slot.dataset.state === "closed" ? "open" : "closed";
+          updateToggleSlot(slot);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>
