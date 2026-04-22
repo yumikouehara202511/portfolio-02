@@ -9,28 +9,88 @@
   <style>
     .analytics-summary {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.42fr) minmax(0, 1fr) minmax(0, 1fr);
       gap: 22px;
       margin-bottom: 40px;
     }
 
     .analytics-stat {
-      min-height: 208px;
-      border-color: rgba(31, 26, 23, 0.06);
-      box-shadow: 0 10px 30px rgba(31, 26, 23, 0.03);
+      min-height: 220px;
+      padding: 30px 28px 24px;
+      border-color: rgba(31, 26, 23, 0.08);
+      box-shadow: 0 8px 24px rgba(31, 26, 23, 0.025);
     }
 
     .analytics-stat .dashboard-card__value {
-      min-height: auto;
+      min-height: 4.1rem;
+      margin-top: 16px;
+      font-size: clamp(2.6rem, 3.8vw, 3.7rem);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      line-height: 1.1;
+      color: var(--admin-text);
+      white-space: nowrap;
+    }
+
+    .analytics-stat .dashboard-card__value.is-long {
+      font-size: clamp(2.35rem, 3.5vw, 3.2rem);
+    }
+
+    .analytics-stat--revenue {
+      padding-right: 34px;
+    }
+
+    .analytics-stat--revenue .dashboard-card__value {
+      min-height: 4.1rem;
+      margin-top: 16px;
+      font-size: clamp(2.6rem, 3.8vw, 3.7rem);
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      line-height: 1.1;
+    }
+
+    .analytics-stat--revenue .dashboard-card__meta,
+    .analytics-stat--revenue .dashboard-card__submeta,
+    .analytics-stat--revenue .analytics-stat__foot {
+      max-width: 30rem;
+    }
+
+    .analytics-stat--revenue .dashboard-card__meta {
+      margin-top: 14px;
+    }
+
+    .analytics-stat--revenue .dashboard-card__submeta,
+    .analytics-stat--revenue .analytics-stat__foot {
+      margin-top: 8px;
+    }
+
+    .analytics-stat .dashboard-card__label {
+      color: var(--admin-text-sub);
+    }
+
+    .analytics-stat .dashboard-card__meta {
+      margin-top: 14px;
+      color: var(--admin-text-sub);
+      font-size: 0.88rem;
+      min-height: 1.4em;
+    }
+
+    .analytics-stat .dashboard-card__submeta {
+      margin-top: 8px;
+      color: rgba(109, 101, 94, 0.88);
+      font-size: 0.76rem;
+      letter-spacing: 0.04em;
+      min-height: 1.4em;
     }
 
     .analytics-stat__foot {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid var(--admin-line-soft);
-      color: var(--admin-text-sub);
-      font-size: 0.8rem;
-      line-height: 1.7;
+      margin-top: 8px;
+      padding-top: 0;
+      border-top: 0;
+      color: rgba(109, 101, 94, 0.88);
+      font-size: 0.76rem;
+      line-height: 1.4;
+      min-height: 1.4em;
     }
 
     .analytics-graphs {
@@ -53,8 +113,8 @@
 
     .analytics-card__note {
       margin-top: 16px;
-      color: var(--admin-text-sub);
-      font-size: 0.83rem;
+      color: rgba(109, 101, 94, 0.7);
+      font-size: 0.79rem;
       line-height: 1.8;
     }
 
@@ -88,9 +148,9 @@
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
       margin-top: 4px;
-      color: rgba(109, 101, 94, 0.72);
-      font-size: 0.72rem;
-      letter-spacing: 0.06em;
+      color: rgba(109, 101, 94, 0.58);
+      font-size: 0.69rem;
+      letter-spacing: 0.08em;
     }
 
     .analytics-axis-labels {
@@ -98,9 +158,9 @@
       grid-template-columns: repeat(7, minmax(0, 1fr));
       gap: 8px;
       margin-top: 16px;
-      color: rgba(109, 101, 94, 0.84);
-      font-size: 0.76rem;
-      letter-spacing: 0.06em;
+      color: rgba(109, 101, 94, 0.62);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
       text-align: center;
     }
 
@@ -118,9 +178,9 @@
     }
 
     .analytics-bar__label {
-      color: var(--admin-text);
-      font-size: 0.9rem;
-      letter-spacing: 0.04em;
+      color: rgba(88, 81, 75, 0.78);
+      font-size: 0.84rem;
+      letter-spacing: 0.06em;
     }
 
     .analytics-bar__track {
@@ -143,8 +203,8 @@
     }
 
     .analytics-bar__value {
-      color: var(--admin-text-sub);
-      font-size: 0.82rem;
+      color: rgba(109, 101, 94, 0.68);
+      font-size: 0.77rem;
       text-align: right;
     }
 
@@ -202,9 +262,9 @@
 
     .analytics-donut__center span {
       margin-top: 6px;
-      color: var(--admin-text-sub);
-      font-size: 0.78rem;
-      letter-spacing: 0.08em;
+      color: rgba(109, 101, 94, 0.68);
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
     }
 
     .analytics-legend {
@@ -245,13 +305,13 @@
     }
 
     .analytics-legend__label {
-      color: var(--admin-text);
-      font-size: 0.9rem;
+      color: rgba(88, 81, 75, 0.8);
+      font-size: 0.84rem;
     }
 
     .analytics-legend__value {
-      color: var(--admin-text-sub);
-      font-size: 0.82rem;
+      color: rgba(109, 101, 94, 0.66);
+      font-size: 0.77rem;
       white-space: nowrap;
     }
 
@@ -332,6 +392,19 @@
         padding: 16px 14px 14px;
       }
 
+      .analytics-stat .dashboard-card__value,
+      .analytics-stat .dashboard-card__value.is-long {
+        font-size: 2.6rem;
+      }
+
+      .analytics-stat--revenue .dashboard-card__value {
+        font-size: 2.6rem;
+      }
+
+      .analytics-stat .dashboard-card__value {
+        white-space: normal;
+      }
+
       .analytics-line-scale {
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
@@ -389,15 +462,15 @@
             <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="128">128</p>
             <p class="dashboard-card__meta">前月比 +14件</p>
             <p class="dashboard-card__submeta">週末予約が全体の58%</p>
-            <p class="analytics-stat__foot">予約の伸びは月後半に集中し、提出用としても動きが読み取りやすい状態です。</p>
+            <p class="analytics-stat__foot">月後半で伸長。</p>
           </article>
 
-          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-2 analytics-stat">
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-2 analytics-stat analytics-stat--revenue">
             <p class="dashboard-card__label">今月の売上</p>
             <p class="dashboard-card__value is-long" data-metric-value data-kind="currency" data-raw-value="864000">864000</p>
             <p class="dashboard-card__meta">平均客単価 ¥6,750</p>
             <p class="dashboard-card__submeta">オプション利用率 38%</p>
-            <p class="analytics-stat__foot">売上は午後の予約集中に連動しており、予約数だけでなく単価も安定しています。</p>
+            <p class="analytics-stat__foot">午後帯が牽引。</p>
           </article>
 
           <article class="dashboard-card dashboard-card--stat dashboard-card--tone-4 analytics-stat">
@@ -405,7 +478,7 @@
             <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="7">7</p>
             <p class="dashboard-card__meta">本日中の確認目安 3件</p>
             <p class="dashboard-card__submeta">予約変更 4件 / 内容確認 3件</p>
-            <p class="analytics-stat__foot">件数自体は多くないものの、当日対応が必要なものが含まれている想定です。</p>
+            <p class="analytics-stat__foot">朝の確認が有効。</p>
           </article>
 
           <article class="dashboard-card dashboard-card--stat dashboard-card--tone-3 analytics-stat">
@@ -413,7 +486,7 @@
             <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="11">11</p>
             <p class="dashboard-card__meta">全予約の約9%</p>
             <p class="dashboard-card__submeta">直前キャンセル 3件</p>
-            <p class="analytics-stat__foot">割合としては落ち着いていますが、夕方枠に偏りがあるため要観察の設定です。</p>
+            <p class="analytics-stat__foot">夕方枠を要確認。</p>
           </article>
         </section>
 
@@ -422,7 +495,6 @@
             <div class="dashboard-card__head">
               <p class="dashboard-card__eyebrow">予約の推移</p>
               <h2 class="dashboard-card__title">日別予約数の推移</h2>
-              <p class="dashboard-card__submeta">直近7日間の予約数を、落ち着いた線と点で見せています。週末に向けて増えていく流れがひと目で分かる構成です。</p>
             </div>
 
             <div class="analytics-chart-shell">
@@ -470,7 +542,7 @@
               <span>4/22</span>
             </div>
 
-            <p class="analytics-card__note">4/21から4/22にかけて伸びが大きく、今週の後半ほど予約が入りやすい傾向を表現しています。</p>
+            <p class="analytics-card__note">後半にかけて増加。</p>
           </article>
 
           <div class="analytics-graphs__stack">
@@ -478,7 +550,6 @@
               <div class="dashboard-card__head">
                 <p class="dashboard-card__eyebrow">時間帯別の傾向</p>
                 <h2 class="dashboard-card__title">時間帯別の予約数</h2>
-                <p class="dashboard-card__submeta">午後帯をやや強調しつつ、全体はベージュとグレーで落ち着いて比較できる見せ方にしています。</p>
               </div>
 
               <div class="analytics-bars" aria-label="時間帯別予約数">
@@ -514,7 +585,6 @@
               <div class="dashboard-card__head">
                 <p class="dashboard-card__eyebrow">ステータス内訳</p>
                 <h2 class="dashboard-card__title">予約ステータスの内訳</h2>
-                <p class="dashboard-card__submeta">確定を中心に、未対応とキャンセルを控えめな差し色で見せています。</p>
               </div>
 
               <div class="analytics-donut-wrap">
@@ -551,21 +621,21 @@
           <article class="analytics-comment">
             <p class="analytics-comment__eyebrow">予約が多い時間帯</p>
             <h2 class="analytics-comment__title">14時から16時の午後帯</h2>
-            <p class="analytics-comment__body">最も予約が集まっているのは午後の中盤です。週末の来店希望と相性がよく、オプション提案も入りやすいため、売上にもつながりやすい時間帯として見せています。</p>
+            <p class="analytics-comment__body">午後帯に予約が集中。<br>特に土日の14時台がピークです。</p>
             <span class="analytics-comment__highlight">ピーク時間帯</span>
           </article>
 
           <article class="analytics-comment">
             <p class="analytics-comment__eyebrow">今週の傾向</p>
             <h2 class="analytics-comment__title">後半にかけて予約が増加</h2>
-            <p class="analytics-comment__body">週の前半は安定、後半に向けて緩やかに増え、直近2日で伸びが強くなっています。提出用としても、全体の流れを短時間で読み取りやすい並びになっています。</p>
+            <p class="analytics-comment__body">前半は安定、後半で増加。<br>直近2日で予約が伸びています。</p>
             <span class="analytics-comment__highlight">後半が伸長</span>
           </article>
 
           <article class="analytics-comment">
-            <p class="analytics-comment__eyebrow">運営メモ</p>
-            <h2 class="analytics-comment__title">未対応の確認を午前中に集約</h2>
-            <p class="analytics-comment__body">未対応問い合わせは予約変更に関するものが多いため、午前中の段階で空き枠とあわせて確認すると運用がスムーズです。夕方枠のキャンセル傾向も継続確認したい状態です。</p>
+            <p class="analytics-comment__eyebrow">未対応への対応方針</p>
+            <h2 class="analytics-comment__title">午前中の確認を優先</h2>
+            <p class="analytics-comment__body">予約変更の問い合わせが中心。<br>朝の時点で空き枠とあわせて確認します。</p>
             <span class="analytics-comment__highlight">朝の確認が有効</span>
           </article>
         </section>
