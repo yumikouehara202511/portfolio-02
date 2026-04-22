@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>分析 | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWAの分析ページ。">
+  <link rel="stylesheet" href="../css/admin-layout.css">
+  <style>
+    .analytics-summary {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 22px;
+      margin-bottom: 40px;
+    }
+
+    .analytics-stat {
+      min-height: 208px;
+      border-color: rgba(31, 26, 23, 0.06);
+      box-shadow: 0 10px 30px rgba(31, 26, 23, 0.03);
+    }
+
+    .analytics-stat .dashboard-card__value {
+      min-height: auto;
+    }
+
+    .analytics-stat__foot {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--admin-line-soft);
+      color: var(--admin-text-sub);
+      font-size: 0.8rem;
+      line-height: 1.7;
+    }
+
+    .analytics-graphs {
+      display: grid;
+      grid-template-columns: minmax(0, 1.24fr) minmax(320px, 0.76fr);
+      gap: 36px;
+      margin-bottom: 40px;
+    }
+
+    .analytics-graphs__stack {
+      display: grid;
+      gap: 36px;
+    }
+
+    .analytics-card {
+      padding-top: 38px;
+      border-color: rgba(31, 26, 23, 0.06);
+      box-shadow: 0 12px 34px rgba(31, 26, 23, 0.03);
+    }
+
+    .analytics-card__note {
+      margin-top: 16px;
+      color: var(--admin-text-sub);
+      font-size: 0.83rem;
+      line-height: 1.8;
+    }
+
+    .analytics-chart-shell {
+      position: relative;
+      margin-top: 24px;
+      padding: 22px 18px 18px;
+      border: 1px solid rgba(31, 26, 23, 0.06);
+      background: linear-gradient(180deg, rgba(255, 253, 249, 0.84) 0%, rgba(250, 246, 240, 0.76) 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    }
+
+    .analytics-chart-shell::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18px;
+      right: 18px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(31, 26, 23, 0.1), transparent);
+    }
+
+    .analytics-line {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .analytics-line-scale {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+      color: rgba(109, 101, 94, 0.72);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+
+    .analytics-axis-labels {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 16px;
+      color: rgba(109, 101, 94, 0.84);
+      font-size: 0.76rem;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    .analytics-bars {
+      display: grid;
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .analytics-bar {
+      display: grid;
+      grid-template-columns: 100px minmax(0, 1fr) 56px;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .analytics-bar__label {
+      color: var(--admin-text);
+      font-size: 0.9rem;
+      letter-spacing: 0.04em;
+    }
+
+    .analytics-bar__track {
+      position: relative;
+      height: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(31, 26, 23, 0.06);
+      background: linear-gradient(180deg, rgba(226, 218, 205, 0.18) 0%, rgba(214, 203, 188, 0.28) 100%);
+      box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.48);
+    }
+
+    .analytics-bar__fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      background: linear-gradient(90deg, rgba(191, 165, 126, 0.58) 0%, rgba(168, 157, 141, 0.76) 100%);
+    }
+
+    .analytics-bar__fill--accent {
+      background: linear-gradient(90deg, rgba(173, 132, 79, 0.72) 0%, rgba(198, 179, 151, 0.88) 100%);
+    }
+
+    .analytics-bar__value {
+      color: var(--admin-text-sub);
+      font-size: 0.82rem;
+      text-align: right;
+    }
+
+    .analytics-donut-wrap {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: 24px;
+      align-items: center;
+      margin-top: 22px;
+    }
+
+    .analytics-donut {
+      position: relative;
+      width: 180px;
+      height: 180px;
+      margin: 0 auto;
+      border-radius: 50%;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+      background:
+        conic-gradient(
+          rgba(125, 138, 113, 0.74) 0deg 270deg,
+          rgba(201, 187, 169, 0.84) 270deg 327.6deg,
+          rgba(150, 107, 99, 0.6) 327.6deg 360deg
+        );
+    }
+
+    .analytics-donut::after {
+      content: "";
+      position: absolute;
+      inset: 30px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(255, 253, 249, 0.98) 0%, rgba(249, 245, 239, 0.96) 100%);
+      border: 1px solid rgba(31, 26, 23, 0.06);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
+
+    .analytics-donut__center {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .analytics-donut__center strong {
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.8rem;
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: 0.04em;
+    }
+
+    .analytics-donut__center span {
+      margin-top: 6px;
+      color: var(--admin-text-sub);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+    }
+
+    .analytics-legend {
+      display: grid;
+      gap: 12px;
+    }
+
+    .analytics-legend__item {
+      display: grid;
+      grid-template-columns: 14px minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding-bottom: 12px;
+      border-bottom: 1px solid rgba(31, 26, 23, 0.08);
+    }
+
+    .analytics-legend__item:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    .analytics-legend__swatch {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+    }
+
+    .analytics-legend__swatch--confirmed {
+      background: rgba(125, 138, 113, 0.86);
+    }
+
+    .analytics-legend__swatch--pending {
+      background: rgba(201, 187, 169, 0.94);
+    }
+
+    .analytics-legend__swatch--cancelled {
+      background: rgba(150, 107, 99, 0.72);
+    }
+
+    .analytics-legend__label {
+      color: var(--admin-text);
+      font-size: 0.9rem;
+    }
+
+    .analytics-legend__value {
+      color: var(--admin-text-sub);
+      font-size: 0.82rem;
+      white-space: nowrap;
+    }
+
+    .analytics-comments {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .analytics-comment {
+      padding: 28px 26px;
+      border: 1px solid rgba(31, 26, 23, 0.06);
+      background: linear-gradient(180deg, rgba(255, 253, 249, 0.84) 0%, rgba(251, 247, 241, 0.76) 100%);
+      box-shadow: 0 10px 30px rgba(31, 26, 23, 0.028);
+    }
+
+    .analytics-comment__eyebrow {
+      color: var(--admin-text-sub);
+      font-size: 0.67rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .analytics-comment__title {
+      margin-top: 12px;
+      font-family: "Noto Serif JP", serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    .analytics-comment__body {
+      margin-top: 14px;
+      color: var(--admin-text-sub);
+      font-size: 0.86rem;
+      line-height: 1.9;
+    }
+
+    .analytics-comment__highlight {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 7px 12px;
+      border: 1px solid rgba(181, 140, 85, 0.16);
+      background: rgba(250, 245, 236, 0.58);
+      color: #7b6144;
+      font-size: 0.76rem;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 1180px) {
+      .analytics-summary {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .analytics-graphs,
+      .analytics-comments {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .analytics-donut-wrap {
+        grid-template-columns: 1fr;
+      }
+
+      .analytics-bar {
+        grid-template-columns: 92px minmax(0, 1fr) 52px;
+        gap: 10px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .analytics-summary {
+        grid-template-columns: 1fr;
+      }
+
+      .analytics-chart-shell {
+        padding: 16px 14px 14px;
+      }
+
+      .analytics-line-scale {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .analytics-axis-labels {
+        grid-template-columns: repeat(4, minmax(0, 1fr));
+        row-gap: 8px;
+      }
+
+      .analytics-bar {
+        grid-template-columns: 1fr;
+      }
+
+      .analytics-bar__value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="admin-layout">
+    <aside class="admin-layout__sidebar" aria-label="管理ナビゲーション">
+      <div class="admin-layout__sidebar-brand">
+        <a href="../index.html" class="admin-layout__brand" aria-label="MY SCENT BY INOWA home">
+          <span class="admin-layout__brand-main">MY SCENT BY INOWA</span>
+          <span class="admin-layout__brand-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+        </a>
+      </div>
+      <nav class="admin-layout__nav">
+        <a href="./index.html" class="admin-layout__nav-link">ダッシュボード</a>
+        <a href="./reservations.html" class="admin-layout__nav-link">予約管理</a>
+        <a href="./customers.html" class="admin-layout__nav-link">顧客管理</a>
+        <a href="./schedule.html" class="admin-layout__nav-link">空き枠管理</a>
+        <a href="./analytics.html" class="admin-layout__nav-link is-active">分析</a>
+      </nav>
+    </aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">管理画面</p>
+            <h1 class="admin-layout__title">分析</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">2026年4月 月次サマリー</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <section class="analytics-summary" aria-label="上部サマリー">
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-1 analytics-stat">
+            <p class="dashboard-card__label">今月の予約数</p>
+            <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="128">128</p>
+            <p class="dashboard-card__meta">前月比 +14件</p>
+            <p class="dashboard-card__submeta">週末予約が全体の58%</p>
+            <p class="analytics-stat__foot">予約の伸びは月後半に集中し、提出用としても動きが読み取りやすい状態です。</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-2 analytics-stat">
+            <p class="dashboard-card__label">今月の売上</p>
+            <p class="dashboard-card__value is-long" data-metric-value data-kind="currency" data-raw-value="864000">864000</p>
+            <p class="dashboard-card__meta">平均客単価 ¥6,750</p>
+            <p class="dashboard-card__submeta">オプション利用率 38%</p>
+            <p class="analytics-stat__foot">売上は午後の予約集中に連動しており、予約数だけでなく単価も安定しています。</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-4 analytics-stat">
+            <p class="dashboard-card__label">未対応問い合わせ件数</p>
+            <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="7">7</p>
+            <p class="dashboard-card__meta">本日中の確認目安 3件</p>
+            <p class="dashboard-card__submeta">予約変更 4件 / 内容確認 3件</p>
+            <p class="analytics-stat__foot">件数自体は多くないものの、当日対応が必要なものが含まれている想定です。</p>
+          </article>
+
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-3 analytics-stat">
+            <p class="dashboard-card__label">キャンセル件数</p>
+            <p class="dashboard-card__value" data-metric-value data-kind="count" data-raw-value="11">11</p>
+            <p class="dashboard-card__meta">全予約の約9%</p>
+            <p class="dashboard-card__submeta">直前キャンセル 3件</p>
+            <p class="analytics-stat__foot">割合としては落ち着いていますが、夕方枠に偏りがあるため要観察の設定です。</p>
+          </article>
+        </section>
+
+        <section class="analytics-graphs" aria-label="グラフエリア">
+          <article class="dashboard-card analytics-card">
+            <div class="dashboard-card__head">
+              <p class="dashboard-card__eyebrow">予約の推移</p>
+              <h2 class="dashboard-card__title">日別予約数の推移</h2>
+              <p class="dashboard-card__submeta">直近7日間の予約数を、落ち着いた線と点で見せています。週末に向けて増えていく流れがひと目で分かる構成です。</p>
+            </div>
+
+            <div class="analytics-chart-shell">
+              <svg class="analytics-line" viewBox="0 0 680 240" aria-label="日別予約数の推移グラフ" role="img">
+                <defs>
+                  <linearGradient id="lineArea" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="0%" stop-color="rgba(186, 155, 116, 0.22)"></stop>
+                    <stop offset="100%" stop-color="rgba(186, 155, 116, 0)"></stop>
+                  </linearGradient>
+                </defs>
+                <line x1="30" y1="40" x2="650" y2="40" stroke="rgba(31, 26, 23, 0.07)"></line>
+                <line x1="30" y1="95" x2="650" y2="95" stroke="rgba(31, 26, 23, 0.06)"></line>
+                <line x1="30" y1="150" x2="650" y2="150" stroke="rgba(31, 26, 23, 0.06)"></line>
+                <line x1="30" y1="205" x2="650" y2="205" stroke="rgba(31, 26, 23, 0.08)"></line>
+                <text x="12" y="44" fill="rgba(109, 101, 94, 0.78)" font-size="12">30件</text>
+                <text x="12" y="99" fill="rgba(109, 101, 94, 0.74)" font-size="12">20件</text>
+                <text x="12" y="154" fill="rgba(109, 101, 94, 0.74)" font-size="12">10件</text>
+                <text x="16" y="209" fill="rgba(109, 101, 94, 0.72)" font-size="12">0件</text>
+                <path d="M52 180 L150 162 L248 146 L346 154 L444 128 L542 96 L640 62 L640 205 L52 205 Z" fill="url(#lineArea)"></path>
+                <polyline points="52,180 150,162 248,146 346,154 444,128 542,96 640,62" fill="none" stroke="rgba(156, 124, 86, 0.84)" stroke-width="2.5"></polyline>
+                <circle cx="52" cy="180" r="4" fill="rgba(156, 124, 86, 0.82)" stroke="rgba(255, 253, 249, 0.92)" stroke-width="2"></circle>
+                <circle cx="150" cy="162" r="4" fill="rgba(156, 124, 86, 0.82)" stroke="rgba(255, 253, 249, 0.92)" stroke-width="2"></circle>
+                <circle cx="248" cy="146" r="4" fill="rgba(156, 124, 86, 0.82)" stroke="rgba(255, 253, 249, 0.92)" stroke-width="2"></circle>
+                <circle cx="346" cy="154" r="4" fill="rgba(156, 124, 86, 0.82)" stroke="rgba(255, 253, 249, 0.92)" stroke-width="2"></circle>
+                <circle cx="444" cy="128" r="4" fill="rgba(156, 124, 86, 0.82)" stroke="rgba(255, 253, 249, 0.92)" stroke-width="2"></circle>
+                <circle cx="542" cy="96" r="4" fill="rgba(156, 124, 86, 0.82)" stroke="rgba(255, 253, 249, 0.92)" stroke-width="2"></circle>
+                <circle cx="640" cy="62" r="5" fill="rgba(156, 124, 86, 0.94)" stroke="rgba(255, 253, 249, 0.96)" stroke-width="2.5"></circle>
+              </svg>
+            </div>
+
+            <div class="analytics-line-scale" aria-hidden="true">
+              <span>目安: 0件</span>
+              <span>10件</span>
+              <span>20件</span>
+              <span>30件</span>
+            </div>
+
+            <div class="analytics-axis-labels" aria-hidden="true">
+              <span>4/16</span>
+              <span>4/17</span>
+              <span>4/18</span>
+              <span>4/19</span>
+              <span>4/20</span>
+              <span>4/21</span>
+              <span>4/22</span>
+            </div>
+
+            <p class="analytics-card__note">4/21から4/22にかけて伸びが大きく、今週の後半ほど予約が入りやすい傾向を表現しています。</p>
+          </article>
+
+          <div class="analytics-graphs__stack">
+            <article class="dashboard-card analytics-card">
+              <div class="dashboard-card__head">
+                <p class="dashboard-card__eyebrow">時間帯別の傾向</p>
+                <h2 class="dashboard-card__title">時間帯別の予約数</h2>
+                <p class="dashboard-card__submeta">午後帯をやや強調しつつ、全体はベージュとグレーで落ち着いて比較できる見せ方にしています。</p>
+              </div>
+
+              <div class="analytics-bars" aria-label="時間帯別予約数">
+                <div class="analytics-bar">
+                  <div class="analytics-bar__label">10:00-12:00</div>
+                  <div class="analytics-bar__track"><div class="analytics-bar__fill" style="width: 52%;"></div></div>
+                  <div class="analytics-bar__value">18件</div>
+                </div>
+                <div class="analytics-bar">
+                  <div class="analytics-bar__label">12:00-14:00</div>
+                  <div class="analytics-bar__track"><div class="analytics-bar__fill" style="width: 68%;"></div></div>
+                  <div class="analytics-bar__value">24件</div>
+                </div>
+                <div class="analytics-bar">
+                  <div class="analytics-bar__label">14:00-16:00</div>
+                  <div class="analytics-bar__track"><div class="analytics-bar__fill analytics-bar__fill--accent" style="width: 100%;"></div></div>
+                  <div class="analytics-bar__value">35件</div>
+                </div>
+                <div class="analytics-bar">
+                  <div class="analytics-bar__label">16:00-18:00</div>
+                  <div class="analytics-bar__track"><div class="analytics-bar__fill" style="width: 82%;"></div></div>
+                  <div class="analytics-bar__value">29件</div>
+                </div>
+                <div class="analytics-bar">
+                  <div class="analytics-bar__label">18:00-20:00</div>
+                  <div class="analytics-bar__track"><div class="analytics-bar__fill" style="width: 40%;"></div></div>
+                  <div class="analytics-bar__value">14件</div>
+                </div>
+              </div>
+            </article>
+
+            <article class="dashboard-card analytics-card">
+              <div class="dashboard-card__head">
+                <p class="dashboard-card__eyebrow">ステータス内訳</p>
+                <h2 class="dashboard-card__title">予約ステータスの内訳</h2>
+                <p class="dashboard-card__submeta">確定を中心に、未対応とキャンセルを控えめな差し色で見せています。</p>
+              </div>
+
+              <div class="analytics-donut-wrap">
+                <div class="analytics-donut" aria-hidden="true">
+                  <div class="analytics-donut__center">
+                    <strong>128件</strong>
+                    <span>総予約数</span>
+                  </div>
+                </div>
+
+                <div class="analytics-legend" aria-label="ステータスの内訳">
+                  <div class="analytics-legend__item">
+                    <span class="analytics-legend__swatch analytics-legend__swatch--confirmed"></span>
+                    <span class="analytics-legend__label">確定</span>
+                    <span class="analytics-legend__value">96件 / 75%</span>
+                  </div>
+                  <div class="analytics-legend__item">
+                    <span class="analytics-legend__swatch analytics-legend__swatch--pending"></span>
+                    <span class="analytics-legend__label">未対応</span>
+                    <span class="analytics-legend__value">21件 / 16%</span>
+                  </div>
+                  <div class="analytics-legend__item">
+                    <span class="analytics-legend__swatch analytics-legend__swatch--cancelled"></span>
+                    <span class="analytics-legend__label">キャンセル</span>
+                    <span class="analytics-legend__value">11件 / 9%</span>
+                  </div>
+                </div>
+              </div>
+            </article>
+          </div>
+        </section>
+
+        <section class="analytics-comments" aria-label="補足エリア">
+          <article class="analytics-comment">
+            <p class="analytics-comment__eyebrow">予約が多い時間帯</p>
+            <h2 class="analytics-comment__title">14時から16時の午後帯</h2>
+            <p class="analytics-comment__body">最も予約が集まっているのは午後の中盤です。週末の来店希望と相性がよく、オプション提案も入りやすいため、売上にもつながりやすい時間帯として見せています。</p>
+            <span class="analytics-comment__highlight">ピーク時間帯</span>
+          </article>
+
+          <article class="analytics-comment">
+            <p class="analytics-comment__eyebrow">今週の傾向</p>
+            <h2 class="analytics-comment__title">後半にかけて予約が増加</h2>
+            <p class="analytics-comment__body">週の前半は安定、後半に向けて緩やかに増え、直近2日で伸びが強くなっています。提出用としても、全体の流れを短時間で読み取りやすい並びになっています。</p>
+            <span class="analytics-comment__highlight">後半が伸長</span>
+          </article>
+
+          <article class="analytics-comment">
+            <p class="analytics-comment__eyebrow">運営メモ</p>
+            <h2 class="analytics-comment__title">未対応の確認を午前中に集約</h2>
+            <p class="analytics-comment__body">未対応問い合わせは予約変更に関するものが多いため、午前中の段階で空き枠とあわせて確認すると運用がスムーズです。夕方枠のキャンセル傾向も継続確認したい状態です。</p>
+            <span class="analytics-comment__highlight">朝の確認が有効</span>
+          </article>
+        </section>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const metricValues = document.querySelectorAll("[data-metric-value]");
+      const formatCurrency = (value) =>
+        new Intl.NumberFormat("ja-JP", {
+          style: "currency",
+          currency: "JPY",
+          maximumFractionDigits: 0
+        }).format(value);
+      const formatCount = (value) => new Intl.NumberFormat("ja-JP").format(value);
+
+      metricValues.forEach((element) => {
+        const rawValue = Number(element.dataset.rawValue);
+        if (!Number.isFinite(rawValue)) return;
+        element.textContent =
+          element.dataset.kind === "currency" ? formatCurrency(rawValue) : formatCount(rawValue) + "件";
+      });
+    })();
+  </script>
+</body>
+</html>

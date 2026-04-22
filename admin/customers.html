@@ -6,6 +6,23 @@
   <title>&#39015;&#23458;&#31649;&#29702; | MY SCENT BY INOWA</title>
   <meta name="description" content="MY SCENT BY INOWA&#12398;&#39015;&#23458;&#31649;&#29702;&#12506;&#12540;&#12472;&#12290;">
   <link rel="stylesheet" href="../css/admin-layout.css">
+  <style>
+    .customer-modal { position:fixed; inset:0; z-index:30; display:grid; place-items:center; padding:28px; }
+    .customer-modal[hidden] { display:none; }
+    .customer-modal__backdrop { position:absolute; inset:0; background:rgba(31,26,23,.24); backdrop-filter:blur(10px); }
+    .customer-modal__dialog { position:relative; width:min(760px, 100%); max-height:calc(100vh - 56px); overflow:auto; padding:34px; background:linear-gradient(180deg, rgba(255,253,249,.96) 0%, rgba(248,243,236,.98) 100%); border:1px solid rgba(31,26,23,.08); box-shadow:0 28px 80px rgba(31,26,23,.16); }
+    .customer-modal__dialog::before { content:""; position:absolute; top:0; left:32px; right:32px; height:1px; background:linear-gradient(90deg, transparent, rgba(31,26,23,.16), transparent); }
+    .customer-modal__header { display:flex; align-items:flex-start; justify-content:space-between; gap:18px; margin-bottom:28px; }
+    .customer-modal__close, .customer-modal__action { display:inline-flex; align-items:center; justify-content:center; min-height:42px; padding:0 18px; border:1px solid rgba(31,26,23,.12); background:rgba(255,253,249,.82); color:var(--admin-text); font:inherit; cursor:pointer; transition:background-color .2s ease, border-color .2s ease, transform .2s ease; }
+    .customer-modal__close:hover, .customer-modal__action:hover { background:rgba(255,253,249,.98); border-color:rgba(31,26,23,.18); transform:translateY(-1px); }
+    .customer-modal__actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:24px; }
+    .customer-modal__action--ghost { background:rgba(255,253,249,.74); color:var(--admin-text-sub); text-decoration:none; }
+    @media (max-width:900px) {
+      .customer-modal { padding:16px; }
+      .customer-modal__dialog { padding:26px 20px 22px; }
+      .customer-modal__header { flex-direction:column; }
+    }
+  </style>
 </head>
 <body>
   <div class="admin-layout">
@@ -21,12 +38,223 @@
         <a href="./reservations.html" class="admin-layout__nav-link">&#20104;&#32004;&#31649;&#29702;</a>
         <a href="./customers.html" class="admin-layout__nav-link is-active">&#39015;&#23458;&#31649;&#29702;</a>
         <a href="./schedule.html" class="admin-layout__nav-link">&#31354;&#12365;&#26528;&#31649;&#29702;</a>
+        <a href="./analytics.html" class="admin-layout__nav-link">&#20998;&#26512;</a>
       </nav>
     </aside>
+
     <div class="admin-layout__main">
-      <header class="admin-layout__header"><div class="admin-layout__header-inner"><div class="admin-layout__header-copy"><p class="admin-layout__eyebrow">&#31649;&#29702;&#30011;&#38754;</p><h1 class="admin-layout__title">&#39015;&#23458;&#31649;&#29702;</h1></div></div></header>
-      <main class="admin-layout__content"><section class="dashboard-card"><div class="dashboard-card__head"><p class="dashboard-card__eyebrow">&#39015;&#23458;</p><h2 class="dashboard-card__title">&#39015;&#23458;&#31649;&#29702;&#12506;&#12540;&#12472;</h2><p class="dashboard-card__submeta">&#20170;&#24460;&#12398;&#25313;&#24373;&#29992;&#12398;&#12471;&#12531;&#12503;&#12523;&#12394;&#38936;&#22495;&#12391;&#12377;&#12290;</p></div></section></main>
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">&#31649;&#29702;&#30011;&#38754;</p>
+            <h1 class="admin-layout__title">&#39015;&#23458;&#31649;&#29702;</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">&#30331;&#37682;&#39015;&#23458; 128&#21517;</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <section class="dashboard-card reservation-page" aria-labelledby="customer-page-title">
+          <div class="reservation-page__header">
+            <div class="dashboard-card__head reservation-page__copy">
+              <p class="dashboard-card__eyebrow">&#39015;&#23458;&#19968;&#35239;</p>
+              <h2 class="dashboard-card__title" id="customer-page-title">&#30331;&#37682;&#39015;&#23458;</h2>
+              <p class="dashboard-card__submeta">&#26469;&#24215;&#23653;&#27508;&#12392;&#12513;&#12514;&#12434;&#19968;&#35239;&#12391;&#30906;&#35469;&#12391;&#12365;&#12414;&#12377;&#12290;</p>
+            </div>
+          </div>
+
+          <div class="reservation-toolbar">
+            <div class="reservation-toolbar__summary">
+              <p class="reservation-toolbar__count">&#26908;&#32034;&#32080;&#26524; 4&#20214;</p>
+            </div>
+            <label class="reservation-filter" style="min-width:min(420px, 100%); cursor:default;">
+              <span class="reservation-filter__label" style="min-width:56px;">&#26908;&#32034;</span>
+              <input
+                class="reservation-field__input"
+                type="search"
+                placeholder="&#21517;&#21069;&#12420;&#12513;&#12514;&#12391;&#26908;&#32034;"
+                aria-label="&#39015;&#23458;&#26908;&#32034;"
+                style="min-height:42px;"
+              >
+            </label>
+          </div>
+
+          <div class="dashboard-table-wrap">
+            <table class="dashboard-table reservation-table">
+              <thead>
+                <tr>
+                  <th>&#21517;&#21069;</th>
+                  <th>&#26469;&#24215;&#22238;&#25968;</th>
+                  <th>&#26368;&#32066;&#26469;&#24215;&#26085;</th>
+                  <th>&#12513;&#12514;</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="&#23665;&#30000; &#33457;&#23376;"
+                  data-visits="5&#22238;"
+                  data-last-visit="2026.04.17"
+                  data-memo="&#12471;&#12488;&#12521;&#12473;&#31995;&#12434;&#22909;&#12416;"
+                  data-note="&#21021;&#22238;&#12363;&#12425;&#32153;&#32154;&#12375;&#12390;&#26469;&#24215;&#12290;&#39321;&#12426;&#12398;&#25345;&#32154;&#24863;&#12434;&#37325;&#35222;&#12290;"
+                >
+                  <td>&#23665;&#30000; &#33457;&#23376;</td>
+                  <td>5&#22238;</td>
+                  <td>2026.04.17</td>
+                  <td>&#12471;&#12488;&#12521;&#12473;&#31995;&#12434;&#22909;&#12416;</td>
+                </tr>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="&#20304;&#34276; &#32654;&#21682;"
+                  data-visits="2&#22238;"
+                  data-last-visit="2026.04.10"
+                  data-memo="&#26178;&#38291;&#22793;&#26356;&#12398;&#30456;&#35527;&#12364;&#22810;&#12356;"
+                  data-note="&#24179;&#26085;&#22805;&#26041;&#12398;&#26469;&#24215;&#12434;&#24076;&#26395;&#12290;&#20104;&#32004;&#30906;&#35469;&#12399;&#12513;&#12540;&#12523;&#24076;&#26395;&#12290;"
+                >
+                  <td>&#20304;&#34276; &#32654;&#21682;</td>
+                  <td>2&#22238;</td>
+                  <td>2026.04.10</td>
+                  <td>&#26178;&#38291;&#22793;&#26356;&#12398;&#30456;&#35527;&#12364;&#22810;&#12356;</td>
+                </tr>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="&#37428;&#26408; &#20581;&#22826;"
+                  data-visits="3&#22238;"
+                  data-last-visit="2026.04.03"
+                  data-memo="&#12462;&#12501;&#12488;&#29992;&#12398;&#26469;&#24215;&#12354;&#12426;"
+                  data-note="&#12462;&#12501;&#12488;&#29992;&#12395;2&#22238;&#21033;&#29992;&#12290;&#39321;&#12426;&#12398;&#35498;&#26126;&#12434;&#19969;&#23527;&#12395;&#12377;&#12427;&#12392;&#28288;&#36275;&#24230;&#12364;&#39640;&#12356;&#12290;"
+                >
+                  <td>&#37428;&#26408; &#20581;&#22826;</td>
+                  <td>3&#22238;</td>
+                  <td>2026.04.03</td>
+                  <td>&#12462;&#12501;&#12488;&#29992;&#12398;&#26469;&#24215;&#12354;&#12426;</td>
+                </tr>
+                <tr
+                  class="reservation-table__row"
+                  tabindex="0"
+                  data-name="&#39640;&#27211; &#30001;&#34915;"
+                  data-visits="1&#22238;"
+                  data-last-visit="2026.03.28"
+                  data-memo="&#12450;&#12524;&#12523;&#12462;&#12540;&#37197;&#24942;&#24517;&#35201;"
+                  data-note="&#25104;&#20998;&#12398;&#20107;&#21069;&#30906;&#35469;&#12364;&#24517;&#35201;&#12290;&#24375;&#12356;&#39321;&#26009;&#12399;&#36991;&#12369;&#12427;&#12290;"
+                >
+                  <td>&#39640;&#27211; &#30001;&#34915;</td>
+                  <td>1&#22238;</td>
+                  <td>2026.03.28</td>
+                  <td>&#12450;&#12524;&#12523;&#12462;&#12540;&#37197;&#24942;&#24517;&#35201;</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
     </div>
   </div>
+
+  <div class="customer-modal" data-customer-modal hidden>
+    <div class="customer-modal__backdrop" data-customer-close></div>
+    <section class="customer-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="customer-modal-title">
+      <div class="customer-modal__header">
+        <div class="dashboard-card__head" style="margin-bottom:0;">
+          <p class="dashboard-card__eyebrow">&#39015;&#23458;</p>
+          <h2 class="dashboard-card__title" id="customer-modal-title">&#39015;&#23458;&#35443;&#32048;</h2>
+          <p class="dashboard-card__submeta" data-customer-modal-summary></p>
+        </div>
+        <button class="customer-modal__close" type="button" data-customer-close>&#38281;&#12376;&#12427;</button>
+      </div>
+
+      <div class="detail-grid">
+        <article class="detail-card">
+          <p class="detail-card__label">&#21517;&#21069;</p>
+          <p class="detail-card__value" data-customer-name></p>
+        </article>
+        <article class="detail-card">
+          <p class="detail-card__label">&#26469;&#24215;&#22238;&#25968;</p>
+          <p class="detail-card__value" data-customer-visits></p>
+        </article>
+        <article class="detail-card">
+          <p class="detail-card__label">&#26368;&#32066;&#26469;&#24215;&#26085;</p>
+          <p class="detail-card__value" data-customer-last-visit></p>
+        </article>
+        <article class="detail-card">
+          <p class="detail-card__label">&#12513;&#12514;</p>
+          <p class="detail-card__value" data-customer-memo></p>
+        </article>
+        <article class="detail-card" style="grid-column:1 / -1;">
+          <p class="detail-card__label">&#20633;&#32771;</p>
+          <p class="detail-card__value" data-customer-note></p>
+        </article>
+      </div>
+
+      <div class="customer-modal__actions">
+        <button class="customer-modal__action customer-modal__action--ghost" type="button" data-customer-close>&#19968;&#35239;&#12395;&#25147;&#12427;</button>
+        <button class="customer-modal__action" type="button">&#32232;&#38598;&#12377;&#12427;</button>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (() => {
+      const rows = document.querySelectorAll(".reservation-table__row");
+      const modal = document.querySelector("[data-customer-modal]");
+      const modalSummary = document.querySelector("[data-customer-modal-summary]");
+      const nameField = document.querySelector("[data-customer-name]");
+      const visitsField = document.querySelector("[data-customer-visits]");
+      const lastVisitField = document.querySelector("[data-customer-last-visit]");
+      const memoField = document.querySelector("[data-customer-memo]");
+      const noteField = document.querySelector("[data-customer-note]");
+      const closeTriggers = document.querySelectorAll("[data-customer-close]");
+
+      const openModal = (row) => {
+        if (!modal) return;
+        const name = row.dataset.name || "";
+        const visits = row.dataset.visits || "";
+        const lastVisit = row.dataset.lastVisit || "";
+        const memo = row.dataset.memo || "-";
+        const note = row.dataset.note || "-";
+
+        if (modalSummary) modalSummary.textContent = visits + " / " + lastVisit;
+        if (nameField) nameField.textContent = name;
+        if (visitsField) visitsField.textContent = visits;
+        if (lastVisitField) lastVisitField.textContent = lastVisit;
+        if (memoField) memoField.textContent = memo;
+        if (noteField) noteField.textContent = note;
+
+        modal.hidden = false;
+        document.body.classList.add("is-modal-open");
+      };
+
+      const closeModal = () => {
+        if (!modal) return;
+        modal.hidden = true;
+        document.body.classList.remove("is-modal-open");
+      };
+
+      rows.forEach((row) => {
+        row.addEventListener("click", () => openModal(row));
+        row.addEventListener("keydown", (event) => {
+          if (event.key === "Enter" || event.key === " ") {
+            event.preventDefault();
+            openModal(row);
+          }
+        });
+      });
+
+      closeTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", closeModal);
+      });
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal && !modal.hidden) {
+          closeModal();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
