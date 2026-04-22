@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="../css/admin-layout.css">
   <style>
     .schedule-toolbar { display:flex; align-items:flex-end; justify-content:space-between; gap:24px; margin-bottom:14px; }
+    .schedule-list-view[hidden],
+    .schedule-calendar-view[hidden] { display:none; }
     .schedule-day-card { padding:26px 24px; border:1px solid var(--admin-line-soft); background:rgba(255,253,249,.72); }
     .schedule-day-card__header { display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:22px; padding-bottom:18px; border-bottom:1px solid var(--admin-line-soft); }
     .schedule-day-card__meta { color:var(--admin-text-sub); font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; }
@@ -35,6 +37,25 @@
     .schedule-slot-item[data-slot-kind="toggle"][data-state="open"] [data-slot-status] { background:linear-gradient(180deg, rgba(191,142,62,.42) 0%, rgba(176,128,51,.28) 100%); border-color:rgba(176,128,51,.56); color:#5f4108; box-shadow:0 8px 18px rgba(176,128,51,.14), inset 0 0 0 1px rgba(255,248,235,.42); }
     .schedule-slot-item[data-slot-kind="toggle"][data-state="closed"] [data-slot-status] { background:linear-gradient(180deg, rgba(141,75,69,.32) 0%, rgba(127,63,58,.22) 100%); border-color:rgba(141,75,69,.46); color:#6f2f2a; box-shadow:0 8px 18px rgba(141,75,69,.12), inset 0 0 0 1px rgba(255,244,243,.35); }
     .schedule-slot-item[data-slot-kind="booked"] .status-chip--confirmed { background:linear-gradient(180deg, rgba(92,105,79,.2) 0%, rgba(92,105,79,.12) 100%); border-color:rgba(92,105,79,.28); color:#46513c; }
+    .schedule-calendar-view { margin-top:8px; }
+    .schedule-calendar { border:1px solid var(--admin-line-soft); background:rgba(255,253,249,.82); }
+    .schedule-calendar__head, .schedule-calendar__grid { display:grid; grid-template-columns:repeat(7, minmax(0, 1fr)); }
+    .schedule-calendar__head { border-bottom:1px solid var(--admin-line-soft); background:rgba(248,244,238,.72); }
+    .schedule-calendar__weekday { padding:14px 10px; color:var(--admin-text-sub); font-size:.72rem; letter-spacing:.14em; text-align:center; text-transform:uppercase; }
+    .schedule-calendar__day { min-height:150px; padding:14px 12px 12px; border-right:1px solid var(--admin-line-soft); border-bottom:1px solid var(--admin-line-soft); background:rgba(255,253,249,.68); }
+    .schedule-calendar__day:nth-child(7n) { border-right:0; }
+    .schedule-calendar__day--muted { background:rgba(246,242,235,.48); color:rgba(109,101,94,.65); }
+    .schedule-calendar__day--today { background:linear-gradient(180deg, rgba(255,251,244,.9) 0%, rgba(249,242,232,.84) 100%); }
+    .schedule-calendar__date { display:inline-flex; align-items:center; justify-content:center; min-width:34px; min-height:34px; color:var(--admin-text); font-family:"Noto Serif JP",serif; font-size:1rem; }
+    .schedule-calendar__day--today .schedule-calendar__date { border:1px solid rgba(176,128,51,.24); background:rgba(255,253,249,.78); }
+    .schedule-calendar__meta { margin-top:10px; color:var(--admin-text-sub); font-size:.72rem; letter-spacing:.06em; }
+    .schedule-calendar__list { display:grid; gap:8px; margin-top:10px; }
+    .schedule-calendar__item { padding:8px 9px; border:1px solid rgba(31,26,23,.06); background:rgba(255,253,249,.84); }
+    .schedule-calendar__item-time { color:var(--admin-text); font-size:.76rem; font-weight:600; letter-spacing:.08em; }
+    .schedule-calendar__item-name { margin-top:3px; color:var(--admin-text-sub); font-size:.75rem; line-height:1.5; }
+    .schedule-calendar__item--booked { border-left:3px solid rgba(92,105,79,.42); }
+    .schedule-calendar__item--open { border-left:3px solid rgba(176,128,51,.42); }
+    .schedule-calendar__item--closed { border-left:3px solid rgba(141,75,69,.42); }
     .schedule-modal { position:fixed; inset:0; z-index:30; display:grid; place-items:center; padding:28px; }
     .schedule-modal[hidden] { display:none; }
     .schedule-modal__backdrop { position:absolute; inset:0; background:rgba(31,26,23,.24); backdrop-filter:blur(10px); }
@@ -48,6 +69,8 @@
     @media (max-width:900px) {
       .schedule-toolbar, .schedule-day-card__header, .schedule-slot-item { flex-direction:column; align-items:flex-start; }
       .schedule-slot-item__side { justify-content:flex-start; }
+      .schedule-calendar { overflow-x:auto; }
+      .schedule-calendar__head, .schedule-calendar__grid { min-width:760px; }
       .schedule-modal { padding:16px; }
       .schedule-modal__dialog { padding:26px 20px 22px; }
       .schedule-modal__header { flex-direction:column; }
@@ -93,63 +116,54 @@
               <h2 class="dashboard-card__title" id="schedule-title">&#26085;&#21029;&#12398;&#31354;&#12365;&#26528;&#19968;&#35239;</h2>
             </div>
             <div class="reservation-date-switch" role="group" aria-label="&#26085;&#20184;&#20999;&#12426;&#26367;&#12360;">
-              <button class="reservation-date-switch__button is-active" type="button">&#20170;&#26085;</button>
-              <button class="reservation-date-switch__button" type="button">&#26126;&#26085;</button>
-              <button class="reservation-date-switch__button" type="button">&#12459;&#12524;&#12531;&#12480;&#12540;</button>
+              <button class="reservation-date-switch__button is-active" type="button" aria-pressed="true" data-schedule-tab="today">&#20170;&#26085;</button>
+              <button class="reservation-date-switch__button" type="button" aria-pressed="false" data-schedule-tab="tomorrow">&#26126;&#26085;</button>
+              <button class="reservation-date-switch__button" type="button" aria-pressed="false" data-schedule-tab="calendar">&#12459;&#12524;&#12531;&#12480;&#12540;</button>
             </div>
           </div>
 
-          <section class="schedule-day-card" aria-labelledby="schedule-day-title">
-            <div class="schedule-day-card__header">
-              <div>
-                <p class="dashboard-card__eyebrow">&#20170;&#26085;</p>
-                <h3 class="dashboard-card__title" id="schedule-day-title">2026.04.17 &#37329;&#26332;&#26085;</h3>
+          <section class="schedule-list-view" data-schedule-list-view>
+            <section class="schedule-day-card" aria-labelledby="schedule-day-title">
+              <div class="schedule-day-card__header">
+                <div>
+                  <p class="dashboard-card__eyebrow" data-schedule-day-label>&#20170;&#26085;</p>
+                  <h3 class="dashboard-card__title" id="schedule-day-title" data-schedule-day-title>2026.04.17 &#37329;&#26332;&#26085;</h3>
+                </div>
+                <p class="schedule-day-card__meta" data-schedule-day-meta>6 &#26528;</p>
               </div>
-              <p class="schedule-day-card__meta">6 &#26528;</p>
+
+              <div class="schedule-slot-list" data-schedule-slot-list>
+                <button class="schedule-slot-item" type="button" data-slot-kind="booked" data-name="&#23665;&#30000; &#33457;&#23376;" data-time="2026.04.17 10:00" data-guests="2&#21517;" data-note="&#21021;&#22238;&#12398;&#12383;&#12417;&#12459;&#12454;&#12531;&#12475;&#12522;&#12531;&#12464;&#24076;&#26395;" data-status="&#30906;&#23450;">
+                  <div class="schedule-slot-item__main">
+                    <p class="schedule-slot-item__time">10:00</p>
+                    <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
+                  </div>
+                  <div class="schedule-slot-item__side">
+                    <span class="status-chip status-chip--confirmed">&#20104;&#32004;&#12354;&#12426;</span>
+                    <p class="schedule-slot-item__customer">&#23665;&#30000; &#33457;&#23376;</p>
+                  </div>
+                </button>
+              </div>
+            </section>
+          </section>
+
+          <section class="schedule-calendar-view" data-schedule-calendar-view hidden aria-labelledby="schedule-calendar-title">
+            <div class="dashboard-card__head" style="margin-top: 8px;">
+              <p class="dashboard-card__eyebrow">&#26376;&#38291;&#12459;&#12524;&#12531;&#12480;&#12540;</p>
+              <h3 class="dashboard-card__title" id="schedule-calendar-title">2026&#24180;4&#26376;&#12398;&#31354;&#12365;&#26528;</h3>
+              <p class="dashboard-card__submeta">&#26085;&#20184;&#12372;&#12392;&#12398;&#31354;&#12365;&#26528;&#29366;&#27841;&#12392;&#20104;&#32004;&#26377;&#28961;&#12434;&#19968;&#35239;&#12391;&#30906;&#35469;&#12391;&#12365;&#12414;&#12377;&#12290;</p>
             </div>
-
-            <div class="schedule-slot-list">
-              <button class="schedule-slot-item" type="button" data-slot-kind="booked" data-name="&#23665;&#30000; &#33457;&#23376;" data-time="2026.04.17 10:00" data-guests="2&#21517;" data-note="&#21021;&#22238;&#12398;&#12383;&#12417;&#12459;&#12454;&#12531;&#12475;&#12522;&#12531;&#12464;&#24076;&#26395;" data-status="&#30906;&#23450;">
-                <div class="schedule-slot-item__main">
-                  <p class="schedule-slot-item__time">10:00</p>
-                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
-                </div>
-                <div class="schedule-slot-item__side">
-                  <span class="status-chip status-chip--confirmed">&#20104;&#32004;&#12354;&#12426;</span>
-                  <p class="schedule-slot-item__customer">&#23665;&#30000; &#33457;&#23376;</p>
-                </div>
-              </button>
-
-              <button class="schedule-slot-item" type="button" data-slot-kind="toggle" data-state="open">
-                <div class="schedule-slot-item__main">
-                  <p class="schedule-slot-item__time">11:00</p>
-                  <p class="schedule-slot-item__hint">&#31354;&#12365;&#12392;&#12463;&#12525;&#12540;&#12474;&#12434;&#12479;&#12483;&#12503;&#12391;&#20999;&#12426;&#26367;&#12360;</p>
-                </div>
-                <div class="schedule-slot-item__side">
-                  <span class="status-chip status-chip--pending" data-slot-status>&#31354;&#12365;</span>
-                </div>
-              </button>
-
-              <button class="schedule-slot-item" type="button" data-slot-kind="toggle" data-state="closed">
-                <div class="schedule-slot-item__main">
-                  <p class="schedule-slot-item__time">12:00</p>
-                  <p class="schedule-slot-item__hint">&#31354;&#12365;&#12392;&#12463;&#12525;&#12540;&#12474;&#12434;&#12479;&#12483;&#12503;&#12391;&#20999;&#12426;&#26367;&#12360;</p>
-                </div>
-                <div class="schedule-slot-item__side">
-                  <span class="status-chip status-chip--cancelled" data-slot-status>&#12463;&#12525;&#12540;&#12474;</span>
-                </div>
-              </button>
-
-              <button class="schedule-slot-item" type="button" data-slot-kind="booked" data-name="&#20304;&#34276; &#32654;&#21682;" data-time="2026.04.17 13:00" data-guests="1&#21517;" data-note="&#26178;&#38291;&#22793;&#26356;&#12395;&#12388;&#12356;&#12390;&#30456;&#35527;&#12354;&#12426;" data-status="&#26410;&#23550;&#24540;">
-                <div class="schedule-slot-item__main">
-                  <p class="schedule-slot-item__time">13:00</p>
-                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
-                </div>
-                <div class="schedule-slot-item__side">
-                  <span class="status-chip status-chip--confirmed">&#20104;&#32004;&#12354;&#12426;</span>
-                  <p class="schedule-slot-item__customer">&#20304;&#34276; &#32654;&#21682;</p>
-                </div>
-              </button>
+            <div class="schedule-calendar">
+              <div class="schedule-calendar__head">
+                <div class="schedule-calendar__weekday">&#26085;</div>
+                <div class="schedule-calendar__weekday">&#26376;</div>
+                <div class="schedule-calendar__weekday">&#28779;</div>
+                <div class="schedule-calendar__weekday">&#27700;</div>
+                <div class="schedule-calendar__weekday">&#26408;</div>
+                <div class="schedule-calendar__weekday">&#37329;</div>
+                <div class="schedule-calendar__weekday">&#22303;</div>
+              </div>
+              <div class="schedule-calendar__grid" data-schedule-calendar-grid></div>
             </div>
           </section>
         </section>
@@ -201,7 +215,70 @@
 
   <script>
     (() => {
-      const slots = document.querySelectorAll(".schedule-slot-item");
+      const scheduleData = {
+        today: {
+          label: "今日",
+          title: "2026.04.17 金曜日",
+          meta: "6 枠",
+          slots: [
+            { kind: "booked", time: "10:00", name: "山田 花子", guests: "2名", note: "初回のためカウンセリング希望", status: "確定" },
+            { kind: "toggle", time: "11:00", state: "open" },
+            { kind: "toggle", time: "12:00", state: "closed" },
+            { kind: "booked", time: "13:00", name: "佐藤 美咲", guests: "1名", note: "時間変更について相談あり", status: "未対応" }
+          ]
+        },
+        tomorrow: {
+          label: "明日",
+          title: "2026.04.18 土曜日",
+          meta: "7 枠",
+          slots: [
+            { kind: "toggle", time: "10:00", state: "open" },
+            { kind: "booked", time: "11:30", name: "中村 美月", guests: "2名", note: "初回来店", status: "確定" },
+            { kind: "toggle", time: "13:00", state: "open" },
+            { kind: "booked", time: "15:00", name: "小林 彩乃", guests: "3名", note: "ペア体験", status: "確定" },
+            { kind: "toggle", time: "17:00", state: "closed" }
+          ]
+        }
+      };
+
+      const calendarData = [
+        { date: "2026-03-30", currentMonth: false, items: [] },
+        { date: "2026-03-31", currentMonth: false, items: [] },
+        { date: "2026-04-01", currentMonth: true, items: [{ time: "11:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-02", currentMonth: true, items: [{ time: "12:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-03", currentMonth: true, items: [{ time: "13:00", label: "クローズ", type: "closed" }] },
+        { date: "2026-04-04", currentMonth: true, items: [{ time: "14:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-05", currentMonth: true, items: [{ time: "10:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-06", currentMonth: true, items: [] },
+        { date: "2026-04-07", currentMonth: true, items: [{ time: "12:30", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-08", currentMonth: true, items: [{ time: "15:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-09", currentMonth: true, items: [] },
+        { date: "2026-04-10", currentMonth: true, items: [{ time: "11:30", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-11", currentMonth: true, items: [{ time: "14:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-12", currentMonth: true, items: [{ time: "16:30", label: "クローズ", type: "closed" }] },
+        { date: "2026-04-13", currentMonth: true, items: [] },
+        { date: "2026-04-14", currentMonth: true, items: [{ time: "13:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-15", currentMonth: true, items: [{ time: "15:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-16", currentMonth: true, items: [{ time: "10:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-17", currentMonth: true, items: [{ time: "10:00", label: "予約あり", type: "booked" }, { time: "11:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-18", currentMonth: true, items: [{ time: "11:30", label: "予約あり", type: "booked" }, { time: "17:00", label: "クローズ", type: "closed" }] },
+        { date: "2026-04-19", currentMonth: true, items: [{ time: "16:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-20", currentMonth: true, items: [{ time: "10:30", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-21", currentMonth: true, items: [{ time: "12:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-22", currentMonth: true, items: [{ time: "15:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-23", currentMonth: true, items: [] },
+        { date: "2026-04-24", currentMonth: true, items: [{ time: "11:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-25", currentMonth: true, items: [{ time: "14:00", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-26", currentMonth: true, items: [{ time: "16:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-27", currentMonth: true, items: [] },
+        { date: "2026-04-28", currentMonth: true, items: [{ time: "13:30", label: "予約あり", type: "booked" }] },
+        { date: "2026-04-29", currentMonth: true, items: [{ time: "11:00", label: "空き枠あり", type: "open" }] },
+        { date: "2026-04-30", currentMonth: true, items: [{ time: "15:30", label: "予約あり", type: "booked" }] },
+        { date: "2026-05-01", currentMonth: false, items: [] },
+        { date: "2026-05-02", currentMonth: false, items: [] },
+        { date: "2026-05-03", currentMonth: false, items: [] }
+      ];
+
       const statusMap = {
         open: { label: "\u7a7a\u304d", className: "status-chip status-chip--pending" },
         closed: { label: "\u30af\u30ed\u30fc\u30ba", className: "status-chip status-chip--cancelled" }
@@ -219,6 +296,15 @@
       const modalNote = document.querySelector("[data-modal-note]");
       const modalStatusWrap = document.querySelector("[data-modal-status-wrap]");
       const closeTriggers = document.querySelectorAll("[data-schedule-close]");
+      const tabButtons = document.querySelectorAll("[data-schedule-tab]");
+      const listView = document.querySelector("[data-schedule-list-view]");
+      const calendarView = document.querySelector("[data-schedule-calendar-view]");
+      const dayLabel = document.querySelector("[data-schedule-day-label]");
+      const dayTitle = document.querySelector("[data-schedule-day-title]");
+      const dayMeta = document.querySelector("[data-schedule-day-meta]");
+      const slotList = document.querySelector("[data-schedule-slot-list]");
+      const calendarGrid = document.querySelector("[data-schedule-calendar-grid]");
+      let activeTab = "today";
 
       const openBookedModal = (slot) => {
         if (!modal) return;
@@ -246,25 +332,124 @@
         document.body.classList.remove("is-modal-open");
       };
 
+      const renderSlots = (key) => {
+        if (!slotList || !scheduleData[key]) return;
+        const current = scheduleData[key];
+        if (dayLabel) dayLabel.textContent = current.label;
+        if (dayTitle) dayTitle.textContent = current.title;
+        if (dayMeta) dayMeta.textContent = current.meta;
+
+        slotList.innerHTML = current.slots.map((slot) => {
+          if (slot.kind === "booked") {
+            return `
+              <button class="schedule-slot-item" type="button" data-slot-kind="booked" data-name="${slot.name}" data-time="${current.title.split(" ")[0]} ${slot.time}" data-guests="${slot.guests}" data-note="${slot.note}" data-status="${slot.status}">
+                <div class="schedule-slot-item__main">
+                  <p class="schedule-slot-item__time">${slot.time}</p>
+                  <p class="schedule-slot-item__hint">&#12479;&#12483;&#12503;&#12391;&#20104;&#32004;&#35443;&#32048;&#12434;&#38283;&#12367;</p>
+                </div>
+                <div class="schedule-slot-item__side">
+                  <span class="status-chip status-chip--confirmed">&#20104;&#32004;&#12354;&#12426;</span>
+                  <p class="schedule-slot-item__customer">${slot.name}</p>
+                </div>
+              </button>
+            `;
+          }
+
+          const statusClass = slot.state === "closed" ? "status-chip status-chip--cancelled" : "status-chip status-chip--pending";
+          const statusLabel = slot.state === "closed" ? "&#12463;&#12525;&#12540;&#12474;" : "&#31354;&#12365;";
+          return `
+            <button class="schedule-slot-item" type="button" data-slot-kind="toggle" data-state="${slot.state}">
+              <div class="schedule-slot-item__main">
+                <p class="schedule-slot-item__time">${slot.time}</p>
+                <p class="schedule-slot-item__hint">&#31354;&#12365;&#12392;&#12463;&#12525;&#12540;&#12474;&#12434;&#12479;&#12483;&#12503;&#12391;&#20999;&#12426;&#26367;&#12360;</p>
+              </div>
+              <div class="schedule-slot-item__side">
+                <span class="${statusClass}" data-slot-status>${statusLabel}</span>
+              </div>
+            </button>
+          `;
+        }).join("");
+      };
+
+      const renderCalendar = () => {
+        if (!calendarGrid) return;
+        calendarGrid.innerHTML = calendarData.map((day) => {
+          const date = new Date(day.date + "T00:00:00");
+          const dayNumber = String(date.getDate());
+          const dayClasses = [
+            "schedule-calendar__day",
+            day.currentMonth ? "" : "schedule-calendar__day--muted",
+            day.date === "2026-04-17" ? "schedule-calendar__day--today" : ""
+          ].filter(Boolean).join(" ");
+          const countLabel = day.items.length ? `${day.items.length}件` : "";
+          const items = day.items.length
+            ? day.items.slice(0, 2).map((item) => `
+                <div class="schedule-calendar__item schedule-calendar__item--${item.type}">
+                  <div class="schedule-calendar__item-time">${item.time}</div>
+                  <div class="schedule-calendar__item-name">${item.label}</div>
+                </div>
+              `).join("")
+            : `<div class="schedule-calendar__meta">&#31354;&#12365;&#29366;&#27841;&#12398;&#35352;&#37682;&#12394;&#12375;</div>`;
+
+          return `
+            <article class="${dayClasses}">
+              <div class="schedule-calendar__date">${dayNumber}</div>
+              <div class="schedule-calendar__meta">${countLabel}</div>
+              <div class="schedule-calendar__list">${items}</div>
+            </article>
+          `;
+        }).join("");
+      };
+
+      const bindSlotEvents = () => {
+        const slots = document.querySelectorAll(".schedule-slot-item");
+        slots.forEach((slot) => {
+          slot.addEventListener("click", () => {
+            if (slot.dataset.slotKind === "booked") {
+              openBookedModal(slot);
+              return;
+            }
+
+            const next = slot.dataset.state === "closed" ? "open" : "closed";
+            slot.dataset.state = next;
+            const status = slot.querySelector("[data-slot-status]");
+
+            if (status) {
+              status.className = statusMap[next].className;
+              status.textContent = statusMap[next].label;
+            }
+          });
+        });
+      };
+
+      const setActiveTab = (key) => {
+        activeTab = key;
+        tabButtons.forEach((button) => {
+          const isActive = button.dataset.scheduleTab === key;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+        });
+
+        const isCalendar = key === "calendar";
+        if (listView) listView.hidden = isCalendar;
+        if (calendarView) calendarView.hidden = !isCalendar;
+
+        if (isCalendar) {
+          renderCalendar();
+          return;
+        }
+
+        renderSlots(key);
+        bindSlotEvents();
+      };
+
       closeTriggers.forEach((trigger) => {
         trigger.addEventListener("click", closeModal);
       });
 
-      slots.forEach((slot) => {
-        slot.addEventListener("click", () => {
-          if (slot.dataset.slotKind === "booked") {
-            openBookedModal(slot);
-            return;
-          }
-
-          const next = slot.dataset.state === "closed" ? "open" : "closed";
-          slot.dataset.state = next;
-          const status = slot.querySelector("[data-slot-status]");
-
-          if (status) {
-            status.className = statusMap[next].className;
-            status.textContent = statusMap[next].label;
-          }
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setActiveTab(button.dataset.scheduleTab);
         });
       });
 
@@ -273,6 +458,8 @@
           closeModal();
         }
       });
+
+      setActiveTab(activeTab);
     })();
   </script>
 </body>

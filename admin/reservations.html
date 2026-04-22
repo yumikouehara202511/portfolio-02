@@ -6,6 +6,137 @@
   <title>&#20104;&#32004;&#31649;&#29702; | MY SCENT BY INOWA</title>
   <meta name="description" content="MY SCENT BY INOWA&#12398;&#20104;&#32004;&#31649;&#29702;&#12506;&#12540;&#12472;&#12290;">
   <link rel="stylesheet" href="../css/admin-layout.css">
+  <style>
+    .reservation-calendar-view[hidden] {
+      display: none;
+    }
+
+    .reservation-table-view[hidden] {
+      display: none;
+    }
+
+    .reservation-toolbar[hidden] {
+      display: none;
+    }
+
+    .reservation-calendar-view {
+      margin-top: 8px;
+    }
+
+    .reservation-calendar {
+      border: 1px solid var(--admin-line-soft);
+      background: rgba(255, 253, 249, 0.82);
+    }
+
+    .reservation-calendar__head,
+    .reservation-calendar__grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+    }
+
+    .reservation-calendar__head {
+      border-bottom: 1px solid var(--admin-line-soft);
+      background: rgba(248, 244, 238, 0.72);
+    }
+
+    .reservation-calendar__weekday {
+      padding: 14px 10px;
+      color: var(--admin-text-sub);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .reservation-calendar__day {
+      min-height: 146px;
+      padding: 14px 12px 12px;
+      border-right: 1px solid var(--admin-line-soft);
+      border-bottom: 1px solid var(--admin-line-soft);
+      background: rgba(255, 253, 249, 0.68);
+    }
+
+    .reservation-calendar__day:nth-child(7n) {
+      border-right: 0;
+    }
+
+    .reservation-calendar__day--muted {
+      background: rgba(246, 242, 235, 0.48);
+      color: rgba(109, 101, 94, 0.65);
+    }
+
+    .reservation-calendar__day--today {
+      background: linear-gradient(180deg, rgba(255, 251, 244, 0.9) 0%, rgba(249, 242, 232, 0.84) 100%);
+    }
+
+    .reservation-calendar__date {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 34px;
+      min-height: 34px;
+      color: var(--admin-text);
+      font-family: "Noto Serif JP", serif;
+      font-size: 1rem;
+    }
+
+    .reservation-calendar__day--today .reservation-calendar__date {
+      border: 1px solid rgba(176, 128, 51, 0.24);
+      background: rgba(255, 253, 249, 0.78);
+    }
+
+    .reservation-calendar__meta {
+      margin-top: 10px;
+      color: var(--admin-text-sub);
+      font-size: 0.72rem;
+      letter-spacing: 0.06em;
+    }
+
+    .reservation-calendar__list {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .reservation-calendar__item {
+      padding: 8px 9px;
+      border: 1px solid rgba(31, 26, 23, 0.06);
+      background: rgba(255, 253, 249, 0.84);
+    }
+
+    .reservation-calendar__item-time {
+      color: var(--admin-text);
+      font-size: 0.76rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+    }
+
+    .reservation-calendar__item-name {
+      margin-top: 3px;
+      color: var(--admin-text-sub);
+      font-size: 0.75rem;
+      line-height: 1.5;
+    }
+
+    .reservation-calendar__item--pending {
+      border-left: 3px solid rgba(176, 128, 51, 0.46);
+    }
+
+    .reservation-calendar__item--cancelled {
+      border-left: 3px solid rgba(141, 75, 69, 0.46);
+    }
+
+    @media (max-width: 900px) {
+      .reservation-calendar {
+        overflow-x: auto;
+      }
+
+      .reservation-calendar__head,
+      .reservation-calendar__grid {
+        min-width: 760px;
+      }
+    }
+  </style>
 </head>
 <body>
   <div class="admin-layout">
@@ -47,16 +178,16 @@
               <p class="dashboard-card__submeta">&#26085;&#20184;&#12372;&#12392;&#12395;&#20104;&#32004;&#29366;&#27841;&#12392;&#23550;&#24540;&#29366;&#27841;&#12434;&#30906;&#35469;&#12391;&#12365;&#12414;&#12377;&#12290;</p>
             </div>
             <div class="reservation-page__actions">
-              <button class="reservation-add-button" type="button">&#26032;&#35215;&#20104;&#32004;</button>
+              <button class="reservation-add-button" type="button" data-reservation-open>&#26032;&#35215;&#20104;&#32004;</button>
               <div class="reservation-date-switch" role="group" aria-label="&#26085;&#20184;&#20999;&#12426;&#26367;&#12360;">
-                <button class="reservation-date-switch__button is-active" type="button" aria-pressed="true">&#20170;&#26085;</button>
-                <button class="reservation-date-switch__button" type="button" aria-pressed="false">&#26126;&#26085;</button>
-                <button class="reservation-date-switch__button" type="button" aria-pressed="false">&#12459;&#12524;&#12531;&#12480;&#12540;</button>
+                <button class="reservation-date-switch__button is-active" type="button" aria-pressed="true" data-reservation-tab="today">&#20170;&#26085;</button>
+                <button class="reservation-date-switch__button" type="button" aria-pressed="false" data-reservation-tab="tomorrow">&#26126;&#26085;</button>
+                <button class="reservation-date-switch__button" type="button" aria-pressed="false" data-reservation-tab="calendar">&#12459;&#12524;&#12531;&#12480;&#12540;</button>
               </div>
             </div>
           </div>
 
-          <div class="reservation-toolbar">
+          <div class="reservation-toolbar" data-reservation-toolbar>
             <div class="reservation-toolbar__summary">
               <p class="reservation-toolbar__count">&#26410;&#23550;&#24540; <span data-pending-count>1</span>&#20214;</p>
             </div>
@@ -66,7 +197,7 @@
             </label>
           </div>
 
-          <div class="dashboard-table-wrap">
+          <div class="dashboard-table-wrap reservation-table-view" data-reservation-table-view>
             <table class="dashboard-table reservation-table">
               <thead>
                 <tr>
@@ -77,7 +208,7 @@
                   <th>&#12473;&#12486;&#12540;&#12479;&#12473;</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody data-reservation-body>
                 <tr class="reservation-table__row" tabindex="0" onclick="window.location.href='./reservations/index.html'">
                   <td class="reservation-table__time">10:00</td>
                   <td>&#23665;&#30000; &#33457;&#23376;</td>
@@ -109,29 +240,335 @@
               </tbody>
             </table>
           </div>
+
+          <section class="reservation-calendar-view" data-reservation-calendar-view hidden aria-labelledby="reservation-calendar-title">
+            <div class="dashboard-card__head" style="margin-top: 8px;">
+              <p class="dashboard-card__eyebrow">&#26376;&#38291;&#12459;&#12524;&#12531;&#12480;&#12540;</p>
+              <h3 class="dashboard-card__title" id="reservation-calendar-title">2026&#24180;4&#26376;&#12398;&#20104;&#32004;</h3>
+              <p class="dashboard-card__submeta">&#26085;&#20184;&#12372;&#12392;&#12398;&#20104;&#32004;&#12392;&#26410;&#23550;&#24540;&#29366;&#27841;&#12434;&#19968;&#35239;&#12391;&#30906;&#35469;&#12391;&#12365;&#12414;&#12377;&#12290;</p>
+            </div>
+            <div class="reservation-calendar">
+              <div class="reservation-calendar__head">
+                <div class="reservation-calendar__weekday">&#26085;</div>
+                <div class="reservation-calendar__weekday">&#26376;</div>
+                <div class="reservation-calendar__weekday">&#28779;</div>
+                <div class="reservation-calendar__weekday">&#27700;</div>
+                <div class="reservation-calendar__weekday">&#26408;</div>
+                <div class="reservation-calendar__weekday">&#37329;</div>
+                <div class="reservation-calendar__weekday">&#22303;</div>
+              </div>
+              <div class="reservation-calendar__grid" data-reservation-calendar-grid></div>
+            </div>
+          </section>
         </section>
       </main>
     </div>
   </div>
 
+  <div class="reservation-modal" data-reservation-modal hidden>
+    <div class="reservation-modal__backdrop" data-reservation-close></div>
+    <section class="reservation-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="reservation-modal-title">
+      <div class="reservation-modal__header">
+        <div class="dashboard-card__head" style="margin-bottom:0;">
+          <p class="dashboard-card__eyebrow">&#26032;&#35215;&#20104;&#32004;</p>
+          <h2 class="dashboard-card__title reservation-modal__title" id="reservation-modal-title">&#20104;&#32004;&#12434;&#30331;&#37682;</h2>
+          <p class="dashboard-card__submeta">&#39015;&#23458;&#24773;&#22577;&#12392;&#20104;&#32004;&#20869;&#23481;&#12434;&#20837;&#21147;&#12375;&#12414;&#12377;&#12290;</p>
+        </div>
+        <button class="reservation-modal__close" type="button" data-reservation-close>&#38281;&#12376;&#12427;</button>
+      </div>
+
+      <form class="reservation-form" data-reservation-form>
+        <div class="reservation-form__grid">
+          <label class="reservation-field">
+            <span class="reservation-field__label">&#39015;&#23458;&#21517;</span>
+            <input class="reservation-field__input" type="text" name="customer_name" placeholder="&#20363; &#23665;&#30000; &#33457;&#23376;" required>
+          </label>
+          <label class="reservation-field">
+            <span class="reservation-field__label">&#20154;&#25968;</span>
+            <select class="reservation-field__input reservation-field__select" name="guests">
+              <option>1&#21517;</option>
+              <option selected>2&#21517;</option>
+              <option>3&#21517;</option>
+              <option>4&#21517;</option>
+            </select>
+          </label>
+          <label class="reservation-field">
+            <span class="reservation-field__label">&#26085;&#20184;</span>
+            <input class="reservation-field__input" type="date" name="date" value="2026-04-17" required>
+          </label>
+          <label class="reservation-field">
+            <span class="reservation-field__label">&#26178;&#38291;</span>
+            <select class="reservation-field__input reservation-field__select" name="time">
+              <option>10:00</option>
+              <option>11:30</option>
+              <option selected>14:00</option>
+              <option>16:00</option>
+              <option>18:00</option>
+            </select>
+          </label>
+          <label class="reservation-field">
+            <span class="reservation-field__label">&#12473;&#12486;&#12540;&#12479;&#12473;</span>
+            <select class="reservation-field__input reservation-field__select" name="status">
+              <option selected>&#30906;&#23450;</option>
+              <option>&#26410;&#23550;&#24540;</option>
+              <option>&#12461;&#12515;&#12531;&#12475;&#12523;</option>
+            </select>
+          </label>
+          <label class="reservation-field">
+            <span class="reservation-field__label">&#38651;&#35441;&#30058;&#21495;</span>
+            <input class="reservation-field__input" type="tel" name="phone" placeholder="090-1234-5678">
+          </label>
+          <label class="reservation-field reservation-field--full">
+            <span class="reservation-field__label">&#20633;&#32771;</span>
+            <textarea class="reservation-field__input reservation-field__textarea" name="note" placeholder="&#12450;&#12524;&#12523;&#12462;&#12540;&#37197;&#24942;&#12420;&#12458;&#12503;&#12471;&#12519;&#12531;&#24076;&#26395;&#12394;&#12393;"></textarea>
+          </label>
+        </div>
+
+        <div class="reservation-form__footer">
+          <div class="reservation-form__status">
+            <span class="reservation-form__status-label">&#20837;&#21147;&#29366;&#24907;</span>
+            <span class="status-chip status-chip--pending">&#26410;&#20445;&#23384;</span>
+          </div>
+          <div class="reservation-form__actions">
+            <button class="reservation-form__button reservation-form__button--ghost" type="button" data-reservation-close>&#12461;&#12515;&#12531;&#12475;&#12523;</button>
+            <button class="reservation-form__button reservation-form__button--primary" type="submit">&#20445;&#23384;&#12377;&#12427;</button>
+          </div>
+        </div>
+      </form>
+    </section>
+  </div>
+
   <script>
     (() => {
+      const reservationData = {
+        today: [
+          { time: "10:00", customer: "山田 花子", guests: "2名", note: "-", status: "confirmed", statusLabel: "確定", pending: false },
+          { time: "11:30", customer: "佐藤 美咲", guests: "1名", note: "時間変更相談", status: "pending", statusLabel: "未対応", pending: true },
+          { time: "14:00", customer: "鈴木 健太", guests: "2名", note: "ギフト利用", status: "confirmed", statusLabel: "確定", pending: false },
+          { time: "16:00", customer: "高橋 由衣", guests: "1名", note: "アレルギー配慮", status: "cancelled", statusLabel: "キャンセル", pending: false }
+        ],
+        tomorrow: [
+          { time: "10:30", customer: "中村 美月", guests: "2名", note: "初回来店", status: "confirmed", statusLabel: "確定", pending: false },
+          { time: "12:00", customer: "井上 拓海", guests: "1名", note: "香り相談あり", status: "pending", statusLabel: "未対応", pending: true },
+          { time: "15:00", customer: "小林 彩乃", guests: "3名", note: "ペア体験", status: "confirmed", statusLabel: "確定", pending: false },
+          { time: "18:00", customer: "松本 春菜", guests: "1名", note: "-", status: "confirmed", statusLabel: "確定", pending: false }
+        ]
+      };
+
+      const calendarData = [
+        { date: "2026-03-30", currentMonth: false, reservations: [] },
+        { date: "2026-03-31", currentMonth: false, reservations: [] },
+        { date: "2026-04-01", currentMonth: true, reservations: [{ time: "11:00", customer: "吉田 莉子", status: "confirmed" }] },
+        { date: "2026-04-02", currentMonth: true, reservations: [{ time: "15:00", customer: "岡田 直樹", status: "confirmed" }] },
+        { date: "2026-04-03", currentMonth: true, reservations: [{ time: "13:00", customer: "林 愛美", status: "pending" }] },
+        { date: "2026-04-04", currentMonth: true, reservations: [{ time: "14:00", customer: "石川 里奈", status: "confirmed" }, { time: "16:00", customer: "中西 遼", status: "confirmed" }] },
+        { date: "2026-04-05", currentMonth: true, reservations: [{ time: "10:00", customer: "村上 美優", status: "confirmed" }] },
+        { date: "2026-04-06", currentMonth: true, reservations: [] },
+        { date: "2026-04-07", currentMonth: true, reservations: [{ time: "12:30", customer: "藤井 翼", status: "confirmed" }] },
+        { date: "2026-04-08", currentMonth: true, reservations: [{ time: "15:00", customer: "坂本 花", status: "pending" }] },
+        { date: "2026-04-09", currentMonth: true, reservations: [] },
+        { date: "2026-04-10", currentMonth: true, reservations: [{ time: "11:30", customer: "森川 凛", status: "confirmed" }] },
+        { date: "2026-04-11", currentMonth: true, reservations: [{ time: "14:00", customer: "清水 結衣", status: "confirmed" }] },
+        { date: "2026-04-12", currentMonth: true, reservations: [{ time: "16:30", customer: "長谷川 航", status: "cancelled" }] },
+        { date: "2026-04-13", currentMonth: true, reservations: [] },
+        { date: "2026-04-14", currentMonth: true, reservations: [{ time: "13:00", customer: "原田 咲", status: "confirmed" }] },
+        { date: "2026-04-15", currentMonth: true, reservations: [] },
+        { date: "2026-04-16", currentMonth: true, reservations: [{ time: "10:00", customer: "佐々木 雫", status: "confirmed" }] },
+        { date: "2026-04-17", currentMonth: true, reservations: [{ time: "10:00", customer: "山田 花子", status: "confirmed" }, { time: "11:30", customer: "佐藤 美咲", status: "pending" }] },
+        { date: "2026-04-18", currentMonth: true, reservations: [{ time: "14:00", customer: "鈴木 健太", status: "confirmed" }] },
+        { date: "2026-04-19", currentMonth: true, reservations: [{ time: "16:00", customer: "高橋 由衣", status: "cancelled" }] },
+        { date: "2026-04-20", currentMonth: true, reservations: [{ time: "10:30", customer: "中村 美月", status: "confirmed" }] },
+        { date: "2026-04-21", currentMonth: true, reservations: [{ time: "12:00", customer: "井上 拓海", status: "pending" }] },
+        { date: "2026-04-22", currentMonth: true, reservations: [{ time: "15:00", customer: "小林 彩乃", status: "confirmed" }, { time: "18:00", customer: "松本 春菜", status: "confirmed" }] },
+        { date: "2026-04-23", currentMonth: true, reservations: [] },
+        { date: "2026-04-24", currentMonth: true, reservations: [{ time: "11:00", customer: "渡辺 梨央", status: "confirmed" }] },
+        { date: "2026-04-25", currentMonth: true, reservations: [{ time: "14:00", customer: "木村 真央", status: "confirmed" }] },
+        { date: "2026-04-26", currentMonth: true, reservations: [{ time: "16:00", customer: "前田 花音", status: "pending" }] },
+        { date: "2026-04-27", currentMonth: true, reservations: [] },
+        { date: "2026-04-28", currentMonth: true, reservations: [{ time: "13:30", customer: "小野 春樹", status: "confirmed" }] },
+        { date: "2026-04-29", currentMonth: true, reservations: [{ time: "11:00", customer: "今井 葵", status: "confirmed" }] },
+        { date: "2026-04-30", currentMonth: true, reservations: [{ time: "15:30", customer: "西田 愛菜", status: "confirmed" }] },
+        { date: "2026-05-01", currentMonth: false, reservations: [] },
+        { date: "2026-05-02", currentMonth: false, reservations: [] },
+        { date: "2026-05-03", currentMonth: false, reservations: [] }
+      ];
+
       const pendingFilter = document.querySelector("[data-pending-filter]");
-      const rows = document.querySelectorAll(".reservation-table__row");
-      rows.forEach((row) => {
-        row.addEventListener("keydown", (event) => {
-          if (event.key === "Enter" || event.key === " ") {
-            event.preventDefault();
-            row.click();
-          }
+      const pendingCount = document.querySelector("[data-pending-count]");
+      const tableBody = document.querySelector("[data-reservation-body]");
+      const tableView = document.querySelector("[data-reservation-table-view]");
+      const calendarView = document.querySelector("[data-reservation-calendar-view]");
+      const calendarGrid = document.querySelector("[data-reservation-calendar-grid]");
+      const toolbar = document.querySelector("[data-reservation-toolbar]");
+      const tabButtons = document.querySelectorAll("[data-reservation-tab]");
+      const modal = document.querySelector("[data-reservation-modal]");
+      const modalOpenButton = document.querySelector("[data-reservation-open]");
+      const modalCloseButtons = document.querySelectorAll("[data-reservation-close]");
+      const reservationForm = document.querySelector("[data-reservation-form]");
+      let activeTab = "today";
+
+      const openReservationModal = () => {
+        if (!modal) return;
+        modal.hidden = false;
+        document.body.classList.add("is-modal-open");
+      };
+
+      const closeReservationModal = () => {
+        if (!modal) return;
+        modal.hidden = true;
+        document.body.classList.remove("is-modal-open");
+      };
+
+      const bindRowEvents = () => {
+        const rows = document.querySelectorAll(".reservation-table__row");
+        rows.forEach((row) => {
+          row.addEventListener("click", () => {
+            window.location.href = "./reservations/index.html";
+          });
+          row.addEventListener("keydown", (event) => {
+            if (event.key === "Enter" || event.key === " ") {
+              event.preventDefault();
+              row.click();
+            }
+          });
         });
-      });
-      if (!pendingFilter) return;
-      pendingFilter.addEventListener("change", () => {
+      };
+
+      const applyPendingFilter = () => {
+        if (!pendingFilter) return;
+        const rows = document.querySelectorAll(".reservation-table__row");
         rows.forEach((row) => {
           row.hidden = pendingFilter.checked && !row.hasAttribute("data-pending-row");
         });
+      };
+
+      const renderRows = (key) => {
+        if (!tableBody || !reservationData[key]) return;
+        tableBody.innerHTML = reservationData[key].map((item) => {
+          const rowClass = item.pending ? "reservation-table__row is-pending-row" : "reservation-table__row";
+          const pendingAttr = item.pending ? " data-pending-row" : "";
+          const statusClass =
+            item.status === "pending"
+              ? "status-chip status-chip--pending"
+              : item.status === "cancelled"
+                ? "status-chip status-chip--cancelled"
+                : "status-chip status-chip--confirmed";
+
+          return `
+            <tr class="${rowClass}" tabindex="0"${pendingAttr}>
+              <td class="reservation-table__time">${item.time}</td>
+              <td>${item.customer}</td>
+              <td>${item.guests}</td>
+              <td>${item.note}</td>
+              <td><span class="${statusClass}">${item.statusLabel}</span></td>
+            </tr>
+          `;
+        }).join("");
+
+        if (pendingCount) {
+          pendingCount.textContent = String(reservationData[key].filter((item) => item.pending).length);
+        }
+
+        bindRowEvents();
+        applyPendingFilter();
+      };
+
+      const renderCalendar = () => {
+        if (!calendarGrid) return;
+        calendarGrid.innerHTML = calendarData.map((day) => {
+          const date = new Date(day.date + "T00:00:00");
+          const dayNumber = String(date.getDate());
+          const dayClasses = [
+            "reservation-calendar__day",
+            day.currentMonth ? "" : "reservation-calendar__day--muted",
+            day.date === "2026-04-17" ? "reservation-calendar__day--today" : ""
+          ].filter(Boolean).join(" ");
+
+          const reservationItems = day.reservations.length
+            ? day.reservations.slice(0, 2).map((reservation) => {
+                const itemClass =
+                  reservation.status === "pending"
+                    ? "reservation-calendar__item reservation-calendar__item--pending"
+                    : reservation.status === "cancelled"
+                      ? "reservation-calendar__item reservation-calendar__item--cancelled"
+                      : "reservation-calendar__item";
+                return `
+                  <div class="${itemClass}">
+                    <div class="reservation-calendar__item-time">${reservation.time}</div>
+                    <div class="reservation-calendar__item-name">${reservation.customer}</div>
+                  </div>
+                `;
+              }).join("")
+            : `<div class="reservation-calendar__meta">&#20104;&#32004;&#12394;&#12375;</div>`;
+
+          const countLabel = day.reservations.length ? `${day.reservations.length}件` : "";
+
+          return `
+            <article class="${dayClasses}">
+              <div class="reservation-calendar__date">${dayNumber}</div>
+              <div class="reservation-calendar__meta">${countLabel}</div>
+              <div class="reservation-calendar__list">${reservationItems}</div>
+            </article>
+          `;
+        }).join("");
+      };
+
+      const setActiveTab = (key) => {
+        activeTab = key;
+        tabButtons.forEach((button) => {
+          const isActive = button.dataset.reservationTab === key;
+          button.classList.toggle("is-active", isActive);
+          button.setAttribute("aria-pressed", String(isActive));
+        });
+        const isCalendar = key === "calendar";
+        if (tableView) tableView.hidden = isCalendar;
+        if (calendarView) calendarView.hidden = !isCalendar;
+        if (toolbar) toolbar.hidden = isCalendar;
+
+        if (isCalendar) {
+          renderCalendar();
+          return;
+        }
+
+        renderRows(key);
+      };
+
+      bindRowEvents();
+
+      tabButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          setActiveTab(button.dataset.reservationTab);
+        });
       });
+
+      if (pendingFilter) {
+        pendingFilter.addEventListener("change", () => {
+          applyPendingFilter();
+        });
+      }
+
+      if (modalOpenButton) {
+        modalOpenButton.addEventListener("click", openReservationModal);
+      }
+
+      modalCloseButtons.forEach((button) => {
+        button.addEventListener("click", closeReservationModal);
+      });
+
+      if (reservationForm) {
+        reservationForm.addEventListener("submit", (event) => {
+          event.preventDefault();
+          closeReservationModal();
+        });
+      }
+
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && modal && !modal.hidden) {
+          closeReservationModal();
+        }
+      });
+
+      setActiveTab(activeTab);
     })();
   </script>
 </body>
