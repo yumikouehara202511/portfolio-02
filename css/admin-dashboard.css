@@ -8,8 +8,8 @@
   --dashboard-sidebar: #f3efe8;
   --dashboard-line: rgba(31, 26, 23, 0.1);
   --dashboard-line-soft: rgba(31, 26, 23, 0.06);
-  --dashboard-text: #1f1a17;
-  --dashboard-text-sub: #6d655e;
+  --dashboard-text: #1c1917;
+  --dashboard-text-sub: #514a44;
   --dashboard-dark: #111111;
   --dashboard-accent: #d9cdbd;
   --sidebar-width: 300px;
@@ -421,7 +421,7 @@ p {
 
 .status-chip--pending {
   background: rgba(217, 205, 189, 0.22);
-  color: #756b63;
+  color: #5f564f;
 }
 
 .status-chip--cancelled {

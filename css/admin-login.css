@@ -4,8 +4,8 @@
   --admin-bg: #f6f3ee;
   --admin-bg-soft: #fbfaf7;
   --admin-surface: rgba(251, 250, 247, 0.78);
-  --admin-text: #1f1a17;
-  --admin-text-sub: #6d655e;
+  --admin-text: #1c1917;
+  --admin-text-sub: #514a44;
   --admin-line: rgba(31, 26, 23, 0.12);
   --admin-dark: #111111;
   --admin-accent: #d9cdbd;
@@ -232,7 +232,7 @@ input {
 }
 
 .admin-login-form__input::placeholder {
-  color: rgba(109, 101, 94, 0.9);
+  color: rgba(81, 74, 68, 0.9);
 }
 
 .admin-login-form__input:focus {

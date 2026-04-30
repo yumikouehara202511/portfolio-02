@@ -8,8 +8,10 @@
   --admin-sidebar: rgba(246, 242, 235, 0.92);
   --admin-line: rgba(31, 26, 23, 0.08);
   --admin-line-soft: rgba(31, 26, 23, 0.045);
-  --admin-text: #1f1a17;
-  --admin-text-sub: #6d655e;
+  --admin-text: #1c1917;
+  --admin-text-sub: #514a44;
+  --admin-text-muted: rgba(81, 74, 68, 0.9);
+  --admin-text-soft: rgba(81, 74, 68, 0.78);
   --admin-dark: #111111;
   --admin-accent: #d9cdbd;
   --admin-sidebar-width: 304px;
@@ -179,7 +181,7 @@ p {
   font-size: 0.7rem;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  opacity: 0.8;
+  opacity: 0.92;
 }
 
 .admin-layout__title {
@@ -205,7 +207,7 @@ p {
   font-size: 0.72rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  opacity: 0.72;
+  opacity: 0.86;
 }
 
 .admin-layout__content {
@@ -283,7 +285,7 @@ p {
   font-size: 0.64rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
-  opacity: 0.9;
+  opacity: 0.96;
 }
 
 .dashboard-card__value {
@@ -325,7 +327,7 @@ p {
 
 .dashboard-card__submeta {
   margin-top: 8px;
-  color: rgba(109, 101, 94, 0.88);
+  color: var(--admin-text-muted);
   font-size: 0.76rem;
   letter-spacing: 0.04em;
   min-height: 1.4em;
@@ -446,7 +448,7 @@ p {
 
 .status-chip--pending {
   background: rgba(217, 205, 189, 0.2);
-  color: #756b63;
+  color: #5f564f;
 }
 
 .status-chip--cancelled {
@@ -682,7 +684,7 @@ p {
   content: "Open";
   display: inline-block;
   margin-left: 12px;
-  color: rgba(109, 101, 94, 0.72);
+  color: var(--admin-text-soft);
   font-size: 0.68rem;
   letter-spacing: 0.16em;
   text-transform: uppercase;
