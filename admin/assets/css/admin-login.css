@@ -1,0 +1,363 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;500;600&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --admin-bg: #f6f3ee;
+  --admin-bg-soft: #fbfaf7;
+  --admin-surface: rgba(251, 250, 247, 0.78);
+  --admin-text: #1c1917;
+  --admin-text-sub: #514a44;
+  --admin-line: rgba(31, 26, 23, 0.12);
+  --admin-dark: #111111;
+  --admin-accent: #d9cdbd;
+  --admin-error: #8d4b45;
+  --admin-success: #58654d;
+  --admin-header-height: 82px;
+  --admin-container: 1200px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  min-height: 100%;
+}
+
+body {
+  color: var(--admin-text);
+  background:
+    linear-gradient(180deg, rgba(246, 243, 238, 0.84) 0%, rgba(246, 243, 238, 0.96) 100%),
+    radial-gradient(circle at top left, rgba(217, 205, 189, 0.3), transparent 34%),
+    var(--admin-bg);
+  font-family: "Inter", "Noto Serif JP", serif;
+  line-height: 1.7;
+  letter-spacing: 0.02em;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+.container {
+  width: min(100% - 48px, var(--admin-container));
+  margin: 0 auto;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  backdrop-filter: blur(10px);
+  background: rgba(246, 243, 238, 0.72);
+  border-bottom: 1px solid rgba(31, 26, 23, 0.06);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  min-height: var(--admin-header-height);
+}
+
+.site-logo {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.site-logo-en,
+.site-logo-sub {
+  font-family: "Inter", sans-serif;
+}
+
+.site-logo-en {
+  font-size: 0.92rem;
+  letter-spacing: 0.24em;
+}
+
+.site-logo-sub {
+  color: var(--admin-text-sub);
+  font-size: 0.66rem;
+  letter-spacing: 0.22em;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: opacity 0.2s ease, background-color 0.2s ease;
+}
+
+.btn:hover {
+  opacity: 0.88;
+}
+
+.btn-dark {
+  background: var(--admin-dark);
+  color: #fff;
+  border-color: var(--admin-dark);
+}
+
+.admin-login {
+  position: relative;
+  min-height: calc(100vh - var(--admin-header-height));
+  display: grid;
+  align-items: center;
+  padding: 64px 0 96px;
+}
+
+.admin-login::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(246, 243, 238, 0.92) 0%, rgba(246, 243, 238, 0.62) 52%, rgba(246, 243, 238, 0.88) 100%),
+    url("../../../public-site/assets/images/Toppage/Perfume bottles.png") center/cover no-repeat;
+  opacity: 0.38;
+  pointer-events: none;
+}
+
+.admin-login__inner {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(380px, 460px);
+  gap: 48px;
+  align-items: center;
+}
+
+.admin-login__intro {
+  max-width: 540px;
+  padding-right: 16px;
+}
+
+.admin-login__eyebrow {
+  margin: 0 0 20px;
+  color: var(--admin-text-sub);
+  font-size: 0.78rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+}
+
+.admin-login__title {
+  margin: 0;
+  font-family: "Noto Serif JP", serif;
+  font-size: clamp(2.1rem, 5vw, 4rem);
+  font-weight: 500;
+  line-height: 1.3;
+  letter-spacing: 0.08em;
+}
+
+.admin-login__lead {
+  margin: 28px 0 0;
+  color: var(--admin-text-sub);
+  font-size: 0.98rem;
+  line-height: 2;
+}
+
+.admin-login__card {
+  position: relative;
+  padding: 44px 40px 36px;
+  background: var(--admin-surface);
+  border: 1px solid rgba(31, 26, 23, 0.08);
+  box-shadow: 0 20px 60px rgba(31, 26, 23, 0.1);
+  backdrop-filter: blur(16px);
+}
+
+.admin-login__card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 40px;
+  right: 40px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(31, 26, 23, 0.2), transparent);
+}
+
+.admin-login__brand {
+  margin-bottom: 36px;
+}
+
+.admin-login__heading {
+  margin: 0;
+  font-family: "Noto Serif JP", serif;
+  font-size: 1.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+}
+
+.admin-login__text {
+  margin: 14px 0 0;
+  color: var(--admin-text-sub);
+  font-size: 0.92rem;
+  line-height: 1.9;
+}
+
+.admin-login-form {
+  margin-top: 28px;
+}
+
+.admin-login-form__group + .admin-login-form__group {
+  margin-top: 20px;
+}
+
+.admin-login-form__label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 0.76rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.admin-login-form__input {
+  width: 100%;
+  min-height: 56px;
+  padding: 0 18px;
+  border: 1px solid rgba(31, 26, 23, 0.14);
+  background: rgba(255, 255, 255, 0.7);
+  color: var(--admin-text);
+  font-size: 0.96rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.admin-login-form__input::placeholder {
+  color: rgba(81, 74, 68, 0.9);
+}
+
+.admin-login-form__input:focus {
+  outline: none;
+  border-color: rgba(31, 26, 23, 0.34);
+  box-shadow: 0 0 0 4px rgba(217, 205, 189, 0.22);
+  background: #fff;
+}
+
+.admin-login-form__status {
+  min-height: 24px;
+  margin: 18px 0 8px;
+  color: var(--admin-error);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.admin-login-form__status.is-success {
+  color: var(--admin-success);
+}
+
+.admin-login-form__submit {
+  width: 100%;
+  min-height: 56px;
+  margin-top: 10px;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+}
+
+.admin-login-form__meta {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 18px;
+}
+
+.admin-login-form__forgot {
+  color: var(--admin-text-sub);
+  font-size: 0.82rem;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.admin-login-form__forgot:hover {
+  color: var(--admin-text);
+  opacity: 0.8;
+}
+
+.admin-login-demo {
+  margin: 28px 0 0;
+  padding-top: 18px;
+  border-top: 1px solid rgba(31, 26, 23, 0.08);
+}
+
+.admin-login__note-title {
+  margin: 0 0 8px;
+  color: var(--admin-text);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.admin-login__note {
+  margin: 0;
+  color: var(--admin-text-sub);
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+.admin-login__note + .admin-login__note {
+  margin-top: 2px;
+}
+
+@media (max-width: 980px) {
+  .admin-login {
+    padding: 40px 0 72px;
+  }
+
+  .admin-login__inner {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .admin-login__intro {
+    max-width: none;
+    padding-right: 0;
+  }
+
+  .admin-login__card {
+    max-width: 560px;
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    width: min(100% - 32px, var(--admin-container));
+  }
+
+  .admin-login {
+    padding: 24px 0 48px;
+  }
+
+  .admin-login__intro {
+    display: none;
+  }
+
+  .admin-login__card {
+    padding: 32px 22px 28px;
+  }
+
+  .admin-login__card::before {
+    left: 22px;
+    right: 22px;
+  }
+
+  .admin-login__brand {
+    margin-bottom: 28px;
+  }
+
+  .admin-login__heading {
+    font-size: 1.36rem;
+  }
+
+  .admin-login-form__input,
+  .admin-login-form__submit {
+    min-height: 52px;
+  }
+}

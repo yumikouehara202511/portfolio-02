@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title th:text="${isEdit ? '予約編集 | MY SCENT BY INOWA' : '予約作成 | MY SCENT BY INOWA'}">予約作成 | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWAの予約入力ページ。">
+  <link rel="stylesheet" th:href="@{/assets/admin/css/admin-layout.css}">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside th:replace="~{fragments/admin-sidebar :: sidebar(${activePage})}"></aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">管理画面</p>
+            <h1 class="admin-layout__title" th:text="${isEdit ? '予約編集' : '予約作成'}">予約作成</h1>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <section class="dashboard-card" aria-labelledby="reservation-form-title">
+          <div class="dashboard-card__head">
+            <p class="dashboard-card__eyebrow" th:text="${isEdit ? '予約を更新' : '新規予約'}">新規予約</p>
+            <h2 class="dashboard-card__title reservation-modal__title" id="reservation-form-title" th:text="${isEdit ? '予約内容を編集' : '予約を登録'}">予約を登録</h2>
+            <p class="dashboard-card__submeta">顧客情報と予約内容を入力します。</p>
+          </div>
+
+          <form class="reservation-form"
+                th:object="${reservationForm}"
+                th:action="${isEdit} ? @{/admin/reservations/{id}(id=${reservationId})} : @{/admin/reservations}"
+                method="post">
+            <div class="reservation-form__grid">
+              <label class="reservation-field">
+                <span class="reservation-field__label">顧客名</span>
+                <input class="reservation-field__input" type="text" th:field="*{customerName}" placeholder="例 山田 花子">
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('customerName')}" th:errors="*{customerName}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field">
+                <span class="reservation-field__label">人数</span>
+                <input class="reservation-field__input" type="number" min="1" max="6" th:field="*{partySize}">
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('partySize')}" th:errors="*{partySize}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field">
+                <span class="reservation-field__label">日付</span>
+                <input class="reservation-field__input" type="date" th:field="*{reservationDate}">
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('reservationDate')}" th:errors="*{reservationDate}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field">
+                <span class="reservation-field__label">時間</span>
+                <input class="reservation-field__input" type="time" th:field="*{reservationTime}">
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('reservationTime')}" th:errors="*{reservationTime}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field">
+                <span class="reservation-field__label">ステータス</span>
+                <select class="reservation-field__input reservation-field__select" th:field="*{status}">
+                  <option th:each="status : ${statusOptions}" th:value="${status}" th:text="${status.label}">確定</option>
+                </select>
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field">
+                <span class="reservation-field__label">電話番号</span>
+                <input class="reservation-field__input" type="tel" th:field="*{customerPhone}" placeholder="090-1234-5678">
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('customerPhone')}" th:errors="*{customerPhone}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field">
+                <span class="reservation-field__label">メール</span>
+                <input class="reservation-field__input" type="email" th:field="*{customerEmail}" placeholder="customer@example.com">
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('customerEmail')}" th:errors="*{customerEmail}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field">
+                <span class="reservation-field__label">メニュー</span>
+                <select class="reservation-field__input reservation-field__select" th:field="*{menuName}">
+                  <option th:each="menu : ${menuOptions}" th:value="${menu}" th:text="${menu}">スタンダード調香プラン</option>
+                </select>
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('menuName')}" th:errors="*{menuName}">入力エラー</span>
+              </label>
+
+              <label class="reservation-field reservation-field--full">
+                <span class="reservation-field__label">備考</span>
+                <textarea class="reservation-field__input reservation-field__textarea" th:field="*{memo}" placeholder="アレルギー配慮やオプション希望など"></textarea>
+                <span class="reservation-field__error" th:if="${#fields.hasErrors('memo')}" th:errors="*{memo}">入力エラー</span>
+              </label>
+            </div>
+
+            <div class="reservation-form__footer">
+              <div class="reservation-form__status">
+                <span class="reservation-form__status-label">保存状態</span>
+                <span class="status-chip status-chip--pending" th:text="${isEdit ? '編集中' : '未保存'}">未保存</span>
+              </div>
+              <div class="reservation-form__actions">
+                <a class="reservation-form__button reservation-form__button--ghost" th:href="${isEdit} ? @{/admin/reservations/{id}(id=${reservationId})} : @{/admin/reservations}">キャンセル</a>
+                <button class="reservation-form__button reservation-form__button--primary" type="submit" th:text="${isEdit ? '更新する' : '保存する'}">保存する</button>
+              </div>
+            </div>
+          </form>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

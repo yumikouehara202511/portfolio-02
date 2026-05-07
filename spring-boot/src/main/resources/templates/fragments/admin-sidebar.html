@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<body>
+  <aside class="admin-layout__sidebar" th:fragment="sidebar(activePage)" aria-label="管理ナビゲーション">
+    <div class="admin-layout__sidebar-brand">
+      <a th:href="@{/admin}" class="admin-layout__brand" aria-label="MY SCENT BY INOWA admin home">
+        <span class="admin-layout__brand-main">MY SCENT BY INOWA</span>
+        <span class="admin-layout__brand-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+      </a>
+    </div>
+    <nav class="admin-layout__nav">
+      <a th:href="@{/admin}" class="admin-layout__nav-link" th:classappend="${activePage == 'dashboard'} ? ' is-active' : ''">ダッシュボード</a>
+      <a th:href="@{/admin/reservations}" class="admin-layout__nav-link" th:classappend="${activePage == 'reservations'} ? ' is-active' : ''">予約管理</a>
+      <a th:href="@{/admin/customers}" class="admin-layout__nav-link" th:classappend="${activePage == 'customers'} ? ' is-active' : ''">顧客管理</a>
+      <a th:href="@{/admin/schedule}" class="admin-layout__nav-link" th:classappend="${activePage == 'schedule'} ? ' is-active' : ''">空き枠管理</a>
+      <a th:href="@{/admin/analytics}" class="admin-layout__nav-link" th:classappend="${activePage == 'analytics'} ? ' is-active' : ''">分析</a>
+    </nav>
+  </aside>
+</body>
+</html>

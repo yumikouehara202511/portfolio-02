@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約する | my scent by inowa</title>
+  <meta name="description" content="my scent by inowa の予約ページ。日付と時間を選び、内容を確認しながら予約を進められます。">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="reservation-page-body">
+  <a href="#main" class="skip-link">本文へ移動</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="index.html" class="site-logo" aria-label="MY SCENT BY INOWA ホーム">
+        <span class="site-logo-en">MY SCENT BY INOWA</span>
+        <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="home-section reservation-page">
+      <div class="container">
+        <form class="reservation-main reservation-layout" id="reservation-form" action="reservation-complete.html" method="get" novalidate data-reservation-form>
+          <section class="reservation-section reservation-section--selection" id="section-date" aria-labelledby="section-date-title">
+            <p class="reservation-page__eyebrow">RESERVATION</p>
+            <h1 class="reservation-page__title">ご予約</h1>
+            <p class="reservation-page__duration">所要時間：約60分</p>
+
+            <div class="reservation-picker">
+              <div class="reservation-picker__group">
+                <h2 class="reservation-section__title" id="section-date-title">日付を選択</h2>
+
+                <div class="reservation-calendar">
+                <div class="reservation-calendar__header">
+                  <div>
+                    <p class="reservation-calendar__month">2024年12月</p>
+                    <p class="reservation-calendar__sub">空きのある日程を表示中</p>
+                  </div>
+                  <div class="reservation-calendar__arrows">
+                    <button type="button" class="reservation-calendar__arrow" aria-label="前の月">←</button>
+                    <button type="button" class="reservation-calendar__arrow" aria-label="次の月">→</button>
+                  </div>
+                </div>
+
+                  <div class="reservation-calendar__weekdays" aria-hidden="true">
+                    <span>MON</span>
+                    <span>TUE</span>
+                    <span>WED</span>
+                    <span>THU</span>
+                    <span>FRI</span>
+                    <span>SAT</span>
+                    <span>SUN</span>
+                  </div>
+
+                  <div class="reservation-calendar__grid" role="list" aria-label="予約日カレンダー">
+                    <button type="button" class="calendar-day is-muted" disabled>25</button>
+                    <button type="button" class="calendar-day is-muted" disabled>26</button>
+                    <button type="button" class="calendar-day is-muted" disabled>27</button>
+                    <button type="button" class="calendar-day is-muted" disabled>28</button>
+                    <button type="button" class="calendar-day is-muted" disabled>29</button>
+                    <button type="button" class="calendar-day is-muted" disabled>30</button>
+                    <button type="button" class="calendar-day">1</button>
+                    <button type="button" class="calendar-day">2</button>
+                    <button type="button" class="calendar-day">3</button>
+                    <button type="button" class="calendar-day">4</button>
+                    <button type="button" class="calendar-day">5</button>
+                    <button type="button" class="calendar-day">6</button>
+                    <button type="button" class="calendar-day">7</button>
+                    <button type="button" class="calendar-day">8</button>
+                    <button type="button" class="calendar-day is-selected" data-date-label="2024.12.09" aria-pressed="true">9</button>
+                    <button type="button" class="calendar-day">10</button>
+                    <button type="button" class="calendar-day">11</button>
+                    <button type="button" class="calendar-day">12</button>
+                    <button type="button" class="calendar-day">13</button>
+                    <button type="button" class="calendar-day">14</button>
+                    <button type="button" class="calendar-day">15</button>
+                    <button type="button" class="calendar-day">16</button>
+                    <button type="button" class="calendar-day">17</button>
+                    <button type="button" class="calendar-day">18</button>
+                    <button type="button" class="calendar-day">19</button>
+                    <button type="button" class="calendar-day">20</button>
+                    <button type="button" class="calendar-day">21</button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="reservation-picker__group reservation-slots">
+                <div class="reservation-chooser">
+                  <div>
+                    <p class="reservation-slots__label">TIME</p>
+                    <h3 class="reservation-slots__title">時間を選択</h3>
+                  </div>
+                  <p class="reservation-slots__status" aria-live="polite">選択中: 2024.12.09 / 11:00 / 1名</p>
+                </div>
+
+                <div class="reservation-slots__grid" role="list" aria-label="予約可能な時間帯">
+                  <button type="button" class="slot-button" data-time-label="10:00">10:00</button>
+                  <button type="button" class="slot-button is-selected" data-time-label="11:00" aria-pressed="true">11:00</button>
+                  <button type="button" class="slot-button" data-time-label="13:00">13:00</button>
+                  <button type="button" class="slot-button" data-time-label="15:00">15:00</button>
+                  <button type="button" class="slot-button is-disabled" disabled aria-disabled="true">16:00</button>
+                  <button type="button" class="slot-button" data-time-label="17:00">17:00</button>
+                </div>
+                <p class="form-error" data-error-for="dateTime" aria-live="polite"></p>
+              </div>
+
+              <div class="reservation-picker__group reservation-party">
+                <div>
+                  <p class="reservation-slots__label">GUESTS</p>
+                  <h3 class="reservation-slots__title">人数を選択</h3>
+                </div>
+                <div class="reservation-party__grid" role="list" aria-label="人数選択">
+                  <button type="button" class="party-button is-selected" data-people-label="1名" aria-pressed="true">1名</button>
+                  <button type="button" class="party-button" data-people-label="2名">2名</button>
+                  <button type="button" class="party-button" data-people-label="3名">3名</button>
+                  <button type="button" class="party-button" data-people-label="4名">4名</button>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section class="reservation-section reservation-section--contact" id="section-info" aria-labelledby="section-info-title">
+            <h2 class="reservation-section__title" id="section-info-title">連絡先を入力</h2>
+
+            <div class="reservation-form-grid reservation-form-grid--compact reservation-form-grid--two-column">
+              <div class="form-group">
+                <label for="name" class="form-label">お名前</label>
+                <input type="text" id="name" name="name" class="form-control" placeholder="例: 山田 花子" data-required>
+                <p class="form-error" data-error-for="name" aria-live="polite"></p>
+              </div>
+
+              <div class="form-group">
+                <label for="email" class="form-label">メールアドレス</label>
+                <input type="email" id="email" name="email" class="form-control" placeholder="example@email.com" data-required>
+                <p class="form-error" data-error-for="email" aria-live="polite"></p>
+              </div>
+
+              <div class="form-group">
+                <label for="phone" class="form-label">電話番号</label>
+                <input type="tel" id="phone" name="phone" class="form-control" placeholder="090-1234-5678" data-required>
+                <p class="form-error" data-error-for="phone" aria-live="polite"></p>
+              </div>
+
+              <div class="form-group form-group--note">
+                <label for="message" class="form-label">備考</label>
+                <textarea id="message" name="message" class="form-control reservation-textarea" rows="4" placeholder="ご要望があればご記入ください"></textarea>
+              </div>
+            </div>
+          </section>
+
+          <aside class="reservation-summary" aria-labelledby="summary-title">
+            <div class="reservation-summary__card">
+              <p class="reservation-summary__eyebrow">Your Reservation</p>
+              <h2 class="reservation-summary__title" id="summary-title">予約概要</h2>
+
+              <dl class="reservation-summary__list">
+                <div>
+                  <dt>日付</dt>
+                  <dd class="reservation-summary__value" data-summary-date>2024.12.09</dd>
+                </div>
+                <div>
+                  <dt>時間</dt>
+                  <dd data-summary-time>11:00</dd>
+                </div>
+                <div>
+                  <dt>人数</dt>
+                  <dd id="summary-people">1名</dd>
+                </div>
+              </dl>
+
+              <div class="reservation-summary__price">
+                <span>合計</span>
+                <strong data-summary-total>5,000円</strong>
+              </div>
+
+              <div class="reservation-summary__cta">
+                <button type="submit" class="reservation-submit__button">この内容で予約を確定する</button>
+              </div>
+            </div>
+          </aside>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <p class="footer-logo">MY SCENT BY INOWA</p>
+        <p class="footer-copy">© 2026 MY SCENT BY INOWA</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

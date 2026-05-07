@@ -1,0 +1,12 @@
+spring:
+  datasource:
+    url: ${MYSQL_URL:jdbc:mysql://localhost:3306/myscent_admin?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: ${MYSQL_USER:myscent}
+    password: ${MYSQL_PASSWORD:myscent}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect

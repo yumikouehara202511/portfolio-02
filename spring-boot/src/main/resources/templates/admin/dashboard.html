@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>管理画面 | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWAの管理画面トップ。">
+  <link rel="stylesheet" th:href="@{/assets/admin/css/admin-layout.css}">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside th:replace="~{fragments/admin-sidebar :: sidebar(${activePage})}"></aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">管理画面</p>
+            <h1 class="admin-layout__title">ダッシュボード</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">運営スタッフ</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <section class="dashboard-summary" aria-label="集計">
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-1">
+            <p class="dashboard-card__label">本日の予約数</p>
+            <p class="dashboard-card__value" th:text="${todayCount}">0</p>
+            <p class="dashboard-card__meta">本日未対応 <span th:text="${todayPendingCount}">0</span> 件</p>
+            <p class="dashboard-card__submeta">H2 Database</p>
+          </article>
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-2">
+            <p class="dashboard-card__label">今週の予約数</p>
+            <p class="dashboard-card__value" th:text="${weekCount}">0</p>
+            <p class="dashboard-card__meta">今日から7日間</p>
+            <p class="dashboard-card__submeta">Java Controller集計</p>
+          </article>
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-3 dashboard-card--stat-wide">
+            <p class="dashboard-card__label">今月の売上見込み</p>
+            <p class="dashboard-card__value" th:text="${#numbers.formatInteger(monthlyRevenue, 1, 'COMMA')}">0</p>
+            <p class="dashboard-card__meta">予約数 x 5,000円</p>
+            <p class="dashboard-card__submeta">MySQL移行時も同じServiceを利用</p>
+          </article>
+          <article class="dashboard-card dashboard-card--stat dashboard-card--tone-4">
+            <p class="dashboard-card__label">未対応予約</p>
+            <p class="dashboard-card__value" th:text="${pendingCount}">0</p>
+            <p class="dashboard-card__meta">対応待ちステータス</p>
+            <p class="dashboard-card__submeta">予約管理から確認</p>
+          </article>
+        </section>
+
+        <section class="dashboard-card dashboard-card--actions" aria-labelledby="quick-actions-title">
+          <div class="dashboard-card__head">
+            <p class="dashboard-card__eyebrow">クイックアクション</p>
+            <h2 class="dashboard-card__title" id="quick-actions-title">すぐに行う操作</h2>
+          </div>
+          <div class="dashboard-actions">
+            <a class="dashboard-action" th:href="@{/admin/reservations}">
+              <span class="dashboard-action__eyebrow">予約</span>
+              <span class="dashboard-action__title">予約管理へ</span>
+            </a>
+            <a class="dashboard-action" th:href="@{/admin/reservations/new}">
+              <span class="dashboard-action__eyebrow">登録</span>
+              <span class="dashboard-action__title">新規予約</span>
+            </a>
+            <a class="dashboard-action" th:href="@{/admin/schedule}">
+              <span class="dashboard-action__eyebrow">空き枠</span>
+              <span class="dashboard-action__title">空き枠管理へ</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="dashboard-card" aria-labelledby="today-reservations-title" style="margin-top: 24px;">
+          <div class="dashboard-card__head">
+            <p class="dashboard-card__eyebrow">本日の予約</p>
+            <h2 class="dashboard-card__title" id="today-reservations-title">今日の来店予定</h2>
+          </div>
+          <div class="dashboard-table-wrap">
+            <table class="dashboard-table reservation-table">
+              <thead>
+                <tr>
+                  <th>時間</th>
+                  <th>顧客名</th>
+                  <th>人数</th>
+                  <th>ステータス</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:if="${#lists.isEmpty(todayReservations)}">
+                  <td colspan="4">本日の予約はありません。</td>
+                </tr>
+                <tr class="reservation-table__row" th:each="reservation : ${todayReservations}" th:onclick="|window.location.href='@{/admin/reservations/{id}(id=${reservation.id})}'|">
+                  <td class="reservation-table__time" th:text="${reservation.reservationTimeLabel}">10:00</td>
+                  <td th:text="${reservation.customerName}">山田 花子</td>
+                  <td th:text="${reservation.partySize + '名'}">2名</td>
+                  <td><span class="status-chip" th:classappend="${reservation.status.cssClass}" th:text="${reservation.status.label}">確定</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約管理 | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWAの予約管理ページ。">
+  <link rel="stylesheet" th:href="@{/assets/admin/css/admin-layout.css}">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside th:replace="~{fragments/admin-sidebar :: sidebar(${activePage})}"></aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">管理画面</p>
+            <h1 class="admin-layout__title">予約管理</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">今日の予約 <span th:text="${todayCount}">0</span>件</span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <p class="flash-message" th:if="${message}" th:text="${message}">保存しました。</p>
+
+        <section class="dashboard-card reservation-page" aria-labelledby="reservation-page-title">
+          <div class="reservation-page__header">
+            <div class="dashboard-card__head reservation-page__copy">
+              <p class="dashboard-card__eyebrow">予約一覧</p>
+              <h2 class="dashboard-card__title" id="reservation-page-title">登録済み予約</h2>
+              <p class="dashboard-card__submeta">予約情報はH2 Databaseから取得しています。</p>
+            </div>
+            <div class="reservation-page__actions">
+              <a class="reservation-add-button" th:href="@{/admin/reservations/new}">新規予約</a>
+            </div>
+          </div>
+
+          <div class="reservation-toolbar">
+            <div class="reservation-toolbar__summary">
+              <p class="reservation-toolbar__count">未対応 <span th:text="${pendingCount}">0</span>件</p>
+            </div>
+          </div>
+
+          <div class="dashboard-table-wrap reservation-table-view">
+            <table class="dashboard-table reservation-table">
+              <thead>
+                <tr>
+                  <th>日付</th>
+                  <th>時間</th>
+                  <th>顧客名</th>
+                  <th>人数</th>
+                  <th>メニュー</th>
+                  <th>備考</th>
+                  <th>ステータス</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr th:if="${#lists.isEmpty(reservations)}">
+                  <td colspan="7">予約はまだ登録されていません。</td>
+                </tr>
+                <tr class="reservation-table__row"
+                    th:each="reservation : ${reservations}"
+                    th:classappend="${reservation.status.name() == 'PENDING'} ? ' is-pending-row' : ''"
+                    th:onclick="|window.location.href='@{/admin/reservations/{id}(id=${reservation.id})}'|"
+                    tabindex="0">
+                  <td th:text="${reservation.reservationDateLabel}">2026.05.07</td>
+                  <td class="reservation-table__time" th:text="${reservation.reservationTimeLabel}">10:00</td>
+                  <td th:text="${reservation.customerName}">山田 花子</td>
+                  <td th:text="${reservation.partySize + '名'}">2名</td>
+                  <td th:text="${reservation.menuName}">スタンダード調香プラン</td>
+                  <td th:text="${reservation.memoLabel}">-</td>
+                  <td><span class="status-chip" th:classappend="${reservation.status.cssClass}" th:text="${reservation.status.label}">確定</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

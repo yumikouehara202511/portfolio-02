@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>予約詳細 | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWAの予約詳細ページ。">
+  <link rel="stylesheet" th:href="@{/assets/admin/css/admin-layout.css}">
+</head>
+<body>
+  <div class="admin-layout">
+    <aside th:replace="~{fragments/admin-sidebar :: sidebar(${activePage})}"></aside>
+
+    <div class="admin-layout__main">
+      <header class="admin-layout__header">
+        <div class="admin-layout__header-inner">
+          <div class="admin-layout__header-copy">
+            <p class="admin-layout__eyebrow">管理画面</p>
+            <h1 class="admin-layout__title">予約詳細</h1>
+          </div>
+          <div class="admin-layout__header-meta">
+            <span class="admin-layout__meta-item">受付番号 <span th:text="${reservation.bookingCode}">R-DEMO</span></span>
+          </div>
+        </div>
+      </header>
+
+      <main class="admin-layout__content">
+        <p class="flash-message" th:if="${message}" th:text="${message}">保存しました。</p>
+
+        <section class="dashboard-card" aria-labelledby="reservation-detail-title">
+          <div class="dashboard-card__head">
+            <p class="dashboard-card__eyebrow">予約</p>
+            <h2 class="dashboard-card__title" id="reservation-detail-title" th:text="${reservation.customerName + 'さまの予約'}">山田 花子さまの予約</h2>
+            <p class="dashboard-card__submeta">
+              <span th:text="${reservation.reservationDateLabel}">2026.05.07</span>
+              <span th:text="${reservation.reservationTimeLabel}">10:00</span>
+              /
+              <span th:text="${reservation.partySize + '名'}">2名</span>
+            </p>
+          </div>
+
+          <div class="detail-grid">
+            <article class="detail-card">
+              <p class="detail-card__label">顧客名</p>
+              <p class="detail-card__value" th:text="${reservation.customerName}">山田 花子</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">予約日時</p>
+              <p class="detail-card__value">
+                <span th:text="${reservation.reservationDateLabel}">2026.05.07</span>
+                <span th:text="${reservation.reservationTimeLabel}">10:00</span>
+              </p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">人数</p>
+              <p class="detail-card__value" th:text="${reservation.partySize + '名'}">2名</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">ステータス</p>
+              <p class="detail-card__value"><span class="status-chip" th:classappend="${reservation.status.cssClass}" th:text="${reservation.status.label}">確定</span></p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">メール</p>
+              <p class="detail-card__value" th:text="${reservation.customerEmail ?: '-'}">hanako@example.com</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">電話番号</p>
+              <p class="detail-card__value" th:text="${reservation.customerPhone ?: '-'}">090-0000-0000</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">メニュー</p>
+              <p class="detail-card__value" th:text="${reservation.menuName}">スタンダード調香プラン</p>
+            </article>
+            <article class="detail-card">
+              <p class="detail-card__label">備考</p>
+              <p class="detail-card__value" th:text="${reservation.memoLabel}">-</p>
+            </article>
+          </div>
+
+          <div class="detail-actions" style="margin-top: 24px;">
+            <a class="detail-action detail-action--ghost" th:href="@{/admin/reservations}">一覧へ戻る</a>
+            <a class="detail-action" th:href="@{/admin/reservations/{id}/edit(id=${reservation.id})}">編集する</a>
+            <form th:action="@{/admin/reservations/{id}/delete(id=${reservation.id})}" method="post" style="display:inline;">
+              <button class="detail-action reservation-form__button--danger" type="submit" onclick="return confirm('この予約を削除しますか？');">削除する</button>
+            </form>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Login | MY SCENT BY INOWA</title>
+  <meta name="description" content="MY SCENT BY INOWAの管理画面ログイン。">
+  <link rel="stylesheet" th:href="@{/assets/admin/css/admin-login.css}">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a th:href="@{/admin}" class="site-logo" aria-label="MY SCENT BY INOWA admin home">
+        <span class="site-logo-en">MY SCENT BY INOWA</span>
+        <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+      </a>
+    </div>
+  </header>
+
+  <main class="admin-login">
+    <div class="container admin-login__inner">
+      <section class="admin-login__intro" aria-label="Admin entrance introduction">
+        <p class="admin-login__eyebrow">Administration Entrance</p>
+        <h1 class="admin-login__title">An entrance by inowa,<br>for inowa.</h1>
+        <p class="admin-login__lead">
+          Store operation tools for reservations, customers, schedules, and daily reporting.
+        </p>
+      </section>
+
+      <section class="admin-login__card" aria-labelledby="admin-login-title">
+        <div class="admin-login__brand">
+          <div class="site-logo" aria-hidden="true">
+            <span class="site-logo-en">MY SCENT BY INOWA</span>
+            <span class="site-logo-sub">ASAKUSA FRAGRANCE WORKSHOP</span>
+          </div>
+        </div>
+
+        <h1 class="admin-login__heading" id="admin-login-title">Admin Login</h1>
+        <p class="admin-login__text">Enter your email address and password to continue.</p>
+
+        <form class="admin-login-form" th:action="@{/admin}" method="get">
+          <div class="admin-login-form__group">
+            <label class="admin-login-form__label" for="admin-email">Email Address</label>
+            <input class="admin-login-form__input" type="email" id="admin-email" name="email" value="admin@example.com" autocomplete="email">
+          </div>
+
+          <div class="admin-login-form__group">
+            <label class="admin-login-form__label" for="admin-password">Password</label>
+            <input class="admin-login-form__input" type="password" id="admin-password" name="password" value="inowa-admin" autocomplete="current-password">
+          </div>
+
+          <button class="btn btn-dark admin-login-form__submit" type="submit">LOG IN</button>
+        </form>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
